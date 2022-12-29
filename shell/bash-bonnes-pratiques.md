@@ -608,7 +608,7 @@ Voici quelques liens qui vous permettront d'approfondir vos connaissances dans l
 
 * [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/) ([traduction](http://abs.traduc.org/abs-fr/))
 * [Un cours complet sur la programmation Shell](https://frederic-lang.developpez.com/tutoriels/linux/prog-shell/)
-* [Une liste d'exercices corrigés pour débuter](https://ineumann.developpez.com/tutoriels/linux/exercices-shell/)
+* [Une liste d'exercices corrigés pour débuter](./exercices-shell.md)
 * [Présentation et cours Korn Shell (compatible avec le Bash)](https://marcg.developpez.com/ksh/)
 * [La section « Le Shell » de la FAQ Linux](https://linux.developpez.com/faq/?page=Le-Shell)
 
