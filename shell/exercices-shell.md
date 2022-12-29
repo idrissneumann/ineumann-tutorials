@@ -525,6 +525,8 @@ done
 
 ### Exercice 7 - ls avec ordre inversé
 
+#### Énoncé
+
 Créer un script qui renvoie la même sortie que la commande `ls`, **mais dans l'ordre décroissant** (autrement dit : le script devra lister le contenu d'un répertoire dans l'ordre décroissant). Vous ne devez ni vous servir de la commande `ls`, ni de la commande `sort`.
 
 #### Solution 1
@@ -605,6 +607,8 @@ compgen -o default "${repertoire}/" | tac
 
 #### Solution 5
 
+Solution proposée par [chardclo](https://www.developpez.net/forums/u450766/chardclo/) :
+
 ```bash
 #!/bin/bash 
 read -rp 'Entrez le nom du répertoire : ' repertoire 
@@ -619,4 +623,107 @@ while read -r; do
 done < <(compgen -o default "${repertoire}/") 
  
 [[ ${text} ]] && printf "$text" || printf "le dossier %s est vide.\n" "$repertoire"
+```
+
+## Niveau confirmé
+
+### Exercice 1 - Fichier de notes
+
+#### Énoncé
+
+Créer un script qui va devra exploiter les données d'un fichier de notes que vous allez créer au préalable dans le même répertoire que le script.
+
+Ce fichier sera appelé FichierNote.txt et devra se présenter comme ceci :
+
+```
+Dupont François 12
+Durand Françoise 8
+Dujardin Nicole 14
+```
+
+Le script devra afficher les lignes dans lesquelles la note est supérieure ou égale à 10.
+
+Exemple :
+
+```shell
+[ ~] ./NomDuScript 
+Dupont        François        12 
+Dujardin Nicole        14
+```
+
+#### Solution
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+
+fichier="FichierNote.txt"
+
+while read -r ligne; do 
+    set -- "$ligne" 
+    if [ "$3" -ge 10 ]; then 
+        echo "$ligne" 
+    fi 
+done < $fichier
+```
+
+### Exercice 2 - Liste d'utilisateurs
+
+#### Énoncé
+
+Créer un script qui prend en paramètre (ou en saisie en cas d'absence du paramètre) un fichier qui contient des lignes comme ceci : *Login* + *Tabulation* + *Nom* + *Tabulation* + *Prénom*.
+
+Exemple :
+
+```
+dupontf Dupont François
+fdurand Durand Françoise
+nicoled Dujardin Nicole
+```
+
+Le script devra vérifier, à l'aide d'une fonction, l'existence des utilisateurs enregistrés dans le fichier. Admettons, par exemple, que seul Dupont François soit un utilisateur et que le fichier se nomme `~/Documents/FichierUser`, le script devra s'exécuter comme ceci :
+
+```shell
+[ ~] ./NomDuScript ~/Doucuments/FichierUser 
+dupontf        Dupont        François 
+[ ~] ./NomDuScript 
+Saisissez le fichier à traiter : 
+~/Documents/UserFichier 
+Le fichier n'existe pas.
+[ ~]
+```
+
+Le script devra donc, au préalable, vérifier l'existence du fichier avant de comparer son contenu au fichier `/etc/passwd`. Le script devra également quitter la boucle si le fichier est vide.
+
+#### Solution
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+
+TestUser () { 
+    if grep "^$util:" /etc/passwd > /dev/null 
+    then 
+        echo $ligne 
+    fi 
+} 
+
+if [ "$#" -eq 0 ]; then 
+    echo "Chemin et nom du fichier :" 
+    read -r fichier 
+else 
+    fichier="$1" 
+fi 
+
+if [ -e "$fichier" ]; then 
+    while read -r ligne; do 
+        set -- "$ligne" 
+        util="$1" 
+        TestUser 
+    done < $fichier 
+else 
+    echo "Le fichier $fichier n'existe pas." 
+fi
 ```
