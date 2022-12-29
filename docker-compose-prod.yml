@@ -4,7 +4,7 @@ services:
   ineumann_tutorials_prod:
     restart: always
     container_name: ineumann_tutorials
-    image: rg.fr-par.scw.cloud/ineumann/ineumann_tutorials:${VERSION}
+    image: rg.fr-par.scw.cloud/ineumann-yrnma5/ineumann_tutorials:${VERSION}
     networks:
       - ineumann_tutorials
     ports:
