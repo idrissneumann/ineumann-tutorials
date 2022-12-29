@@ -8,6 +8,8 @@ Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas 
 
 ## Mirroirs git
 
+Le site est hébergé à l'adresse suivante: https://www.ineumann.fr
+
 Les sources de ce sites sont sauvegardées sur les repo git suivant:
 
 * Repo principal: https://gitlab.comwork.io/oss/ineumann-tutorials

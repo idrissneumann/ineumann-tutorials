@@ -266,3 +266,172 @@ while [ "$rep" -eq 1 ]; do
     esac 
 done
 ```
+
+### Exercice 3 - Calculatrice
+
+#### Énoncé
+
+Créer un script dans lequel deux nombres opérandes et un signe opérateur (+-*/) devront être donnés en paramètres, ou saisis. Le script doit réaliser l'opération souhaitée.
+
+Exemple :
+
+```shell
+[ ~] ./calculette.sh 7 + 4 
+Le résultat est : 11
+```
+
+Le calcul devra être fait à l'aide d'une fonction `calcul ()`.
+
+#### Solution 1
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+ 
+saisir () { 
+    printf "Saisir le premier nombre, puis le signe de l'opération puis le deuxième nombre :\n\n" 
+    read -r nb1 
+    read -r s 
+    read -r nb2 
+} 
+ 
+calcul () { 
+    case "$s" in 
+        "+") let result=$nb1+$nb2 ;; 
+        "-") let result=$nb1-$nb2 ;; 
+        "*") let result=$nb1*$nb2 ;; 
+        "/") let result=$nb1/$nb2 ;; 
+        *) 
+            let result=0 
+            echo -e "Erreur de saisie !\nLe résultat est faux.";; 
+    esac 
+} 
+ 
+calcul2 () { 
+    let result=$nb1$s$nb2 
+} 
+  
+if [ "$#" -eq 3 ]; then 
+    nb1=$1 ; s=$2 ; nb2=$3 
+else 
+    saisir 
+fi 
+calcul 
+echo "Le résultat est $result" 
+calcul2 
+echo "Calculé d'une autre façon : $result"
+```
+
+#### Solution 2
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+
+if [ "$#" -lt 3 ]; then 
+    echo "Erreur : Il manque des paramètres !" 
+elif  [[ "$1" =~ ^[0-9]+$ ]] && [[ "$3" =~ ^[0-9]+$ ]]; then 
+    if [[ "$2" =~ ^(\+|\-|\/|\*){1}$ ]]; then 
+        if [ $3 -ne 0 ] || [ "$2" != "/" ]; then 
+            echo "Le résultat est : "$(( $1 $2 $3 )) 
+        else 
+            echo "Erreur : division par 0 !" 
+        fi 
+    else 
+        echo "Erreur : opérateur invalide !" 
+    fi 
+else 
+    echo "Erreur : opérandes invalides !" 
+fi
+```
+
+#### Solution 3
+
+Solution proposée par Idriss Neumann :
+
+```shell
+#!/bin/sh 
+
+if [ "$#" -lt 3 ]; then 
+    echo "Erreur : Il manque des paramètres !" 
+elif echo "$1$3" | grep -E "^[0-9]{2,}$" > /dev/null; then 
+    if echo "$2" | grep -E "^(\+|\-|\/|\*){1}$" > /dev/null; then 
+        if [ $3 -ne 0 ] || [ "$2" != "/" ]; then 
+            echo "Le résultat est : "$(( $1 $2 $3 )) 
+        else 
+            echo "Erreur : division par 0 !" 
+        fi 
+    else 
+        echo "Erreur : opérateur invalide !" 
+    fi 
+else 
+    echo "Erreur : opérandes invalides !" 
+fi
+```
+
+### Exercice 4 - La factorielle
+
+#### Énoncé
+
+Créer un script qui permet de calculer et d'afficher la factorielle d'un nombre donné en paramètre (ou saisi en cas d'absence de paramètres).
+
+#### Solution 1
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+ 
+if [ "$#" -eq 0 ]; then 
+    echo "Saisir une valeur : " 
+    read -r val 
+else 
+    val=$1 
+fi 
+ 
+# Dans le cas où c'est négatif, on rend la valeur positive 
+if [ "$val" -lt 0 ]; then 
+    let val=-1*$val 
+fi 
+ 
+result=1 
+val2="$val"
+ 
+while [ "$val" -ne 0 ]; do 
+    printf "$val " 
+    let result=$result*$val 
+    let val=$val-1 
+    if [ "$val" -ne 0 ]; then 
+        printf "* " 
+    fi 
+done 
+ 
+echo "= $result"
+```
+
+#### Solution 2
+
+Solution proposée par [Sve@r](https://www.developpez.net/forums/u85865/sve-r/) :
+
+```shell
+#!/bin/sh 
+ 
+if test "$#" -eq 0; then 
+    echo "Saisissez une valeur correcte" 
+    read -r val 
+    set -- $val 
+fi 
+ 
+nb=${nb:-$1} 
+res=${res:-1} 
+if test "$nb" -eq 0; then 
+    echo $res 
+    exit 
+fi 
+ 
+res=`expr $res \* $nb` 
+nb=`expr $nb - 1` 
+. $0
+```
