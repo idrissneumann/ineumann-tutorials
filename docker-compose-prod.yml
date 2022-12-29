@@ -1,0 +1,15 @@
+version: '3.3'
+
+services:
+  ineumann_tutorials_prod:
+    restart: always
+    container_name: ineumann_tutorials
+    image: rg.fr-par.scw.cloud/ineumann/ineumann_tutorials:${VERSION}
+    networks:
+      - ineumann_tutorials
+    ports:
+      - "5336:80"
+
+networks:
+  ineumann_tutorials:
+    driver: bridge

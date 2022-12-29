@@ -1,0 +1,6 @@
+version: '3.3'
+
+services:
+  ineumann_tutorials:
+    image: ineumann_tutorials:latest
+    build: .

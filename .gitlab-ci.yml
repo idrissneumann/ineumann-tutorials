@@ -1,0 +1,36 @@
+stages:
+  - publish
+  - generate
+  - build
+  - deploy
+
+mirror:
+  stage: publish
+  script:
+    - setsid ./ci/mirror.sh
+  only:
+    - /^(main.*)$/
+  tags:
+    - mirror
+
+build:
+  stage: build
+  tags:
+    - imagesbuilder
+  rules: 
+    - if: $CI_COMMIT_REF_NAME =~ /main/ 
+  script:
+    - chmod +x ./ci/deliver.sh
+    - ./ci/deliver.sh
+
+deploy:
+  stage: deploy
+  needs:
+    - build
+  script:
+    - chmod +x ./ci/deploy.sh
+    - ./ci/deploy.sh
+  rules: 
+    - if: $CI_COMMIT_REF_NAME =~ /main/ 
+  tags:
+    - web
