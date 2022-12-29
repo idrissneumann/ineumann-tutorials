@@ -21,3 +21,4 @@ Les sources de ce sites sont sauvegardées sur les repo git suivant:
 ### Shell
 
 * [Quelques bonnes pratiques dans l'écriture de scripts en Bash](./shell/bash-bonnes-pratiques.md)
+* [Liste d'exercices shell scripts corrigés](./shell/exercices-shell.md)
