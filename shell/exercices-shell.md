@@ -610,7 +610,7 @@ compgen -o default "${repertoire}/" | tac
 Solution proposée par [chardclo](https://www.developpez.net/forums/u450766/chardclo/) :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
 read -rp 'Entrez le nom du répertoire : ' repertoire 
 [ -d "$repertoire" ] || { 
     printf "%s n'est pas un nom de dossier valide.\n" "$repertoire" 
@@ -656,7 +656,7 @@ Dujardin Nicole        14
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
 
 fichier="FichierNote.txt"
 
@@ -701,7 +701,7 @@ Le script devra donc, au préalable, vérifier l'existence du fichier avant de c
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
 
 TestUser () { 
     if grep "^$util:" /etc/passwd > /dev/null 
@@ -727,3 +727,166 @@ else
     echo "Le fichier $fichier n'existe pas." 
 fi
 ```
+
+### Exercice 3 - Convertisseur décimal/binaire
+
+#### Énoncé
+
+Créer un script qui prend en paramètre (ou en saisie en cas d'absence de paramètres) une valeur décimale et qui doit la convertir en binaire.
+
+Vous devez travailler sur 8 bits et chaque bit devra être contenu dans une case d'un tableau monodimensionnel et à la fin on affiche toutes les cases de ce tableau pour avoir la valeur en binaire lisible de droite à gauche, à partir de la valeur décimale saisie au départ.
+
+#### Solution 1
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash
+ 
+MaxBits=8 
+ 
+pow () { 
+    value2=1 
+    for (( k=1 ; k<$i ; k ++ )); do 
+        let value2=$value2*2 
+    done 
+} 
+ 
+if [ "$#" -eq 0 ]; then 
+    echo "Saisir une valeur décimale" 
+    read -r value 
+else 
+    value="$1" 
+fi 
+ 
+declare -a bin 
+ 
+j=0 
+for (( i="$MaxBits" ; i>=0 ; i-- )); do 
+    pow 
+    if [ "$value" -ge "$value2" ]; then 
+        bin[$j]="1" 
+        let value=$value-$value2 
+    else 
+        bin[$j]="0" 
+    fi 
+    let j=$j+1 
+done 
+ 
+printf "La valeur binaire est de : " 
+for (( i=0 ; i<$MaxBits ; i++ )); do 
+    printf "${bin[$i]}" 
+done 
+echo ""
+```
+
+#### Solution 2
+
+Solution proposée par [becket](https://www.developpez.net/forums/u55998/becket/) :
+
+```bash
+#!/bin/bash 
+ 
+unset resultat   
+echo  "Entrez une valeur a convertir : " 
+read -r i  
+for (( cpt=8 ; $cpt > 1  ; cpt-- )); do  
+        let resultat[$cpt]="$i & 1"  
+        let i="i >>= 1"    
+done  
+echo "${resultat[@]}"
+```
+
+#### Solution 3
+
+Solution proposée par [chardclo](https://www.developpez.net/forums/u450766/chardclo/) :
+
+```bash
+#!/bin/bash 
+
+unset res 
+dec=$1 
+[[ $dec ]] || read -rp  "Entrez une valeur a convertir : " dec 
+while true; do 
+    res[$dec]=$((dec & 1)) 
+    ((dec>>=1 )) || break 
+done 
+echo "${res[@]}"
+```
+
+### Exercice 4 - Moyenne de notes sur un fichier
+
+#### Énoncé
+
+Créer un script qui prend en paramètre ou en saisie le nom d'un fichier contenant le nom des élèves et leurs trois notes. Le script devra : afficher les noms des élèves, puis calculer et afficher la moyenne de chaque élève.
+
+Voici comment se présente le fichier :
+
+```
+Durand 12 9 14 
+Lucas 8 11 4 
+Martin 9 12 1
+```
+
+#### Solution 1
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash 
+
+if [ "$#" -lt 1 ]; then 
+    echo "Saisir le nom du fichier" 
+    read -r fichier 
+else 
+    fichier="$1" 
+fi 
+
+while read -r ligne; do 
+    set -- "$ligne"
+    let moyenne=($2+$3+$4)/3 
+    echo "L'élève $1 a pour moyenne $moyenne" 
+done < "$fichier"
+```
+
+#### Solution 2
+
+Solution proposée par [N_Bah](https://www.developpez.net/forums/u219247/n_bah/) :
+
+```bash
+#!/bin/bash 
+ 
+moyenne() { 
+    declare -i somme 
+    for i in "$@"; do 
+        somme+="$i" 
+    done 
+    echo "$((somme / ${#@}))" 
+} 
+ 
+[ -f "$1" ] && fichier="$1" || read -rep 'Entrez le nom du fichier qui contient les données : ' fichier 
+ 
+while read -r nom notes; do 
+    echo -n "$nom : " 
+    moyenne $notes 
+done < "$fichier"
+```
+
+## Liens utiles
+
+Quelques liens utiles permettant d'acquérir de bonnes bases :
+
+
+* [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/) ([traduction](http://abs.traduc.org/abs-fr/))
+* [Un cours complet sur la programmation Shell](https://frederic-lang.developpez.com/tutoriels/linux/prog-shell/)
+* [Quelques bonnes pratiques dans l'écriture de scripts en Bash](./bash-bonnes-pratiques.md)
+* [Présentation et cours Korn Shell (compatible avec le Bash)](https://marcg.developpez.com/ksh/)
+* [La section « Le Shell » de la FAQ Linux](https://linux.developpez.com/faq/?page=Le-Shell)
+
+## Remerciements
+
+Je souhaite remercier tous les contributeurs qui m'ont aidé à enrichir cet article par des exercices et/ou des solutions. Il s'agit en l'occurrence de [becket](https://www.developpez.net/forums/u55998/becket/), [chardclo](https://www.developpez.net/forums/u450766/chardclo/), [N_Bah](https://www.developpez.net/forums/u219247/n_bah/) et [Sve@r](https://www.developpez.net/forums/u85865/sve-r/) merci à eux.
+
+Je tiens également à remercier [LittleWhite](https://www.developpez.net/forums/u240267/littlewhite/), [Louson](https://www.developpez.net/forums/u528431/louson/) et [paissad](https://www.developpez.net/forums/u95215/paissad/) pour leur relecture technique et leurs conseils.
+
+Je tiens enfin à remercier [jacques_jean](https://www.developpez.net/forums/u83713/jacques_jean/) pour son effort de relecture orthographique.
