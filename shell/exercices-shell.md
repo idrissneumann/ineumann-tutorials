@@ -32,7 +32,7 @@ Créer un script qui demande à l'utilisateur de saisir une note et qui affiche 
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
  
 echo "Entrez votre note :" 
 read -r note 
@@ -63,7 +63,7 @@ Le script doit calculer le nombre de notes de saisies et en faire la moyenne tou
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
  
 note=0 
 moyenne=0 
@@ -123,7 +123,7 @@ Saisir une valeur :
 Solution proposée par Idriss Neumann :
 
 ```shell
-#!/bin/bash 
+#!/bin/bash
 echo "Saisir une valeur" 
 read -r value 
 result=1 
@@ -138,7 +138,7 @@ echo "$value^$value = $result"
 Solution proposée par Idriss Neumann :
 
 ```shell
-#!/bin/bash 
+#!/bin/bash
  
 operation () { 
     result=1 
@@ -217,7 +217,7 @@ L'utilisateur devra être saisi, à l'aide d'une fonction. Son existence devra �
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
  
 function pause { 
     echo "Appuyez sur ENTER pour continuer" 
@@ -287,7 +287,7 @@ Le calcul devra être fait à l'aide d'une fonction `calcul ()`.
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
  
 saisir () { 
     printf "Saisir le premier nombre, puis le signe de l'opération puis le deuxième nombre :\n\n" 
@@ -328,7 +328,7 @@ echo "Calculé d'une autre façon : $result"
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
 
 if [ "$#" -lt 3 ]; then 
     echo "Erreur : Il manque des paramètres !" 
@@ -382,7 +382,7 @@ Créer un script qui permet de calculer et d'afficher la factorielle d'un nombre
 Solution proposée par Idriss Neumann :
 
 ```bash
-#!/bin/bash 
+#!/bin/bash
  
 if [ "$#" -eq 0 ]; then 
     echo "Saisir une valeur : " 
@@ -434,4 +434,189 @@ fi
 res=`expr $res \* $nb` 
 nb=`expr $nb - 1` 
 . $0
+```
+
+### Exercice 5 - Les fichiers
+
+#### Énoncé
+
+Créer un script qui doit calculer le nombre de fichiers standard, de sous-répertoires, et d'exécutables d'un répertoire quelconque qui sera donné en paramètre (ou saisis en cas d'absence du paramètre).
+
+#### Solution
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash
+ 
+j=0 
+k=0 
+l=0 
+ 
+if [ "$#" -eq 0 ]; then 
+    echo "Saisir le répertoire" 
+    read -r rep 
+else 
+    rep=$1 
+fi 
+ 
+cd $rep 
+ 
+for i in *; do 
+    if [ -d "$i" ]; then 
+        echo "$i" 
+        let j=$j+1 
+    fi 
+    if [ -f "$i" ]; then 
+        echo $i 
+        let k=$k+1 
+    fi 
+    if [ -x "$i" ]; then 
+        echo $i 
+        let l=$l+1 
+    fi 
+done 
+echo "Il y a $j répertoires, $k fichiers et $l exécutables dans $rep"
+```
+
+### Exercice 6 - Tri à bulle
+
+#### Énoncé
+
+Créer un script qui devra enregistrer à l'aide d'un tableau, un nombre d'entiers donné en paramètre (ou en saisie) puis trier ceux-ci dans l'ordre croissant dans ce même tableau (sans passer par un autre) et enfin afficher le contenu du tableau (ordonné) sur la sortie standard.
+
+#### Solution
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash
+  
+if [ "$#" -lt 1 ]; then 
+    echo "Saisir le nombre d'éléments à ordonner" 
+    read -r SIZE 
+else 
+    SIZE=$1 
+fi 
+ 
+echo "Saisir les éléments :" 
+ 
+for (( i=0 ; i<SIZE ; i++ )); do 
+    read -r tab[i] 
+done 
+ 
+for (( i=0 ; i<SIZE ; i++ )); do 
+    for (( j=$i+1 ; j<SIZE ; j++ )) 
+    do 
+        if [ "${tab[$j]}" -le "${tab[$i]}" ]; then 
+            tampon="${tab[$i]}" 
+            tab[$i]="${tab[$j]}" 
+            tab[$j]="$tampon" 
+        fi 
+    done 
+done 
+ 
+echo "Valeurs ordonnées :" 
+ 
+for (( i=0 ; i<SIZE ; i++ )); do 
+    echo "${tab[$i]}" 
+done
+```
+
+### Exercice 7 - ls avec ordre inversé
+
+Créer un script qui renvoie la même sortie que la commande `ls`, **mais dans l'ordre décroissant** (autrement dit : le script devra lister le contenu d'un répertoire dans l'ordre décroissant). Vous ne devez ni vous servir de la commande `ls`, ni de la commande `sort`.
+
+#### Solution 1
+
+Solution proposée par Idriss Neumann :
+
+```bash
+#!/bin/bash
+  
+# Si on a au moins un paramètre et que le premier paramètre est un répertoire 
+if [ "$#" -ge 1 ] && [ -d "$1v ]; then 
+    cd $1 
+fi 
+ 
+nb=0 
+ 
+for fichier in *; do 
+    tab[$nb]="$fichier" 
+    let nb=$nb+1 
+done 
+ 
+# affichage inversé 
+for (( i=$nb ; i>=0 ; i=$i-1 )); do 
+    echo ${tab[$i]} 
+done
+```
+
+#### Solution 2
+
+Solution proposée par [becket](https://www.developpez.net/forums/u55998/becket/) :
+
+```bash
+#!/bin/bash
+ 
+listing=( * ) 
+ 
+for (( i=${#listing[@]}-1 ; i >= 0 ; i=i-1 )); do 
+    echo ${listing[$i]} 
+done
+```
+
+#### Solution 3
+
+Solution proposée par [N_Bah](https://www.developpez.net/forums/u219247/n_bah/) :
+
+```bash
+#!/bin/bash
+ 
+read -rp 'Entrez le nom du répertoire : ' repertoire 
+ 
+if [ -d "$repertoire" ]; then 
+    [[ $repertoire != */  ]] && repertoire="${repertoire:+$repertoire/}" 
+    shopt -s nullglob #sinon repertoireVide/*, retournera repertoireVide/* 
+    fichiers=( ${repertoire}* ) 
+    ((${#fichiers[@]})) && { 
+        for (( x=${#fichiers[@]}-1; x>=0; x-- )); do 
+            echo "${fichiers[x]}" 
+        done 
+    } || echo "$repertoire est vide" 
+else 
+    echo "$repertoire n'est pas un répertoire" 
+fi
+```
+
+#### Solution 4
+
+Solution proposée par [chardclo](https://www.developpez.net/forums/u450766/chardclo/) :
+
+```bash
+#!/bin/bash
+read -rp 'Entrez le nom du répertoire : ' repertoire 
+[ -d "$repertoire" ] || { 
+    printf "%s n'est pas un nom de dossier valide." "$repertoire" 
+    exit 1 
+} 
+compgen -o default "${repertoire}/" | tac
+```
+
+#### Solution 5
+
+```bash
+#!/bin/bash 
+read -rp 'Entrez le nom du répertoire : ' repertoire 
+[ -d "$repertoire" ] || { 
+    printf "%s n'est pas un nom de dossier valide.\n" "$repertoire" 
+    exit 1 
+} 
+ 
+text="" 
+while read -r; do 
+    text="${REPLY}\n${text}" 
+done < <(compgen -o default "${repertoire}/") 
+ 
+[[ ${text} ]] && printf "$text" || printf "le dossier %s est vide.\n" "$repertoire"
 ```
