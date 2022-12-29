@@ -556,7 +556,7 @@ while getopts ":b:h" option; do
 done
 ```
 
-On souhaite maintenant ajouter l'option `-help`. Il n'est pas possible d'utiliser des options longues avec « getopts », d'où l'utilité de la commande externe `getopt` :
+On souhaite maintenant ajouter l'option `-help`. Il n'est pas possible d'utiliser des options longues avec `getopts`, d'où l'utilité de la commande externe `getopt` :
 
 ```bash
 #!/bin/bash 
