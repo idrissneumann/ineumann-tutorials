@@ -4,7 +4,7 @@ Ce site est une copie des tutoriels d'Idriss Neumann à l'origin publiés sur [i
 
 Ce site est hébergé en France par [COMWORKIO SASU](https://www.comwork.io) (R.C.S Paris 838 757 987), présidée par Idriss Neumann, sur [Scaleway](https://www.scaleway.com).
 
-Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas le cas, il s'agira de la licence [CC-BY-SA](./LICENCE)
+Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas le cas, il s'agira de la licence [![cc-by-nc-sa](./img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr).
 
 ## Mirroirs git
 
