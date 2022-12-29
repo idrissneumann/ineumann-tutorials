@@ -13,3 +13,9 @@ Les sources de ce sites sont sauvegardées sur les repo git suivant:
 * Repo principal: https://gitlab.comwork.io/oss/ineumann-tutorials
 * Mirroir gitlab: https://gitlab.com/ineumann/ineumann-tutorials
 * Mirroir github: https://github.com/idrissneumann/ineumann-tutorials
+
+## Tutoriels
+
+### Shell
+
+* [Quelques bonnes pratiques dans l'écriture de scripts en Bash](./shell/bash-bonnes-pratiques.md)
