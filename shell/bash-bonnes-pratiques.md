@@ -15,22 +15,22 @@ L'article a été originellement publié par Idriss Neumann sur developpez.com [
 
 ## Rappels sur les conditions
 
-On remarque régulièrement des confusions dans l'utilisation des opérateurs de la commande « test » ou programmes dérivés (crochets ou doubles-crochets), notamment dans la distinction des opérateurs de chaînes et des opérateurs de nombres entiers.
+On remarque régulièrement des confusions dans l'utilisation des opérateurs de la commande `test` ou programmes dérivés (crochets ou doubles-crochets), notamment dans la distinction des opérateurs de chaînes et des opérateurs de nombres entiers.
 
 Nous allons donc commencer par rappeler les principaux opérateurs sur nombres entiers :
 
-* `-eq` : égalité entre les deux opérandes (g = d) ;
-* `-ne` : inégalité entre les deux opérandes (g <> d) ;
-* `-ge` : supériorité de l'opérande de gauche sur l'opérande de droite (g >= d)  ;
-* `-gt` : supériorité stricte de l'opérande de gauche sur l'opérande de droite (g > d) ;
-* `-le` : infériorité de l'opérande de gauche sur l'opérande de droite (g <= d) ;
-* `-lt` : infériorité stricte de l'opérande de gauche sur l'opérande de droite (g < d).
+* `-eq` : égalité entre les deux opérandes (`g = d`)
+* `-ne` : inégalité entre les deux opérandes (`g <> d`)
+* `-ge` : supériorité de l'opérande de gauche sur l'opérande de droite (`g >= d`)
+* `-gt` : supériorité stricte de l'opérande de gauche sur l'opérande de droite (`g > d`)
+* `-le` : infériorité de l'opérande de gauche sur l'opérande de droite (`g <= d`)
+* `-lt` : infériorité stricte de l'opérande de gauche sur l'opérande de droite (`g < d`)
 
 Les opérateurs de comparaison de chaînes quant à eux sont les suivants :
 
-* `=` ou `==` : égalité entre les deux opérandes ;
-* `!=` : inégalité entre les deux opérandes ;
-* `=~` : test sur expression régulière (l'opérande de droite doit vérifier l'expression régulière passée comme second opérande). Cet opérateur n'existe qu'en Bash à partir de la version 3 et ne s'utilise qu'avec la syntaxe des doubles-crochets (commande `test` étendue intégrée à KSH et Bash).
+* `=` ou `==` : égalité entre les deux opérandes
+* `!=` : inégalité entre les deux opérandes
+* `=~` : test sur expression régulière (l'opérande de droite doit vérifier l'expression régulière passée comme second opérande). Cet opérateur n'existe qu'en Bash à partir de la version 3 et ne s'utilise qu'avec la syntaxe des doubles-crochets (commande `test` étendue intégrée à KSH et Bash)
 
 Exemple de confusion entre les deux types d'opérateurs :
 
