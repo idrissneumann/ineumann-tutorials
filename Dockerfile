@@ -19,7 +19,6 @@ COPY . docs/
 
 RUN rm -rf docs/ci && \
     npm i --save docusaurus-plugin-matomo  && \
-    npm i --save @docusaurus/plugin-client-redirects && \
     npm i --save docusaurus-lunr-search@2.1.15 && \
     npm run swizzle docusaurus-lunr-search SearchBar -- --danger && \
     npm i  && \

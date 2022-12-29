@@ -15,9 +15,6 @@ const config = {
         [[require.resolve('docusaurus-lunr-search'), {
             languages: ['en', 'fr']
         }],
-        [require.resolve('@docusaurus/plugin-client-redirects'), {
-            redirects: []
-        }],
         require.resolve('docusaurus-plugin-matomo')
         ],
         
