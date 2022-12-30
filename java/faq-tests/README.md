@@ -19,3 +19,4 @@ Un grand remerciement aux personnes qui ont relu les textes pour supprimer un ma
 * [Généralités](./generalites.md)
 * [Le framework JUnit](./junit/README.md)
 * [Les mocks](./mocks/README.md)
+* [D'autres outils](./others.md)
