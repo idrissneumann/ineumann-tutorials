@@ -1,5 +1,4 @@
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const theme = require('prism-react-renderer/themes/github');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -44,6 +43,11 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            colorMode: {
+                defaultMode: 'light',
+                disableSwitch: true,
+                respectPrefersColorScheme: false,
+              },
             matomo: {
                 matomoUrl: 'https://matomo.comwork.io/',
                 siteId: '24',
@@ -143,8 +147,7 @@ const config = {
                 copyright: `Copyright © ${new Date().getFullYear()} Idriss Neumann.`,
             },
             prism: {
-                theme: lightCodeTheme,
-                darkTheme: darkCodeTheme,
+                theme: theme
             },
         }),
 };
