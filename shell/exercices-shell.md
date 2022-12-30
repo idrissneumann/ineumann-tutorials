@@ -889,4 +889,4 @@ Je souhaite remercier tous les contributeurs qui m'ont aidé à enrichir cet art
 
 Je tiens également à remercier [LittleWhite](https://www.developpez.net/forums/u240267/littlewhite/), [Louson](https://www.developpez.net/forums/u528431/louson/) et [paissad](https://www.developpez.net/forums/u95215/paissad/) pour leur relecture technique et leurs conseils.
 
-Je tiens enfin à remercier [jacques_jean](https://www.developpez.net/forums/u83713/jacques_jean/) pour son effort de relecture orthographique.
+Je tiens enfin à remercier jacques_jean pour son effort de relecture orthographique.
