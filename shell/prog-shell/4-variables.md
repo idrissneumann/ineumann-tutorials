@@ -41,7 +41,7 @@ Prompt> echo txt # Attention à ne pas oublier le caractère "$"
 Prompt>echo $txt # Affichage de la variable "txt"
 ```
 
-### Les tableaux (shells évolués)▲
+### Les tableaux (shells évolués)
 
 __Syntaxe__
 
@@ -78,3 +78,19 @@ Prompt> echo "Mon tableau de prénoms contient ${prenom[@]}"
 ### Remarque
 
 Même si cela est possible de façon limitée (cf. _commande eval_), il est difficile et déconseillé de vouloir manipuler des « variables de variable » (connues dans d'autres langages sous le nom « pointeurs »). Autrement dit, la syntaxe `$$var` qui pourrait vouloir dire « contenu du contenu de la variable var » signifie en réalité « _contenu de la variable `$$`_ » (sera vue ultérieurement) suivi de la chaîne `var`.
+
+## La substitution
+
+On peut utiliser des séquenceurs spéciaux pour modifier la manière dont le Shell va renvoyer le contenu de ou des variables demandées.
+
+### Tous types de Shell
+
+* `${var}` : renvoie le contenu de `$var`. Il sert à isoler le nom de la variable par rapport au contexte de son utilisation. Ceci évite les confusions entre ce que l'utilisateur désire `${prix}F` (variable `prix` suivie du caractère `F`) et ce que le Shell comprendrait si on écrivait simplement `$prixF` (variable `prixF`)
+* `${var-texte}` : renvoie le contenu de la variable `var` si celle-ci est définie (existe en mémoire) ; sinon renvoie le texte `texte`
+* `${var:-texte}` : renvoie le contenu de la variable `var` si celle-ci est définie et non vide ; sinon renvoie le texte `texte`
+* `${var+texte}` : renvoie le texte `texte` si la variable `var` est définie ; sinon ne renvoie rien
+* `${var:+texte}` : renvoie le texte `texte` si la variable `var` est définie et non vide ; sinon ne renvoie rien
+* `${var?texte}` : renvoie le contenu de la variable `var` si celle-ci est définie ; sinon affiche le texte `texte` comme message d'erreur (implique donc l'arrêt du script)
+* `${var:?texte}` : renvoie le contenu de la variable `var` si celle-ci est définie et non vide ; sinon affiche le texte `texte` (comme `${var:-texte}`) comme message d'erreur (implique donc l'arrêt du script)
+* `${var=texte}` : renvoie le contenu de la variable `var` si celle-ci est définie, sinon affecte le texte `texte` à la variable `var` avant de renvoyer son contenu
+* `${var:=texte}` : renvoie le contenu de la variable `var` si celle-ci est définie et non vide, sinon affecte le texte `texte` à la variable `var` avant de renvoyer son contenu
