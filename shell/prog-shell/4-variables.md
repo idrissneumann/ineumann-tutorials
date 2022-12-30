@@ -165,3 +165,150 @@ unset var1 [var2 ?]
 Cette instruction supprime la variable sur laquelle elle est appliquée à condition que cette dernière n'ait pas été protégée par l'instruction `readonly`.
 
 Le mot « _suppression_ » rend la variable à l'état de « _non défini_ » ou « _non existant_ ». Il y a libération de l'espace mémoire affecté à la variable ciblée. Il ne faut donc pas confondre « _variable supprimée_ » et « _variable vide_ ».
+
+## La visibilité
+
+__Syntaxe__
+
+```shell
+export var1 [var2 ?] 
+export
+```
+
+Lorsqu'un script Shell est lancé depuis l'environnement d'un utilisateur, ce script commence son exécution (cf. _Gestion des processus_) avec une zone mémoire vierge qui lui est propre. Il ne connaît donc, par défaut, aucune des variables de l'environnement qui lui a donné naissance (environnement « père »).
+
+Pour qu'un processus « père » puisse faire connaître une variable à un processus « fils », il doit l'exporter avec la commande `export var`. Ceci fait, la variable exportée depuis un environnement particulier sera connue de tous les processus « fils » et de tous les processus « fils » des « fils »...
+
+Cependant, modifier le contenu d'une variable dans un processus quelconque ne reporte pas cette modification dans les environnements supérieurs. Dans la même optique, il n'y a aucun moyen _simple_ pour renvoyer une variable quelconque d'un processus vers un processus parent.
+
+Employée seule, la commande `export` donne la liste de toutes les variables qui ont été exportées.
+
+__Exemple__
+
+Exemple d'un script « prog » affichant et modifiant une variable qu'il n'a pas créée :
+
+
+```shell
+#!/bin/sh 
+echo "Contenu de var : [$var]" # Affichage de la variable "var" 
+var=Salut # Modification de la variable dans le script pour voir si elle remonte 
+echo "Contenu de var : [$var]" # De nouveau affichage de la variable "var"
+```
+
+__Sans exportation__
+
+Action : affectation de `var`
+
+```shell
+Prompt> var=Bonjour
+```
+
+Action : affichage de `var`
+
+```shell
+Prompt> echo $var 
+Bonjour
+```
+
+Résultat : `var` est bien créée.
+
+Action : lancement du script `prog`
+
+```shell
+Prompt> ./prog 
+Contenu de var :[] 
+Contenu de var :[Salut]
+```
+
+Résultat : `prog` ne connaît pas `var` (ou `var` n'existe pas dans `prog`). Puis `var` est créée et ensuite, elle est affichée.
+
+Action : affichage de `var`
+
+```shell
+Prompt> echo $var 
+Bonjour
+```
+
+Résultat : malgré la modification faite dans le script, `var` n'a pas changé.
+
+__Avec exportation__
+
+Action : affectation de `var`
+
+```shell
+Prompt> var=Bonjour 
+Prompt> export var
+```
+
+Action : affichage de `var`
+
+```shell
+Prompt> echo $var 
+Bonjour
+```
+
+Résultat : `var` est bien créée.
+
+Action : lancement du script `prog`
+
+```shell
+Prompt> ./prog 
+Contenu de var :[Bonjour] 
+Contenu de var :[Salut]
+```
+
+Résultat : ici, `prog` connaît `var` puis `var` est modifiée et ensuite, elle est affichée.
+
+Action : affichage de `var`
+
+```shell
+Prompt> echo $var 
+Bonjour
+```
+
+Résultat : malgré la modification faite dans le script et bien qu'il y ait un export, `var` n'a toujours pas changé.
+
+##  Le typage (« Korn Shell » et « Bourne Again Shell » et shells descendants)
+
+__Syntaxe__
+
+```shell
+typeset [-a] [-i] [-r] [-x] var1 [var2 ?] 
+typeset
+```
+
+Les shells évolués (Korn Shell, Bourne Again Shell et autres descendants) permettent de restreindre les propriétés des variables et correspondent à une certaine forme de typage « simpliste ».
+
+* `typeset -a var` : la variable sera traitée comme un tableau
+* `typeset -i var` : la variable sera traitée comme un entier et peut être incluse dans des opérations arithmétiques
+* `typeset -r var` : la variable sera mise en « lecture seule » (équivalent de `readonly`)
+* `typeset -x var` :la variable sera exportée automatiquement dans les processus fils (équivalent de `export`)
+
+__À noter :__ l'instruction « declare » accessible uniquement en Bourne Again Shell (et autres descendants) est un synonyme de l'instruction « typeset ».
+
+## Les variables prédéfinies
+
+Un utilisateur possède lors de sa connexion plusieurs variables automatiquement définies par le système. Certaines sont modifiables, certaines ne le sont pas, mais toutes sont utiles.
+
+Quelques variables prises parmi les plus courantes...
+
+|Variable|Signification                                                                                                                                                                                                                                                                                                      |
+|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`$HOME`   |Répertoire personnel de l'utilisateur                                                                                                                                                                                                                                                                              |
+|`$PWD`    |Répertoire courant (uniquement en « Korn Shell » ou « Bourne Again Shell » et shells descendants)                                                                                                                                                                                                                  |
+|`$OLDPWD` |Répertoire dans lequel on était avant notre dernier changement de répertoire (uniquement en « Korn Shell » ou « Bourne Again Shell » et shells descendants)                                                                                                                                                        |
+|`$LOGNAME`|Nom de login                                                                                                                                                                                                                                                                                                       |
+|`$PATH`   |Chemins de recherche des commandes                                                                                                                                                                                                                                                                                 |
+|`$CDPATH` |Chemins de recherche du répertoire demandé par la commande « cd »                                                                                                                                                                                                                                                  |
+|`$PS`1`    |Prompt principal (invite à taper une commande)                                                                                                                                                                                                                                                                     |
+|`$PS2`    |Prompt secondaire (indique que la commande n'est pas terminée)                                                                                                                                                                                                                                                     |
+|`$PS3`    |Prompt utilisé par la commande « select » (uniquement en « Korn Shell » et « Bourne Again Shell » et shells descendants)                                                                                                                                                                                           |
+|`$PS4`    |Prompt affiché lors de l'utilisation du mode débogueur `set -x `                                                                                                                                                                                                                                                  |
+|`$TERM`   |Type de terminal utilisé                                                                                                                                                                                                                                                                                           |
+|`$REPLY`  |Chaîne saisie par l'utilisateur si la commande `read` a été employée sans argument (uniquement en « Korn Shell » et « Bourne Again Shell » et shells descendants).  		 Numéro choisi par l'utilisateur dans la commande `select` (uniquement en « Korn Shell » et « Bourne Again Shell » et shells descendants)|
+|`$IFS`    |Séparateur de champs internes                                                                                                                                                                                                                                                                                      |
+|$SHELL  |Nom du Shell qui sera lancé chaque fois qu'on demandera l'ouverture d'un Shell dans une application interactive (`vi`, `ftp`...)                                                                                                                                                                                 |
+|`$RANDOM` |Nombre aléatoire entre 0 et 32 767 (uniquement en « Korn Shell » et « Bourne Again Shell » et shells descendants)                                                                                                                                                                                                  |
+|`$$`      |Numéro du processus courant                                                                                                                                                                                                                                                                                        |
+|`$!`      |Numéro du dernier processus lancé en arrière-plan                                                                                                                                                                                                                                                                  |
+|`$?`      |Statut (état final) de la dernière commande                                                                                                                                                                                                                                                                        |
