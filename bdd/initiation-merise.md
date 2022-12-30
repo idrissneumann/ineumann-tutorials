@@ -265,3 +265,326 @@ __Remarques__
 * Les entités et les propriétés peuvent être historisées. Dans ce cas on met un (H) à la fin du nom de l'entité ou de la propriété que l'on souhaite historiser (cela permet de préciser que l'on archivera toutes les modifications sur une entité ou une propriété donnée). Cela doit également répondre à une règle de gestion.
 * Il existe des outils de modélisation payants et d'autres gratuits pour MERISE (powerAMC, OpenModelSphere, AnalyseSI, JMerise...)
 * On aurait pu, dans ce cas précis, conserver également une date de rentrée des livres, calculée à partir de la date de location et de la durée de celle-ci. C'est un exemple de donnée calculée dont la conservation peut s'avérer pertinente (notamment pour faciliter l'envoi de rappels)
+
+## Modélisation d'une base de données au niveau logique et passage au SQL
+
+Dans cette partie, nous allons voir comment établir une modélisation des données au niveau logique (ou relationnel) à partir d'un modèle conceptuel, puis comment passer à l'étape de création des tables (cela suppose d'avoir une connaissance préalable des requêtes SQL de création de tables).
+
+### Le passage du MCD au MLD et SQL
+
+#### Les relations
+
+Le modèle logique de données (MLD) est composé uniquement de ce que l'on appelle des __relations__. Ces relations sont à la fois issues des entités du MCD, mais aussi d'associations, dans certains cas. Ces relations nous permettront par la suite de créer nos tables au niveau physique.
+
+Une relation est composée d'attributs. Ces attributs sont des données élémentaires issues des propriétés des différentes entités, mais aussi des identifiants et des données portées par certaines associations.
+
+Une relation possède un nom qui correspond en général à celui de l'entité ou de l'association qui lui correspond. Elle possède aussi une __clef primaire__ qui permet d'identifier sans ambiguïté chaque occurrence de cette relation. La clef primaire peut être composée d'un ou plusieurs attributs, il s'agit d'une implantation de la notion d'identifiant des entités et associations qui se répercute au niveau relationnel.
+
+Voici un premier exemple de relation (issue de l'entité « Edition » de notre précédent MCD) :
+
+**Edition** (***id_ed***, nom_ed)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+
+__Remarques__
+
+* Ce premier MLD est représenté de manière textuelle. C'est notamment cette représentation que l'on retrouve dans beaucoup de formations d'études supérieures. Il existe toutefois une représentation graphique équivalente
+* Il est important d'accompagner un MLD textuel d'une légende (ce dernier n'ayant pas de formalisme normé). Ceci est d'ailleurs exigé dans certaines formations.
+
+Il existe un autre type de clef appelé __clef étrangère__. La clef étrangère est un attribut d'une relation qui fait référence à la clef primaire d'une autre relation (ces deux clefs devront donc avoir le même type de données).
+
+Complétons notre premier exemple avec une autre relation où apparaît une clef étrangère :
+
+**Edition** (***id_ed***, nom_ed)
+**Exemplaire** (***ref_e***, *id_ed*#)
+
+__Légende :__
+**x** : relation
+***x** : clef primaire
+*x*# : clef étrangère
+
+__Remarques__
+
+* Au niveau relationnel, on devrait plutôt parler de __clef candidate__ qui permet d'identifier sans ambiguïté une occurrence de la relation pour les clefs primaires. De même, on devrait désigner une clef étrangère par une __contrainte d'inclusion__ vers une clef candidate. Par souci de simplicité, on gardera les termes de clefs primaires et étrangères
+* Par convention, on fait précéder ou suivre la clef étrangère du symbole `#`. Ceci n'est pas une obligation à partir du moment où les légendes sont suffisamment précises
+* Ici la clef étrangère présente dans la relation « Exemplaire » fait référence à la clef primaire de la relation « Edition »
+* Une relation peut posséder aucune, une ou plusieurs clefs étrangères, mais possède toujours une et une seule clef primaire
+
+Enfin, vous pouvez également rencontrer le terme de __cardinalité de la relation__ qui signifie ici le nombre d'occurrences d'une relation (ou nombre d'entrées dans la table correspondante) et le terme de __degré de la relation__ qui correspond au nombre d'attributs d'une relation.
+
+#### Règles de conversion
+
+Comme cela a déjà été dit précédemment, les relations du MLD sont issues des entités du MCD et de certaines associations. Nous allons maintenant aborder ces règles de conversion de façon plus précise.
+
+##### Règle 1 - conversion d'une entité
+
+En règle générale, toute entité du MCD devient une relation dont la clef est l'identifiant de cette entité. Chaque propriété de l'entité devient un attribut de la relation correspondante.
+
+Il existe toutefois quelques cas particuliers que vous pourrez voir au paragraphe "Cas particuliers".
+
+##### Règle 2 - conversion d'associations n'ayant que des cardinalités de type `0/1,N`
+
+Une association ayant des cardinalités `0,N` ou `1,N` de part et d'autre devient une relation dont la clef est constituée des identifiants des entités reliées par cette association. Ces identifiants seront donc également des clefs étrangères respectives. On parle de __relations associatives__.
+
+Les cardinalités plus restrictives (comme `2,3`, `1,7`...) seront perçues comme des cardinalités de type `0/1,N` également (il s'agit en effet de sous-ensembles). Cependant, les règles de gestion qui ne seront plus satisfaites par cette modélisation logique devront l'être par des traitements supplémentaires (via le code de l'application qui exploite la base de données ou encore par des triggers (déclencheurs) si le SGBDR est suffisamment robuste).
+
+Voici un exemple de relation associative issu de l'association « rédiger » de notre MCD :
+
+**Rediger** (***id_a#, id_l#***)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Dans le cas d'associations porteuses de données, les données portées deviennent des attributs de la relation correspondante. Si l'on reprend cet exemple :
+
+![association_rediger](./../img/merise/association_rediger.png)
+
+L'association « rédiger » devrait maintenant être traduite comme ceci :
+
+**Rediger** (***id_a#, id_l#***, nb_chapitres)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+##### Règle 3 - conversion des associations ayant au moins une cardinalité de type `1,1`
+
+Plusieurs possibilités s'offrent à nous pour ce cas de figure. La règle de conversion la plus répandue aujourd'hui est d'ajouter une clef étrangère dans la relation qui correspond à l'entité se situant du côté de cette cardinalité 1,1. Cette clef étrangère fera donc référence à la clef de la relation correspondant à la seconde entité reliée par l'association.
+
+Prenons un exemple issu de l'association « être originaire de » et des entités « Auteur » et « Pays » :
+
+**Pays** (***nom_p***)
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Lorsque l'on applique cette règle de conversion, deux restrictions s'imposent :
+
+* l'association ne peut être porteuse de données. Les données portées sont en dépendances fonctionnelles directes avec l'identifiant de l'entité dont la clef correspondante sera référencée par une clef étrangère dans une autre relation
+* l'association doit être binaire (c'est-à-dire relier uniquement deux entités et pas plus)
+
+Lorsque deux entités sont toutes deux reliées avec une cardinalité `1,1` par une même association, on peut placer la clef étrangère de n'importe quel côté. Par convention, on choisit de la placer du côté de la relation correspondant à l'entité ayant le plus de liaisons avec les autres. Certains considèrent d'ailleurs que deux entités étant reliées par une association ayant une cardinalité `1,1` des deux côtés, doivent obligatoirement fusionner. Cette règle s'appuie encore une fois sur la notion de dépendances fonctionnelles directes, mais n'est pas toujours respectée (il est parfois sémantiquement préférable de garder une distinction entre les deux entités).
+
+Une autre solution (moins répandue) consiste à créer une relation associative dont la clef est cette fois composée uniquement de la clef étrangère qui fait référence à l'identifiant de l'entité du côté opposé à la cardinalité `1,1`.
+
+Si on reprend le même exemple, voici ce que l'on devrait obtenir :
+
+**Pays** (***nom_p***)
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)
+**EtreOriginaireDe** (***id_a#, nom_p#***)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Dans ce cas, l'association peut être porteuse de données. Ces dernières deviendront donc des attributs de la relation associative comme dans le cas des cardinalités `0,1/N`.
+
+Il va sans dire que la première solution est aujourd'hui préférable à cette dernière en termes d'optimisation et de simplification des requêtes.
+
+##### Règle 4 - conversion des associations ayant au moins une cardinalité de type `0,1` (et dont les autres cardinalités sont de type `0,1/N`)
+
+De même que pour les cardinalités `1,1`, une association ayant une cardinalité `0,1` doit être binaire, et les deux mêmes possibilités s'offrent à nous :
+
+* créer la clef étrangère dans la relation correspondant à l'entité du côté de la cardinalité `0,1`. Rappelons que dans ce cas, l'association ne peut pas être porteuse de données
+* créer une relation associative qui serait identifiée de la même façon que pour une cardinalité `1,1`.
+
+Cependant, dans le cadre d'une cardinalité `0,1`, nous verrons qu'il n'est pas toujours préférable de privilégier la première méthode comme c'est le cas pour une cardinalité `1,1`.
+
+Imaginons par exemple qu'un livre puisse appartenir à 0 ou 1 catégorie, on obtient le MCD suivant :
+
+![association_appartenir](./../img/merise/association_appartenir.png)
+
+Certains diront que toutes les associations binaires de type père-fils ayant des cardinalités 1,N/0,N - 1,1/0,1 sont caractérisées par l'existence d'une dépendance fonctionnelle entre l'identifiant de l'entité père (ici id_cat) et de l'entité fils (ici id_l). Cette dépendance fonctionnelle se schématiserait ainsi :
+
+```
+id_l -> id_cat
+```
+
+Dans ce cas, il apparaît logique de traduire le MCD de cette façon (première méthode) :
+
+**Categorie** (***id_cat***, libelle_cat)
+**Livre** (***id_l***, titre_l, annee_l, resume_l, *id_cat*#)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Cependant même si les SGBD le permettent (avec la valeur `NULL` par défaut), il n'est normalement pas permis d'avoir une clef étrangère sans valeur pour laquelle on retrouverait l'occurrence dans la relation sur laquelle on fait référence.
+
+C'est pourquoi d'autres pensent (avec raison) qu'il vaut mieux créer une relation associative de cette manière (seconde méthode) :
+
+**Categorie** (***id_cat***, libelle_cat)
+**Livre** (***id_l***, titre_l, annee_l, resume_l)
+**Appartenir** (***id_l#, id_cat#***)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+La pertinence de l'une ou l'autre méthode varie en fonction du nombre d'occurrences caractérisées par la cardinalité 0 ou la cardinalité 1. En effet, lorsque les occurrences avec la cardinalité 1 sont plus nombreuses que les occurrences avec la cardinalité 0, la première méthode est préférable. Dans le cas contraire, c'est la seconde méthode qui est la plus adaptée.
+
+Enfin, dans le cas où une association binaire possède à la fois une cardinalité 0,1 et une cardinalité `1,1` (ce qui est rarement le cas), il est préférable que la clef étrangère soit du côté de la relation correspondant à l'entité située du côté de la cardinalité `1,1`.
+
+#### Élaboration du MLD et passage au SQL
+
+Avec ces différentes règles de conversion, il nous est déjà possible de convertir notre MCD au complet :
+
+**Pays** (***id_p***, nom_p)
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *id_p*#)
+**TypeLivre** (***id_t***, libelle_t)
+**Livre** (***id_l***, titre_l, annee_l, resume_l, id_t#)
+**Rediger** (***id_a#, id_l#***)
+**Edition** (***id_ed***, nom_ed)
+**Exemplaire** (***ref_e***, *id_ed*#, *id_l*#)
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+**Emprunt** (***id_em***, date_em, delais_em, *id_i*#, *ref_e*#)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Comme vous pouvez le constater, le schéma de la base est déjà fait. Les règles de passage au SQL sont assez simples :
+
+* chaque relation devient une table
+* chaque attribut de la relation devient une colonne de la table correspondante
+* chaque clef primaire devient une `PRIMARY KEY`
+* chaque clef étrangère devient une `FOREIGN KEY`
+
+Voici ce que cela donnerait :
+
+```sql
+CREATE TABLE Pays ( 
+  id_p INT NOT NULL,
+  nom_p VARCHAR(50), 
+  PRIMARY KEY (id_p) 
+); 
+
+CREATE TABLE Auteur ( 
+  id_a INT NOT NULL, 
+  nom_a VARCHAR (30), 
+  prenom_a VARCHAR (30), 
+  date_naissance_a DATE, 
+  id_p INT NOT NULL, 
+  FOREIGN KEY (id_p) REFERENCES Pays(id_p), 
+  PRIMARY KEY (id_a) 
+); 
+
+CREATE TABLE TypeLivre ( 
+  id_t INT NOT NULL, 
+  libelle_t VARCHAR (30), 
+  PRIMARY KEY (id_t) 
+); 
+
+CREATE TABLE Livre ( 
+  id_l INT NOT NULL, 
+  titre_l VARCHAR (254), 
+  annee_l VARCHAR (4), 
+  resume_l TEXT, 
+  id_t INT NOT NULL, 
+  FOREIGN KEY (id_t) REFERENCES TypeLivre(id_t), 
+  PRIMARY KEY (id_l) 
+); 
+
+CREATE TABLE Rediger ( 
+  id_a INT NOT NULL, 
+  id_l INT NOT NULL, 
+  FOREIGN KEY (id_a) REFERENCES Auteur(id_a), 
+  FOREIGN KEY (id_l) REFERENCES Livre (id_l), 
+  PRIMARY KEY (id_a, id_l) 
+); 
+
+CREATE TABLE Edition ( 
+  id_ed INT NOT NULL, 
+  nom_ed VARCHAR (254), 
+  PRIMARY KEY (id_ed) 
+); 
+
+CREATE TABLE Exemplaire ( 
+  ref_e VARCHAR(254) NOT NULL, 
+  id_ed INT NOT NULL, 
+  id_l INT NOT NULL, 
+  FOREIGN KEY (id_ed) REFERENCES Edition (id_ed), 
+  FOREIGN KEY (id_l) REFERENCES Livre(id_l), 
+  PRIMARY KEY (ref_e) 
+); 
+
+CREATE TABLE Inscrit ( 
+  id_i INT NOT NULL, 
+  nom_i VARCHAR (30), 
+  prenom_i VARCHAR (30), 
+  date_naissance_i DATE, 
+  rue_i VARCHAR(50), 
+  ville_i VARCHAR(50), 
+  cp_i VARCHAR (5), 
+  tel_i VARCHAR(15), 
+  tel_portable_i VARCHAR(15) ,
+  email_i VARCHAR(100),
+  PRIMARY KEY (id_i)
+); 
+
+CREATE TABLE Emprunt ( 
+  id_em INT NOT NULL, 
+  date_em DATE, 
+  delais_em INT DEFAULT 0, 
+  id_i INT NOT NULL, 
+  ref_e VARCHAR (254) NOT NULL, 
+  FOREIGN KEY (id_i) REFERENCES Inscrit(id_i), 
+  FOREIGN KEY (ref_e) REFERENCES Exemplaire(ref_e), 
+  PRIMARY KEY (id_em) 
+);
+```
+
+__Remarque :__ il est possible de ne pas avoir à gérer l'incrémentation des identifiants par soi-même lors des INSERT avec la plupart des SGBD.
+
+Exemple d'auto-incrémentation sous MySQL :
+
+```sql
+CREATE TABLE TypeLivre ( 
+  id_t INT AUTO_INCREMENT, 
+  libelle_t VARCHAR (30), 
+  PRIMARY KEY (id_t) 
+);
+```
+
+Sous PostgreSQL :
+
+```sql
+CREATE TABLE TypeLivre ( 
+  id_t SERIAL, 
+  libelle_t VARCHAR (30), 
+  PRIMARY KEY (id_t) 
+);
+```
+
+`SERIAL` créera implicitement une séquence qui s'incrémente avec un pas de 1. Sous Oracle, il faudrait créer soi-même cette séquence.
+
+### Règles de vérification des niveaux de normalisation
+
+Il existe différents niveaux de normalisation (ou formes normales). Les trois premiers niveaux de normalisations sont les plus répandus et les plus appliqués.
+
+La classification de ces trois premiers niveaux de normalisation repose sur les dépendances fonctionnelles entre la clef primaire de la relation et ses autres attributs.
+
+* __Pour être en première forme normale (1FN ou 1NF) :__ les attributs d'une relation doivent être atomiques et doivent être en dépendance fonctionnelle avec la clef primaire de cette dernière
+* __Pour être en deuxième forme normale (2FN ou 2NF) :__ il faut être en 1FN et que toutes les dépendances fonctionnelles entre la clef primaire et les autres attributs de la relation soient élémentaires. Autrement dit, les attributs doivent dépendre de la totalité de la clef
+* __Pour être en troisième forme normale (3FN ou 3NF) :__ il faut être en 2FN et que toutes les dépendances fonctionnelles entre la clef primaire de la relation et les autres attributs soient directes
+
+
+> /!\ Il ne s'agit pas de définitions précises, mais de simples règles de vérification des trois premiers niveaux de normalisation.
+> Pour plus de détails sur les formes normales, vous pouvez consulter [ce cours](https://fsmrel.developpez.com/basesrelationnelles/normalisation/).
+
+__Remarques__
+
+* Pour que le MLD soit valide, il faut que chacune de ses relations soit au moins en 3FN
+* Si un MCD est correctement conçu et que les règles de conversion énoncées plus haut ont bien été respectées, les relations seront donc automatiquement normalisées en 3FN
