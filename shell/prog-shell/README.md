@@ -19,6 +19,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [Introduction](./2-introduction.md)
 * [Éléments de base du langage](./3-elements-base.md)
 * [Les variables](./4-variables.md)
+* [La « sous-exécution »](./5-subshell.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)
