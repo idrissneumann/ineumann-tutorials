@@ -4,7 +4,7 @@ Ce cours est conçu pour ceux qui souhaitent s'initier rapidement à la concepti
 
 ## Informations sur l'article
 
-L'article a été originellement publié par Idriss Neumann sur developpez.com [ici](https://ineumann.developpez.com/tutoriels/linux/bash-bonnes-pratiques/).
+L'article a été originellement publié par Idriss Neumann sur developpez.com [ici](https://ineumann.developpez.com/tutoriels/merise/initiation-merise/).
 
 * Publié le 28 février 2012
 * Mis à jour le 15 juin 2019
@@ -833,10 +833,10 @@ La règle de gestion serait ici implantée par la dépendance fonctionnelle suiv
 ```
 id_lib, ref_l -> id_c
 ```
-***x*** : clef primaire  
+
 Cette DF pourrait très bien faire l'objet d'une CIF au niveau conceptuel, où bien être représentée sous cette forme :
 
-![aggreg](./../img/merise/aggreg.jpeg)
+![agreg](./../img/merise/agreg.jpeg)
 
 Voici comment cela se traduirait au niveau relationnel :
 
