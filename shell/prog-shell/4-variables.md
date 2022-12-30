@@ -94,3 +94,23 @@ On peut utiliser des séquenceurs spéciaux pour modifier la manière dont le Sh
 * `${var:?texte}` : renvoie le contenu de la variable `var` si celle-ci est définie et non vide ; sinon affiche le texte `texte` (comme `${var:-texte}`) comme message d'erreur (implique donc l'arrêt du script)
 * `${var=texte}` : renvoie le contenu de la variable `var` si celle-ci est définie, sinon affecte le texte `texte` à la variable `var` avant de renvoyer son contenu
 * `${var:=texte}` : renvoie le contenu de la variable `var` si celle-ci est définie et non vide, sinon affecte le texte `texte` à la variable `var` avant de renvoyer son contenu
+
+### Uniquement en Korn Shell et Bourne Again Shell (et shells descendants)
+
+* `${var[n]}` : renvoie le contenu du nie élément du tableau `var`
+* `${var[*]}` : concatène tous les éléments présents dans le tableau `var` en une chaîne unique et renvoie cette dernière
+* `${var[@]}` : transforme individuellement chaque élément présent dans le tableau `var` en une chaîne et renvoie la concaténation de toutes les chaînes
+* `${var#texte}` : si `texte` contient un métacaractère, alors il sera étendu jusqu'à la plus petite correspondance avec le contenu de `var` pris à partir du début. Si cette correspondance est trouvée, elle est alors supprimée du début de `var`
+* `${var##texte}` : si `texte` contient un métacaractère, alors il sera étendu jusqu'à sa plus grande correspondance avec le contenu de `var` pris à partir du début. Si cette correspondance est trouvée, elle est alors supprimée du début de `var`
+* `${var%texte}` : si `texte` contient un métacaractère, alors il sera étendu jusqu'à sa plus petite correspondance avec le contenu de `var` pris à partir de la fin. Si cette correspondance est trouvée, elle est alors supprimée de la fin de `var`
+* `${var%%texte}` : si `texte` contient un métacaractère, alors il sera étendu jusqu'à sa plus grande correspondance avec le contenu de `var` pris à partir de la fin. Si cette correspondance est trouvée, elle est alors supprimée de la fin de `var`
+* `${#var}` : renvoie le nombre de caractères contenus dans la variable `var`. Si la variable est un tableau, renvoie alors le nombre d'éléments du tableau
+* `$((expression))` : renvoie la valeur numérique de l'expression demandée
+
+### Uniquement en Bourne Again Shell (et shells descendants)
+
+* `${!var}` : utilise le contenu de la variable `var` comme un nom de variable et renvoie le contenu de cette dernière (permet donc de simuler un pointeur)
+* `${var:x:y}` : renvoie les « y » caractères de la variable « var » à partir du caractère n° « x » (attention, le premier caractère d'une variable porte le n°`0`). Si la variable est un tableau, renvoie alors les `y` éléments du tableau `var` à partir de l'élément n°`x`
+* `${var:x}` : renvoie la fin de la variable `var` à partir du caractère n°`x` (attention, le premier caractère d'une variable porte le n°`0`). Si la variable est un tableau, renvoie alors les derniers éléments du tableau « var » à partir de l'élément n°`x`
+* `${var/texte1/texte2}` : renvoie le contenu de `var`, mais en lui remplaçant la première occurrence de la chaîne `texte1` par la chaîne `texte2`
+* `${var//texte1/texte2}` : renvoie le contenu de `var`, mais en lui remplaçant chaque occurrence de la chaîne `texte1` par la chaîne `texte2`
