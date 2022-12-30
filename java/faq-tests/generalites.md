@@ -50,7 +50,7 @@ Il existe de nombreux outils permettant d'administrer une PIC, tels que Hudson o
 
 ---
 
-* 🇫🇷 [Qu'est-ce que Jenkins ? (et Hudson)](https://java.developpez.com/faq/tests?page=Autres-outils#Qu-est-ce-que-Jenkins-et-Hudson)
+* 🇫🇷 [Qu'est-ce que Jenkins ? (et Hudson)](https://www.ineumann.fr/docs/java/faq-tests/others#quest-ce-que-jenkins--et-hudson)
 * 🇫🇷 [L'intégration Continue avec Hudson](https://linsolas.developpez.com/articles/hudson/) de Romain Linsolas
 * 🇬🇧 [Site de Jenkins](https://www.jenkins.io)
 

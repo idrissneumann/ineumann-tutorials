@@ -288,7 +288,7 @@ Les articles de Wikipedia ci-dessous sont également riches en détail :
 * [Méthode Scrum](https://fr.wikipedia.org/wiki/Scrum_(d%C3%A9veloppement))
 * [Planning poker](https://fr.wikipedia.org/wiki/Planning_poker)
 
-Pour plus de détails sur la mise en pratique des concepts liés aux tests, à la qualité et à l'intégration continue, vous pouvez vous référer à la [FAQ tests](https://java.developpez.com/faq/tests) de la rubrique Java.
+Pour plus de détails sur la mise en pratique des concepts liés aux tests, à la qualité et à l'intégration continue, vous pouvez vous référer à la [FAQ tests](../java/faq-tests/README.md) de la rubrique Java.
 
 ## Remerciements
 
