@@ -124,9 +124,9 @@ Comme il l'a été dit, le Shell est un « interpréteur ». C'est-à-dire que c
 
 Enfin, le premier mot de chaque ligne, si la ligne n'est pas mise en commentaire, doit être une instruction Shell « correcte ». On appelle « instruction » soit
 
-* l'appel d'une commande « Unix » (ex. : date)
-* l'appel d'un autre script « Shell » (ex. : ./prog)
-* une commande interne du langage (ex. : cd...)
+* l'appel d'une commande « Unix » (ex. : `date`)
+* l'appel d'un autre script « Shell » (ex. : `./prog`)
+* une commande interne du langage (ex. : `cd`...)
 
 __Exemple__
 
