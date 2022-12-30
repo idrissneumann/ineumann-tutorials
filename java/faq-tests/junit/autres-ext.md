@@ -52,3 +52,9 @@ assertThat(fellowshipOfTheRing).filteredOn(character -> character.getName().cont
 ```
 
 À noter qu'il existe d'autres libs pour faire des assertions comme Harmcrest par exemple.
+
+---
+
+* 🇫🇷 [Qu'est-ce qu'une assertion ? Quels sont les différents types d'assertions avec JUnit ?] (https://www.ineumann.fr/docs/java/faq-tests/junit/fmk-junit#quest-ce-quune-assertion--quels-sont-les-diff%C3%A9rents-types-dassertions-avec-junit-)
+* 🇬🇧 [Documentation d'AssertJ](https://joel-costigliola.github.io/assertj/)
+* 🇬🇧 [Site de Harmcrest](https://hamcrest.org)
