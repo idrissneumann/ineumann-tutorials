@@ -588,3 +588,70 @@ __Remarques__
 
 * Pour que le MLD soit valide, il faut que chacune de ses relations soit au moins en 3FN
 * Si un MCD est correctement conçu et que les règles de conversion énoncées plus haut ont bien été respectées, les relations seront donc automatiquement normalisées en 3FN
+
+### Cas particuliers
+
+#### Les associations réflexives
+
+Il est possible de relier une entité à elle-même par une association, on parle dans ce cas-là d'__association réflexive__. Imaginons que l'on veuille connaître les inscrits qui sont mariés entre eux tout en conservant leur date de mariage, voici ce que l'on obtiendrait au niveau conceptuel :
+
+![marriage](./../img/merise/marriage.png)
+
+Dans ce cas, c'est la même. Il faudra cependant différencier les noms des clefs étrangères de la table associative correspondantes tout en référençant la même clef primaire :
+
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+**EtreMarie** (***id_epoux#, id_epouse#***, date_mariage_i)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+On aurait pu choisir des cardinalités `1,1` et mettre la date de mariage comme donnée de l'entité Inscrit. Ce modèle permet tout de même de mettre la date de mariage en commun avec deux inscrits (ce qui est plus juste au niveau des dépendances fonctionnelles). Si l'on souhaite limiter le nombre de mariages à 1 pour une personne, il suffira de mettre en place un traitement qui vérifiera le nombre d'occurrences pour un inscrit dans la relation EtreMarie.
+
+Comme exemple de traitement de vérification, nous pouvons utiliser un trigger si le SGBDR le permet. Voici un exemple de trigger avec une procédure stockée vérifiant la présence d'une occurrence pour un identifiant donné dans la table __EtreMarie__ :
+
+```sql
+/* Procédure stockée se chargeant de la vérification */
+CREATE OR REPLACE FUNCTION verif_mariage () RETURNS TRIGGER AS $$ 
+  DECLARE nb INT; 
+  BEGIN 
+    SELECT INTO nb COUNT(*) FROM EtreMarie WHERE id_epoux = NEW.epoux OR id_epouse = NEW.id_epouse; 
+    IF (nb >= 1) THEN 
+      /* Le RAISE EXCEPTION bloquera la suite des traitements dont L'INSERT */ 
+      RAISE EXCEPTION 'Mariage impossible !'; 
+    END IF; 
+    RETURN NEW; 
+  END; 
+$$ LANGUAGE plpgsql; 
+
+/* Trigger qui se déclenchera avant chaque INSERT dans la table EtreMarie */
+CREATE TRIGGER t_verif_mariage BEFORE INSERT 
+  ON auteur FOR EACH ROW 
+  EXECUTE PROCEDURE verif_mariage();
+```
+
+Pour cet exemple, nous avons choisi le langage PL/PgSQL qui est propre au SGBDR PostgreSQL. Vous pourrez toutefois trouver des syntaxes ressemblantes ou équivalentes sur une grande partie des SGBDR connus. C'est ce type de traitements qui permet de répondre aux règles de gestion non satisfaites par le MCD.
+
+Ne pas limiter le nombre d'occurrences de cette relation, permettrait en outre de conserver les différents mariages des inscrits en cas de divorce (l'intérêt est certes très limité dans le contexte de la gestion des emprunts pour une bibliothèque).
+
+#### Règle de conversion exceptionnelle pour certaines entités simples
+
+Dans certains cas, il n'est pas toujours pertinent de convertir une entité au niveau conceptuel, par une relation au niveau logique. C'est le cas pour certaines entités simplement composées d'un identifiant, à l'exemple des entités de type __Date__ ou __Heure__ qui sont souvent utilisées dans des associations ternaires.
+
+Imaginons par exemple que des inscrits auraient le privilège de rencontrer un auteur à une date donnée (une rencontre organisée par la bibliothèque). La rencontre est organisée avec un nombre de places limité, il faut donc garder une trace de ceux qui ont déjà fait une rencontre afin de favoriser ceux qui n'ont pas encore eu cette chance. Voici comment nous pourrions représenter cela au niveau conceptuel :
+
+![rencontre](./../img/merise/rencontre.png)
+
+La date de rencontre ne doit pas être une simple donnée portée par l'association, car cela limiterait le nombre de rencontres d'un inscrit avec un auteur à 1 (la relation correspondant à l'association aurait dans ce cas un couple identifiant unique qui imposerait cette restriction).
+
+Le fait de créer une relation __Date__ aurait pour incidence de créer de la redondance inutile, c'est pourquoi, il est recommandé dans ce cas de figure, de passer au niveau logique de cette façon :
+
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)
+**Rencontrer** (***id_a#, id_i#***, date_rencontre)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
