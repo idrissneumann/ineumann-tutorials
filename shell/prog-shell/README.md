@@ -1,4 +1,4 @@
-# La programmation « Shell »
+# La programmation Shell
 
 Cet article est un cours complet sur l'apprentissage de la programmation Shell.
 
@@ -18,6 +18,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [Licence](./1-licence.md)
 * [Introduction](./2-introduction.md)
 * [Éléments de base du langage](./3-elements-base.md)
+* [Les variables](./4-variables.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)
