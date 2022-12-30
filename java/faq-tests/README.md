@@ -10,7 +10,8 @@ La FAQ a été originellement et intégralement publiée par Idriss Neumann sur 
 * Mis à jour le 31 décembre 2017
 * Licence: [![cc-by-nc-sa](../../img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr)
 
-## Chapitres
+## Sections
 
 * [Généralités](./generalites.md)
 * [Le framework JUnit](./junit/README.md)
+* [Les mocks](./mocks/README.md)

@@ -257,10 +257,10 @@ DatabaseOperation.INSERT.execute(dbUnitConnection, dataSet);
 ```
 
 3. Opérations de suppression et purge :
-
-import org.dbunit.operation.DatabaseOperation; 
   
 ```java
+import org.dbunit.operation.DatabaseOperation; 
+
 // dataSet est une instance de IDataSet 
 // dbUnitConnection est une instance de IDataBaseConnection 
 DatabaseOperation.DELETE.execute(dbUnitConnection, dataSet); 
