@@ -23,10 +23,10 @@ Le SI possède quatre fonctions essentielles :
 
 * la __saisie__ ou __collecte__ de l'information
 * la __mémorisation__ de l'information à l'aide de fichier ou de base de données
-* le __traitement__ de l'information afin de mieux l'exploiter (consultation, organisation, mise à jour, calculs pour obtenir de nouvelles données…)
+* le __traitement__ de l'information afin de mieux l'exploiter (consultation, organisation, mise à jour, calculs pour obtenir de nouvelles données...)
 * la __diffusion__ de l'information
 
-Autrefois, l'information était stockée sur papier à l'aide de formulaires, de dossiers… et il existait des procédures manuelles pour la traiter. Aujourd'hui, les systèmes informatisés, comme les systèmes de gestion de bases de données relationnelles (SGBDR), sont mis au service du système d'information.
+Autrefois, l'information était stockée sur papier à l'aide de formulaires, de dossiers... et il existait des procédures manuelles pour la traiter. Aujourd'hui, les systèmes informatisés, comme les systèmes de gestion de bases de données relationnelles (SGBDR), sont mis au service du système d'information.
 
 ### MERISE
 
@@ -57,7 +57,7 @@ Avant de vous lancer dans la création de vos tables (ou même de vos entités e
 
 Prenons l'exemple d'un développeur qui doit informatiser le SI d'une bibliothèque. On lui fixe les règles de gestion suivantes :
 
-* pour chaque livre, on doit connaître le titre, l'année de parution, un résumé et le type (roman, poésie, science-fiction…)
+* pour chaque livre, on doit connaître le titre, l'année de parution, un résumé et le type (roman, poésie, science-fiction...)
 * un livre peut être rédigé par aucun (dans le cas d'une œuvre anonyme), un ou plusieurs auteurs dont on connaît le nom, le prénom, la date de naissance et le pays d'origine
 * chaque exemplaire d'un livre est identifié par une référence composée de lettres et de chiffres et ne peut être paru que dans une et une seule édition
 * un(e) inscrit(e) est identifié par un numéro et on doit mémoriser son nom, prénom, adresse, téléphone et adresse e-mail
@@ -655,3 +655,211 @@ __Légende :__
 **x** : relation
 ***x*** : clef primaire
 *x*# : clef étrangère
+
+## Les extensions apportées par MERISE II
+
+### L'identification relative
+
+Elle intervient lorsque l'identifiant d'une entité ne suffit pas à l'identifier de manière unique.
+
+Quelques exemples de cas où cela peut arriver :
+
+* on identifie un immeuble par son numéro de rue, or il faut connaître le nom ou l'identifiant de la rue pour trouver l'immeuble (14 rue du général Leclerc...).
+* on identifie un appartement par une lettre, mais il faut connaître le numéro d'étage pour le retrouver (appartement A au premier étage...).
+pour identifier un étage, il faut connaître l'immeuble dans lequel il est situé.
+
+Voici comment on pourrait schématiser ces règles de gestion au niveau conceptuel :
+
+![id_relative](./../img/merise/id_relative.png)
+
+Les parenthèses autour des cardinalités signifient que les entités du côté de ces cardinalités seront identifiées par la concaténation de leurs identifiants (qui ne suffisent pas à les identifier de manière unique) avec l'identifiant de l'entité opposée. Ainsi on obtient au niveau relationnel :
+
+**Rue** (***code_rue***, nom_rue)
+**Immeuble** (***num_immeuble, code_rue#***, nb_etages_total)
+**Etage** (***num_etage, num_immeuble#, code_rue#***, nb_appartements_tot)
+**Appartement** (***lettre_appartement, num_etage#, num_immeuble#, code_rue#***, nb_pieces_total)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+### L'héritage et ses limites
+
+Désormais, MERISE II permet aussi de modéliser l'héritage entre les entités. L'héritage a du sens lorsque plusieurs entités possèdent des propriétés similaires. On parle alors de généralisation avec un sur-type (ou entité mère) et de spécialisation avec des sous-types (entités filles).
+
+Voici comment on pourrait représenter un héritage sur notre MCD :
+
+![heritage_vide](./../img/merise/heritage_vide.jpeg)
+
+> /i\ Dans cette partie, les types des propriétés apparaissent (ceci est dû au logiciel utilisé qui est plus adapté pour représenter l'héritage). Cependant, les types ne devraient pas être représentés au niveau conceptuel.
+
+Il existe différents types d'héritage : l'héritage sans contraintes comme nous venons de le représenter, l'héritage par disjonction (ou exclusion), l'héritage par couverture (ou totalité) et enfin l'héritage par partition (totalité et exclusion).
+
+#### L'héritage par disjonction (ou exclusion)
+
+![heritage_x](./../img/merise/heritage_x.jpeg)
+
+Toutes les occurrences du sur-type ne peuvent se trouver que dans aucun ou un seul sous-type. Dans notre exemple ci-dessus, un auteur ne peut pas être également un inscrit et un inscrit ne peut pas être également un auteur (une personne peut être un auteur, un inscrit ou quelqu'un d'autre).
+
+#### L'héritage par couverture (ou totalité)
+
+![heritage_t](./../img/merise/heritage_t.jpeg)
+
+Toutes les occurrences du sur-type se trouvent dans au moins un des sous-types existants. Dans notre exemple, une personne est forcément un auteur ou un inscrit (ou les deux).
+
+#### L'héritage par partition (totalité et exclusion)
+
+![heritage_xt](./../img/merise/heritage_xt.jpeg)
+
+Il s'agit d'une combinaison des deux héritages précédents : toutes les occurrences du sur-type se trouvent forcément dans un et un seul des sous-types. Une personne est soit un auteur, soit un inscrit. Cette contrainte est parfois notée « + ».
+
+#### Passage au niveau relationnel et limites
+
+À son apparition avec Merise II, l'héritage n'était pas encore implanté sur l'ensemble des SGBDR répandus (ce n'est d'ailleurs toujours pas le cas aujourd'hui). Il a donc fallu le simuler au point de vue relationnel.
+
+De façon générale, l'héritage peut être implanté au niveau relationnel en utilisant une clef étrangère vers la relation mère, comme clef primaire pour les relations filles. Reprenons notre exemple précédent :
+
+**Personne** (***id_p***, nom_p, prenom_p, date_naissance_p)
+**Inscrit** (***id_p#***, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+**Auteur** (***id_p#***)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Ainsi pour satisfaire les contraintes de totalité, d'exclusion ou de partition il faudra mettre en place des traitements supplémentaires au niveau de la base de préférence (triggers, procédures stockées).
+
+Aujourd'hui, la plupart des SGBDR performants sont capables de gérer eux-mêmes l'héritage. C'est notamment le cas avec la clause INHERITS de PostgreSQL. Cette solution est en général préférable parce qu'elle évite les jointures coûteuses entre tables mères et filles. En effet les attributs du sur-type seront automatiquement accessibles depuis le sous-type. Par conséquent, une insertion, modification ou suppression dans le sous-type se répercutera également dans l'entité mère. Cependant, cette solution a pour inconvénient de pouvoir créer des tuples en double au niveau de la relation mère et de violer ainsi les contraintes d'intégrités référentielles en quelque sorte.
+
+Par ailleurs, certains font parfois abstraction de la relation mère dans le cas d'un héritage par partition, et se contentent de créer les relations filles comme relations distinctes ne partageant pas de données communes. Exemple :
+
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+Cette solution est également acceptable, mais peut nous amener à nous interroger sur la pertinence de l'héritage étant donné que ce dernier n'est pas implanté au niveau relationnel. Cependant, la contrainte de partition reste une règle de gestion à satisfaire d'où l'importance de la modélisation de celle-ci au niveau conceptuel.
+
+Pour conclure, bien qu'appréciée par l'enseignement, la notion d'héritage est très souvent mise de côté par les développeurs dans le cadre d'une base de données relationnelle.
+
+### Les contraintes entre associations
+
+De même que pour l'héritage, il existe différentes contraintes qui peuvent exister entre deux ou plusieurs associations. Bien que non implantées au niveau relationnel, ces contraintes qui sont des règles de gestion devront être satisfaites par des traitements supplémentaires (triggers...).
+
+#### La contrainte d'inclusion
+
+La présence d'occurrences d'une ou plusieurs associations doit obligatoirement se répercuter sur l'association cible de la contrainte d'inclusion.
+
+Par exemple imaginons que l'on souhaite recenser les présentations des ouvrages par leurs auteurs à une date donnée. Voici comment cela pourrait être représenté (de manière simpliste) au niveau conceptuel :
+
+![inclusion](./../img/merise/inclusion.jpeg)
+
+Cela signifie que si un couple livre-auteur est présent dans l'association « presenter », alors il doit obligatoirement être présent dans l'association « rediger ». Cela traduit simplement la règle de gestion qui impose que pour qu'un auteur fasse la promotion d'un ouvrage, il doit en être l'un des écrivains.
+
+####  La contrainte d'exclusion
+
+Lorsqu'une occurrence est présente dans l'une des associations concernées par la contrainte d'exclusion, elle ne doit pas être présente dans une des autres associations concernées par cette contrainte.
+
+Passons cette fois dans le cadre d'une librairie/imprimerie qui dispose de plusieurs services d'impressions qui lui sont propres. On souhaite déterminer quels sont les livres imprimés et les livres achetés tout en gardant une trace des fournisseurs et des services d'impression :
+
+![exclusion](./../img/merise/exclusion.jpeg)
+
+Dans cet exemple, un livre ne peut pas à la fois être acheté chez un fournisseur et être imprimé par un service d'impression interne.
+
+####  La contrainte de totalité
+
+Chacune des occurrences d'une entité doit être présente dans au moins une de ses associations qui font l'objet d'une contrainte de totalité.
+
+Reprenons notre exemple précédent et adaptons-le à la contrainte de totalité :
+
+![totalite](./../img/merise/totalite.jpeg)
+
+Dans cet exemple, un livre est toujours imprimé dans un service interne ou acheté chez un fournisseur.
+
+#### La contrainte d'égalité
+
+Une occurrence présente dans une des associations concernées par la contrainte d'égalité l'est également dans toutes les autres associations concernées par cette contrainte.
+
+Prenons l'exemple d'un magasin qui vend des livres et qui souhaite archiver les dépôts et les imprimeries du livre :
+
+![egalite](./../img/merise/egalite.jpeg)
+
+Un livre acheté dans un dépôt sera donc également imprimé dans une imprimerie et vice et versa.
+
+#### Combinaison entre contraintes
+
+Comme dans le cadre d'un héritage, il est possible de combiner les contraintes (`TI`, `T=`, `XT` ou `+` pour la partition...). Voici un exemple de contrainte de partition :
+
+![partition](./../img/merise/partition.jpeg)
+
+Pour cet exemple, le livre sera soit imprimé dans un service interne, soit acheté.
+
+### Les CIF (contraintes d'intégrités fonctionnelles) et agrégations
+
+Il s'agit de dépendances fonctionnelles qui sont directement représentées sur le MCD afin de réduire les identifiants d'associations jugés « trop larges ». Ces DF sont des règles de gestion à faire apparaître sur votre schéma.
+
+Reprenons l'exemple de l'auteur qui fait la promotion de son ouvrage à une date donnée :
+
+![CIF](./../img/merise/CIF.jpeg)
+
+Cela se traduit par la dépendance fonctionnelle suivante :
+
+```
+id_a, vdate -> id_l
+```
+
+Ainsi, l'association « presenter » serait implantée comme ceci au niveau relationnel :
+
+**Presenter** (***id_a#, vdate***, *id_l*#)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+L'identifiant du livre ne fait donc plus partie de la clef primaire afin de garder une dépendance fonctionnelle directe et élémentaire.
+
+Cette notion de dépendance fonctionnelle peut être aussi représentée sous la forme d'agrégation (encore appelée « association d'association »).
+
+Imaginons par exemple qu'une règle de gestion nous impose le fait qu'un livre, pour une librairie donnée, ne puisse être acheté que par un et un seul client.
+
+La règle de gestion serait ici implantée par la dépendance fonctionnelle suivante :
+
+```
+id_lib, ref_l -> id_c
+```
+
+Cette DF pourrait très bien faire l'objet d'une CIF au niveau conceptuel, où bien être représentée sous cette forme :
+
+![aggreg](./../img/merise/aggreg.jpeg)
+
+Voici comment cela se traduirait au niveau relationnel :
+
+**Librairie** (***id_lib***, rue_lib, ville_l, cp_l)
+**Livre** (***ref_l***, titre_l, resume_l)
+**Client** (***id_c***, nom_c, prenom_c)
+**ProposerEnVente** (***id_lib#, ref_l#***, *id_c*#)
+
+__Légende :__
+**x** : relation
+***x*** : clef primaire
+*x*# : clef étrangère
+
+On retrouve bien la même implantation au niveau relationnel que l'on aurait eu pour une CIF.
+
+## Conclusion
+
+Avec les différentes notions abordées dans ce cours et quelques connaissances en SQL, il vous est maintenant possible de concevoir et réaliser des bases de données relationnelles. Il est important de maîtriser les différentes notions de ce modèle qui est aujourd'hui le plus enseigné au niveau des formations, mais aussi le plus utilisé en entreprise.
+
+Cependant, ce modèle a souvent montré ses limites au niveau de certains systèmes d'informations. Par exemple, vous pourriez être amené à travailler sur des systèmes d'informations où les SGBDR ne servent qu'à persister des données au format XML. Le traitement de l'information, qui doit parfois se faire en temps réel, se fait donc au niveau de l'application afin de ne pas surcharger de requêtes les serveurs de données.
+
+## Remerciements
+
+Je souhaite remercier [alassanediakite](https://www.developpez.net/forums/u111845/alassanediakite/), [CinePhil](https://www.developpez.net/forums/u111343/cinephil/), [fsmrel](https://www.developpez.net/forums/u115064/fsmrel/), [LittleWhite](https://www.developpez.net/forums/u240267/littlewhite/), et [MacFly58](https://www.developpez.net/forums/u373128/macfly58/) pour leur relecture technique et leurs conseils.
+
+Je tiens aussi à remercier [Erielle](https://www.developpez.net/forums/u358211/erielle/) pour son effort de relecture orthographique.
