@@ -137,7 +137,7 @@ InputStream inputStreamXML = new ByteArrayInputStream(strXML.getBytes());
 
 * 🇫🇷 [Comment ouvrir une connexion DBUnit ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#comment-ouvrir-une-connexion-dbunit-)
 * 🇫🇷 [Quels sont les différents formats XML pour un FlatXmlDataSet ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#quels-sont-les-diff%C3%A9rents-formats-xml-pour-un-flatxmldataset-)
-* 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quelles-sont-les-differentes-operations-pour-un-dataset)
+* 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#quelles-sont-les-diff%C3%A9rentes-op%C3%A9rations-pour-un-dataset-)
 * 🇬🇧 [Avec Testing-toolbox-core](https://github.com/testing-toolbox/testing-toolbox-core/blob/master/docs/getting-started.md#inserting-data-from-flat-xml-dataset)
 
 ## Quels sont les différents formats XML pour un FlatXmlDataSet ?
@@ -229,7 +229,7 @@ INSERT INTO nomTable (nomColonne1, nomColonne2) VALUES ('valeur 2', 'valeur fixe
 * 🇫🇷 [Comment ouvrir une connexion DBUnit ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#comment-ouvrir-une-connexion-dbunit-)
 * 🇫🇷 [Quels sont les différents formats XML pour un FlatXmlDataSet ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#quels-sont-les-diff%C3%A9rents-formats-xml-pour-un-flatxmldataset-)
 * 🇫🇷 [Comment charger une base à partir d'un FlatXmlDataSet ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#comment-charger-une-base-%C3%A0-partir-dun-flatxmldataset-)
-* 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](http://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quelles-sont-les-differentes-operations-pour-un-dataset)
+* 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](https://www.ineumann.fr/docs/java/faq-tests/junit/dbunit#quelles-sont-les-diff%C3%A9rentes-op%C3%A9rations-pour-un-dataset-)
 * 🇬🇧 [Avec Testing-toolbox-core](https://github.com/testing-toolbox/testing-toolbox-core/blob/master/docs/getting-started.md#inserting-data-from-replacement-xml-dataset)
 
 ## Quelles sont les différentes opérations pour un dataset ?

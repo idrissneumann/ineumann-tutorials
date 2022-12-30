@@ -230,7 +230,7 @@ Pour plus de détails sur les fonctions d'assertions de base, consultez la Javad
 ---
 
 * 🇫🇷 [Section DBUnit de la FAQ](./dbunit.md)
-* 🇫🇷 [Section Mockito de la FAQ](https://java.developpez.com/faq/tests?page=Le-framework-Mockito)
+* 🇫🇷 [Section Mockito de la FAQ](../mocks/mockito.md)
 
 ## Comment écrire des assertions sur des exceptions ?
 

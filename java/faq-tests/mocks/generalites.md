@@ -21,7 +21,7 @@ Les bouchons, quant à eux, sont davantage adaptés à la mise en place de tests
 ---
 
 * 🇫🇷 [Tutoriel : les simulacres ne sont pas des bouchons](https://bruno-orsier.developpez.com/mocks-arent-stubs/) de Martin Fowler et Bruno Orsier
-* 🇫🇷 [Qu'est-ce que l'injection de dépendances ?](https://java.developpez.com/faq/tests?page=Les-mocks#Qu-est-ce-que-l-injection-de-dependances)
+* 🇫🇷 [Qu'est-ce que l'injection de dépendances ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/generalites#quest-ce-que-linjection-de-d%C3%A9pendances-)
 
 ## Qu'est-ce que l'injection de dépendances ?
 
