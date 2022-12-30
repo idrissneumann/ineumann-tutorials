@@ -68,4 +68,23 @@ Ces règles vous sont parfois données, mais vous pouvez être amené à les ét
 * vous êtes à la fois maîtrise d'œuvre (MOE) et maîtrise d'ouvrage (MOA), et vous développez une application pour votre compte et/ou selon vos propres directives
 * __ce qui arrive le plus souvent__ : les futurs utilisateurs de votre projet n'ont pas été en mesure de vous fournir ces règles avec suffisamment de précision ; c'est pourquoi vous devrez les interroger afin d'établir vous-même ces règles. N'oubliez jamais qu'en tant que développeur, vous avez un devoir d'assistance à maîtrise d'ouvrage si cela s'avère nécessaire.
 
+## Le dictionnaire des données
+
+C'est une étape intermédiaire qui peut avoir son importance, surtout si vous êtes plusieurs à travailler sur une même base de données, d'un volume important.
+
+Le dictionnaire des données est un document qui regroupe toutes les données que vous aurez à conserver dans votre base (et qui figureront donc dans le MCD). Pour chaque donnée, il indique :
+
+* le __code mnémonique__ : il s'agit d'un libellé désignant une donnée (par exemple « *titre_l* » pour le titre d'un livre)
+* la __désignation__ : il s'agit d'une mention décrivant ce à quoi la donnée correspond (par exemple « *titre du livre* »)
+le type de donnée :
+  * __A__ ou __Alphabétique__ : lorsque la donnée est uniquement composée de caractères alphabétiques (de 'A' à 'Z' et de 'a' à 'z')
+  * __N__ ou __Numérique__ : lorsque la donnée est composée uniquement de nombres (entiers ou réels)
+  * __AN__ ou __Alphanumérique__ : lorsque la donnée peut être composée à la fois de caractères alphabétiques et numériques,
+  * __Date__ : lorsque la donnée est une date (au format AAAA-MM-JJ)
+  * __Booléen__ : Vrai ou Faux
+* la __taille__ : elle s'exprime en nombre de caractères ou de chiffres. Dans le cas d'une date au format AAAA-JJ-MM, on compte également le nombre de caractères, soit 10 caractères. Pour ce qui est du type booléen, nul besoin de préciser la taille (ceci dépend de l'implémentation du SGBDR)
+* et parfois des __remarques__ ou __observations__ complémentaires (par exemple si une donnée est strictement supérieure à 0, etc.).
+
+Reprenons l'exemple de notre bibliothèque et du système de gestion des emprunts que nous sommes chargés d'informatiser. Après l'étude des règles de gestion, nous pouvons établir le dictionnaire des données suivant :
+
 _Rédaction en cours_
