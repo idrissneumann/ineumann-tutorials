@@ -206,3 +206,62 @@ __Remarques__
 
 * Les occurrences sont parfois appelées __tuples__. Par ailleurs, la table d'occurrences peut être comparée à l'instance d'une relation (implantation relationnelle d'une entité ou association) à un moment donné. Nous reviendrons sur cette notion de relation dans la partie III
 * Au niveau conceptuel, on devrait plutôt parler d'__entités-types__, les entités étant en fait des instances d'entités-types. Par souci de simplicité, on gardera les termes d'entités et associations tout au long du cours
+
+#### Les associations
+
+Une association définit un lien sémantique entre une ou plusieurs entités. En effet, la définition de liens entre entités permet de traduire une partie des règles de gestion qui n'ont pas été satisfaites par la simple définition des entités.
+
+Le formalisme d'une association est le suivant :
+
+![association](./../img/merise/association.png)
+
+Généralement le nom de l'association est un verbe définissant le lien entre les entités qui sont reliées par cette dernière. Par exemple :
+
+![etre_ne](./../img/merise/etre_ne.png)
+
+Ici l'association « être né » traduit les deux règles de gestion suivantes :
+
+* un auteur est né dans un et un seul pays
+* dans un pays, sont nés aucun, un ou plusieurs auteurs
+
+Vous remarquerez que cette association est caractérisée par ces annotations 1,1 et 0,N qui nous ont permis de définir les règles de gestions précédentes. Ces annotations sont appelées les cardinalités.
+
+Une cardinalité est définie comme ceci :
+
+```
+minimum, maximum
+```
+
+Les cardinalités les plus répandues sont les suivantes : `0,N`, `1,N`,  `0,1`, `1,1`. On peut toutefois tomber sur des règles de gestion imposant des cardinalités avec des valeurs particulières, mais cela reste assez exceptionnel et la présence de ces cardinalités imposera l'implantation de traitements supplémentaires.
+
+L'identifiant d'une association ayant des cardinalités `0,N` / `1,N` de part et d'autre, est obtenu par la concaténation des entités qui participent à l'association. Imaginons l'association suivante :
+
+![association_rediger](./../img/merise/association_rediger.png)
+
+Ici un auteur rédige au moins un ou plusieurs livres et pour chaque livre, on connaît le nombre de chapitres rédigés par l'auteur (on connaît aussi le nombre total de chapitres pour chaque livre).
+
+L'association « rédiger » peut donc être identifiée par la concaténation des propriétés id_a et id_l. Ainsi, le couple __id_a__, __id_l__ doit être unique pour chaque occurrence de l'association. On peut également définir la dépendance fonctionnelle suivante :
+
+```
+id_a, id_l -> nb_chapitres
+```
+
+On dit que nb_chapitres (nombre de chapitres rédigés par un auteur, pour un livre) est une donnée portée par l'association « rédiger ». Cette association est donc une association porteuse de données.
+
+Pour une association ayant au moins une cardinalité de type 0,1 ou 1,1 considérons dans un premier temps que cette dernière ne peut être porteuse de données et qu'elle est identifiée par l'identifiant de l'entité porteuse de la cardinalité 0,1 ou 1,1.
+
+Nous reviendrons plus en détail sur la notion d'identification d'une association lors du passage au modèle logique.
+
+#### Élaboration du MCD
+
+Avec toutes ces connaissances, il nous est donc possible d'élaborer le MCD complet à partir des données présentes dans le dictionnaire des données :
+
+![mcd](./../img/merise/mcd.png)
+
+__Remarques__
+
+* Souvent, pour un même ensemble de règles de gestion, plusieurs solutions sont possibles au niveau conceptuel. Par exemple, rien ne nous obligeait ici à créer une entité __Type__. Une simple donnée portée par l'entité __Livre__ aurait pu convenir également
+* Pour que le MCD soit sémantiquement valide, toute entité doit être reliée à au moins une association
+* Les entités et les propriétés peuvent être historisées. Dans ce cas on met un (H) à la fin du nom de l'entité ou de la propriété que l'on souhaite historiser (cela permet de préciser que l'on archivera toutes les modifications sur une entité ou une propriété donnée). Cela doit également répondre à une règle de gestion.
+* Il existe des outils de modélisation payants et d'autres gratuits pour MERISE (powerAMC, OpenModelSphere, AnalyseSI, JMerise...)
+* On aurait pu, dans ce cas précis, conserver également une date de rentrée des livres, calculée à partir de la date de location et de la durée de celle-ci. C'est un exemple de donnée calculée dont la conservation peut s'avérer pertinente (notamment pour faciliter l'envoi de rappels)

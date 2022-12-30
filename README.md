@@ -1,6 +1,6 @@
 # Tutoriels Idriss Neumann
 
-Ce site est une copie des tutoriels d'Idriss Neumann à l'origin publiés sur [ineumann.developpez.com](https://ineumann.developpez.com). L'auteur a souhaité heberger lui-même, par l'intermédiaire de la société qu'il préside, une copie de l'ensemble des tutoriels qu'il a rédigé ou co-rédigé.
+Ce site est une copie des tutoriels d'Idriss Neumann à l'origine publiés sur [ineumann.developpez.com](https://ineumann.developpez.com). L'auteur a souhaité heberger lui-même, par l'intermédiaire de la société qu'il préside, une copie de l'ensemble des tutoriels qu'il a rédigé ou co-rédigé.
 
 Ce site est hébergé en France par [COMWORKIO SASU](https://www.comwork.io) (R.C.S Paris 838 757 987), présidée par Idriss Neumann, sur [Scaleway](https://www.scaleway.com).
 
