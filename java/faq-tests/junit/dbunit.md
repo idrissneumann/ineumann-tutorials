@@ -42,6 +42,17 @@ Pour les projets maven, il suffit d'ajouter cette dépendance dans votre fichier
 
 ## Qu'est-ce qu'un dataset ?
 
+Un dataset est une couche d'abstraction sur ce que va contenir une base de données à un moment donné. À partir d'un dataset, il est possible :
+* de purger et charger le contenu partiel ou total d'une base
+* de compléter le contenu partiel ou total d'une base de données
+* d'exporter le contenu partiel ou total d'une base
+
+Il existe plusieurs types de dataset, les principaux sont :
+* les `FlatXmlDataSet` : ils permettent de charger ou d'exporter le contenu partiel ou total d'une base au format XML
+* les `ReplacementDataSet` : ils permettent de remplacer dynamiquement des valeurs au sein d'un dataset existant (un FlatXmlDataSet par exemple) avant de le charger en base
+
+## Comment ouvrir une connexion DBUnit ?
+
 Les connexions DBUnit se basent sur une connexion JDBC. Voici un exemple de connexion JDBC pour une base postgreSQL (en local) :
 
 ```java
@@ -78,3 +89,53 @@ dbUnitConnection.close();
 ---
 
 * 🇫🇷 [La FAQ JDBC](https://java.developpez.com/faq/jdbc/)
+
+## Comment charger une base à partir d'un FlatXmlDataSet ?
+
+Depuis la version 2.4.7, il est recommandé de construire son objet à partir d'un objet FlatXmlDataSetBuilder :
+
+```java
+import java.io.InputStream; 
+import org.dbunit.dataset.IDataSet; 
+import org.dbunit.dataset.xml.FlatXmlDataSet; 
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder; 
+import org.dbunit.operation.DatabaseOperation; 
+  
+FlatXmlDataSetBuilder xmlDSBuilder = new FlatXmlDataSetBuilder(); 
+  
+// on indique qu'on ne tiendra pas compte de la casse pour les noms de tables présents dans le XML 
+xmlDSBuilder.setCaseSensitiveTableNames(false);  
+  
+// L'objet inputStreamXML est un objet de type java.io.InputStream contenant le XML du dataset 
+// La méthode build va retourner un objet FlatXmlDataSet qui implémente l'interface IDataSet 
+IDataSet dataSet = xmlDSBuilder.build(inputStreamXML); 
+  
+// L'objet dbUnitConnection est une connexion dbUnit de type IDatabaseConnection 
+// Ici on indique qu'on exécutera une insertion en écrasant le contenu existant des tables présentes dans le dataset 
+DatabaseOperation.CLEAN_INSERT.execute(dbUnitConnection, dataSet);
+```
+
+La source inputStreamXML peut provenir d'un fichier XML :
+
+```java
+import java.io.InputStream; 
+import java.io.FileInputStream; 
+  
+InputStream inputStreamXML = new FileInputStream("chemin_vers_fichier.xml");
+```
+
+Ou bien même d'une chaîne de caractères contenant le dataset au format XML :
+
+```java
+import java.io.InputStream; 
+import java.io.ByteArrayInputStream; 
+  
+String strXML = "<dataset><table colonne=\"valeur\" /></dataset>"; 
+InputStream inputStreamXML = new ByteArrayInputStream(strXML.getBytes());
+```
+---
+
+* 🇫🇷 [Comment ouvrir une connexion DBUnit ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Comment-ouvrir-une-connexion-DBUnit)
+* 🇫🇷 [Quels sont les différents formats XML pour un FlatXmlDataSet ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quels-sont-les-differents-formats-XML-pour-un-FlatXmlDataSet)
+* 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quelles-sont-les-differentes-operations-pour-un-dataset)
+* 🇬🇧 [Avec Testing-toolbox-core](https://github.com/testing-toolbox/testing-toolbox-core/wiki/Getting-started#inserting-data-from-flat-xml-dataset)

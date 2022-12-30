@@ -8,7 +8,7 @@ La FAQ a été originellement et intégralement publiée par Idriss Neumann sur 
 
 * Publié le 22 mars 2014
 * Mis à jour le 31 décembre 2017
-* Licence: [![cc-by-nc-sa](../img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr)
+* Licence: [![cc-by-nc-sa](../../img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr)
 
 ## Chapitres
 
