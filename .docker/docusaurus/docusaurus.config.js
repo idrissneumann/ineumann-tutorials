@@ -147,7 +147,8 @@ const config = {
                 copyright: `Copyright © ${new Date().getFullYear()} Idriss Neumann.`,
             },
             prism: {
-                theme: theme
+                theme: theme,
+                additionalLanguages: ['java']
             },
         }),
 };

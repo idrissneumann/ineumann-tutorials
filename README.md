@@ -25,7 +25,7 @@ Les sources de ce sites sont sauvegardées sur les repo git suivant:
 
 # Java
 
-* [FAQ sur les tests en Java](./java/faq-tests.md)
+* [FAQ sur les tests en Java](./java/faq-tests/README.md)
 
 ### Bases de données
 

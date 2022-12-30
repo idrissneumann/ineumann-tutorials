@@ -139,3 +139,50 @@ InputStream inputStreamXML = new ByteArrayInputStream(strXML.getBytes());
 * 🇫🇷 [Quels sont les différents formats XML pour un FlatXmlDataSet ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quels-sont-les-differents-formats-XML-pour-un-FlatXmlDataSet)
 * 🇫🇷 [Quelles sont les différentes opérations pour un dataset ?](https://java.developpez.com/faq/tests?page=L-extension-DBUnit#Quelles-sont-les-differentes-operations-pour-un-dataset)
 * 🇬🇧 [Avec Testing-toolbox-core](https://github.com/testing-toolbox/testing-toolbox-core/wiki/Getting-started#inserting-data-from-flat-xml-dataset)
+
+## Quels sont les différents formats XML pour un FlatXmlDataSet ?
+
+Les deux formats XML possibles pour un FlatXmlDataSet sont les suivants :
+
+__Format 1__
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?> 
+<dataset> 
+  <nomTable1 nomColonne1Table1="valeur1" nomColonne2Table1="valeur2" /> 
+  <nomTable2 nomColonne1Table2="valeur3" nomColonne2Table2="valeur4" /> 
+</dataset>
+```
+
+Ce format est le plus simple et sans doute le plus répandu.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?> 
+<dataset> 
+  <table name="nomTable1"> 
+    <column>nomColonne1Table1</column> 
+    <column>nomColonne2Table1</column> 
+    <row> 
+      <value>valeur1</value> 
+      <value>valeur2</value> 
+    </row> 
+  </table> 
+  <table name="nomTable2"> 
+    <column>nomColonne1Table2</column> 
+    <column>nomColonne2Table2</column> 
+    <row> 
+      <value>valeur3</value> 
+      <value>valeur4</value> 
+    </row> 
+  </table> 
+</dataset>
+```
+
+Ces XML reviendraient à écrire les requêtes SQL suivantes :
+
+```sql
+INSERT INTO nomTable1 (nomColonne1Table1, nomColonne2Table1) VALUES ('valeur1', 'valeur2'); 
+INSERT INTO nomTable2 (nomColonne1Table2, nomColonne2Table2) VALUES ('valeur3', 'valeur4');
+```
+
+Autre avantage : ces datasets au format XML sont compatibles avec d'autres technologies et frameworks comme PHPUnit/DBUnit, par exemple.
