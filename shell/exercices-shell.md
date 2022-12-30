@@ -878,7 +878,7 @@ Quelques liens utiles permettant d'acquérir de bonnes bases :
 
 
 * [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/) ([traduction](http://abs.traduc.org/abs-fr/))
-* [Un cours complet sur la programmation Shell](https://frederic-lang.developpez.com/tutoriels/linux/prog-shell/)
+* [Un cours complet sur la programmation Shell](./prog-shell/README.md)
 * [Quelques bonnes pratiques dans l'écriture de scripts en Bash](./bash-bonnes-pratiques.md)
 * [Présentation et cours Korn Shell (compatible avec le Bash)](https://marcg.developpez.com/ksh/)
 * [La section « Le Shell » de la FAQ Linux](https://linux.developpez.com/faq/?page=Le-Shell)

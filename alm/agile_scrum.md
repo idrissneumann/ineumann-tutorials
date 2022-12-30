@@ -206,7 +206,7 @@ Il s'agit donc d'une plateforme qui sert à exécuter régulièrement (au moins 
 * exécuter l'ensemble des scénarios de tests bout en bout
 * lancer des compilations complètes du projet selon les technologies utilisées
 * générer des comptes rendus sur les tests en échec et en succès avec des courbes sur l'historique des tests en échec
-* générer des comptes rendus sur certaines métriques comme la couverture de code, les fonctions, variables, constantes inutilisées, le nombre cyclomatique, la taille des fonctions implémentées…
+* générer des comptes rendus sur certaines métriques comme la couverture de code, les fonctions, variables, constantes inutilisées, le nombre cyclomatique, la taille des fonctions implémentées...
 * lancer des alertes par e-mail en cas d'échec avec les dernières modifications impactant le bon fonctionnement de l'application
 * déployer les modules applicatifs sur différentes plateformes (assemblage, recette, préproduction, etc.)
 
@@ -255,9 +255,9 @@ Lors de cette phase, il faut se poser trois grandes questions.
 
 * __Qui ?__ Qui vont être les acteurs du système ?
 * __Quoi ?__ Que doit faire le système ? C'est la phase de spécifications fonctionnelles. C'est dans cette partie que l'on va retrouver toutes les règles de gestion métiers et les cas d'utilisation UML de l'application qui définissent ces spécifications fonctionnelles.
-* __Comment ?__ Comment ce système va satisfaire les besoins des utilisateurs. C'est à ce moment que l'on va définir l'architecture, la conception détaillée (diagrammes de classes, scénarios et diagrammes de séquences, modèles conceptuels de données…).
+* __Comment ?__ Comment ce système va satisfaire les besoins des utilisateurs. C'est à ce moment que l'on va définir l'architecture, la conception détaillée (diagrammes de classes, scénarios et diagrammes de séquences, modèles conceptuels de données...).
 
-Dans le cas de projets développés à l'aide des méthodes agiles, ces questions se posent à chaque itération qui embarque un lot important d'évolutions. Ces itérations passent systématiquement par une mise à jour des différentes documentations (règles de gestion…) qui doit être faite avant le codage.
+Dans le cas de projets développés à l'aide des méthodes agiles, ces questions se posent à chaque itération qui embarque un lot important d'évolutions. Ces itérations passent systématiquement par une mise à jour des différentes documentations (règles de gestion...) qui doit être faite avant le codage.
 
 ### Comparaison avec le cycle en V classique
 

@@ -2,7 +2,7 @@
 
 Ce cours recense un ensemble de rappels et bonnes pratiques à privilégier dans l'écriture de scripts shell généralement implémentés en Bash. Il a été rédigé à partir d'erreurs couramment rencontrées au travail ou encore sur différents forums.
 
-Ce cours n'a pas pour vocation à reprendre les bases de la programmation de scripts shell et nécessite d'avoir quelques notions. Si ce n'est pas votre cas, nous vous recommandons fortement de lire [ce cours](https://frederic-lang.developpez.com/tutoriels/linux/prog-shell/) au préalable.
+Ce cours n'a pas pour vocation à reprendre les bases de la programmation de scripts shell et nécessite d'avoir quelques notions. Si ce n'est pas votre cas, nous vous recommandons fortement de lire [ce cours](./prog-shell/README.md) au préalable.
 
 ## Informations sur l'article
 
@@ -355,7 +355,7 @@ Bien que cette syntaxe ne pose pas de problèmes à l'exécution, d'autres solut
 
 Dans la plupart des cas, les `ls` présents dans les scripts sont superflus aussi bien pour parcourir une liste de fichiers que pour récupérer des informations sur des fichiers.
 
-En effet, il est possible de s'abstraire de cette commande en privilégiant l'utilisation du métacaractère `*` (wildcard) lorsqu'il s'agit de parcourir une liste de fichiers et de la commande « stat » lorsqu'il s'agit de récupérer des informations sur un fichier comme les droits, la taille en mémoire, l'utilisateur propriétaire…
+En effet, il est possible de s'abstraire de cette commande en privilégiant l'utilisation du métacaractère `*` (wildcard) lorsqu'il s'agit de parcourir une liste de fichiers et de la commande « stat » lorsqu'il s'agit de récupérer des informations sur un fichier comme les droits, la taille en mémoire, l'utilisateur propriétaire...
 
 Exemple pour récupérer les droits sur un fichier `file` :
 
@@ -460,7 +460,7 @@ isInt "12345" # écrira "OK"
 isInt "chaine" # écrira "KO
 ```
 
-Bien entendu, à ne pas faire si le script doit être portable et également tourner sur d'autres plateformes Unix non GNU (AIX, Solaris, BSD…).
+Bien entendu, à ne pas faire si le script doit être portable et également tourner sur d'autres plateformes Unix non GNU (AIX, Solaris, BSD...).
 
 Par ailleurs, cet exemple aurait également pu être écrit de la façon suivante :
 
@@ -607,7 +607,7 @@ done
 Voici quelques liens qui vous permettront d'approfondir vos connaissances dans la programmation Shell ou encore de vous entraîner :
 
 * [Advanced Bash-Scripting Guide](http://tldp.org/LDP/abs/html/) ([traduction](http://abs.traduc.org/abs-fr/))
-* [Un cours complet sur la programmation Shell](https://frederic-lang.developpez.com/tutoriels/linux/prog-shell/)
+* [Un cours complet sur la programmation Shell](./prog-shell/README.md)
 * [Une liste d'exercices corrigés pour débuter](./exercices-shell.md)
 * [Présentation et cours Korn Shell (compatible avec le Bash)](https://marcg.developpez.com/ksh/)
 * [La section « Le Shell » de la FAQ Linux](https://linux.developpez.com/faq/?page=Le-Shell)
