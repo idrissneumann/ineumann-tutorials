@@ -282,9 +282,9 @@ Une relation possède un nom qui correspond en général à celui de l'entité o
 
 Voici un premier exemple de relation (issue de l'entité « Edition » de notre précédent MCD) :
 
-**Edition** (***id_ed***, nom_ed)
+**Edition** (***id_ed***, nom_ed)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 
@@ -297,10 +297,10 @@ Il existe un autre type de clef appelé __clef étrangère__. La clef étrangèr
 
 Complétons notre premier exemple avec une autre relation où apparaît une clef étrangère :
 
-**Edition** (***id_ed***, nom_ed)
-**Exemplaire** (***ref_e***, *id_ed*#)
+**Edition** (***id_ed***, nom_ed)  
+**Exemplaire** (***ref_e***, *id_ed*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x** : clef primaire  
 *x*# : clef étrangère  
@@ -332,9 +332,9 @@ Les cardinalités plus restrictives (comme `2,3`, `1,7`...) seront perçues comm
 
 Voici un exemple de relation associative issu de l'association « rédiger » de notre MCD :
 
-**Rediger** (***id_a#, id_l#***)
+**Rediger** (***id_a#, id_l#***)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -345,9 +345,9 @@ Dans le cas d'associations porteuses de données, les données portées devienne
 
 L'association « rédiger » devrait maintenant être traduite comme ceci :
 
-**Rediger** (***id_a#, id_l#***, nb_chapitres)
+**Rediger** (***id_a#, id_l#***, nb_chapitres)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -358,10 +358,10 @@ Plusieurs possibilités s'offrent à nous pour ce cas de figure. La règle de co
 
 Prenons un exemple issu de l'association « être originaire de » et des entités « Auteur » et « Pays » :
 
-**Pays** (***nom_p***)
-**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)
+**Pays** (***nom_p***)  
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -377,11 +377,11 @@ Une autre solution (moins répandue) consiste à créer une relation associative
 
 Si on reprend le même exemple, voici ce que l'on devrait obtenir :
 
-**Pays** (***nom_p***)
-**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)
-**EtreOriginaireDe** (***id_a#, nom_p#***)
+**Pays** (***nom_p***)  
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)  
+**EtreOriginaireDe** (***id_a#, nom_p#***)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -411,10 +411,10 @@ id_l -> id_cat
 
 Dans ce cas, il apparaît logique de traduire le MCD de cette façon (première méthode) :
 
-**Categorie** (***id_cat***, libelle_cat)
-**Livre** (***id_l***, titre_l, annee_l, resume_l, *id_cat*#)
+**Categorie** (***id_cat***, libelle_cat)  
+**Livre** (***id_l***, titre_l, annee_l, resume_l, *id_cat*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -423,11 +423,11 @@ Cependant même si les SGBD le permettent (avec la valeur `NULL` par défaut), i
 
 C'est pourquoi d'autres pensent (avec raison) qu'il vaut mieux créer une relation associative de cette manière (seconde méthode) :
 
-**Categorie** (***id_cat***, libelle_cat)
-**Livre** (***id_l***, titre_l, annee_l, resume_l)
-**Appartenir** (***id_l#, id_cat#***)
+**Categorie** (***id_cat***, libelle_cat)  
+**Livre** (***id_l***, titre_l, annee_l, resume_l)  
+**Appartenir** (***id_l#, id_cat#***)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -440,17 +440,17 @@ Enfin, dans le cas où une association binaire possède à la fois une cardinali
 
 Avec ces différentes règles de conversion, il nous est déjà possible de convertir notre MCD au complet :
 
-**Pays** (***id_p***, nom_p)
-**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *id_p*#)
-**TypeLivre** (***id_t***, libelle_t)
-**Livre** (***id_l***, titre_l, annee_l, resume_l, id_t#)
-**Rediger** (***id_a#, id_l#***)
-**Edition** (***id_ed***, nom_ed)
-**Exemplaire** (***ref_e***, *id_ed*#, *id_l*#)
-**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
-**Emprunt** (***id_em***, date_em, delais_em, *id_i*#, *ref_e*#)
+**Pays** (***id_p***, nom_p)  
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *id_p*#)  
+**TypeLivre** (***id_t***, libelle_t)  
+**Livre** (***id_l***, titre_l, annee_l, resume_l, id_t#)  
+**Rediger** (***id_a#, id_l#***)  
+**Edition** (***id_ed***, nom_ed)  
+**Exemplaire** (***ref_e***, *id_ed*#, *id_l*#)  
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)  
+**Emprunt** (***id_em***, date_em, delais_em, *id_i*#, *ref_e*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -531,7 +531,7 @@ CREATE TABLE Inscrit (
   tel_i VARCHAR(15), 
   tel_portable_i VARCHAR(15) ,
   email_i VARCHAR(100),
-  PRIMARY KEY (id_i)
+  PRIMARY KEY (id_i)  
 ); 
 
 CREATE TABLE Emprunt ( 
@@ -599,10 +599,10 @@ Il est possible de relier une entité à elle-même par une association, on parl
 
 Dans ce cas, c'est la même. Il faudra cependant différencier les noms des clefs étrangères de la table associative correspondantes tout en référençant la même clef primaire :
 
-**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
-**EtreMarie** (***id_epoux#, id_epouse#***, date_mariage_i)
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)  
+**EtreMarie** (***id_epoux#, id_epouse#***, date_mariage_i)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -647,11 +647,11 @@ La date de rencontre ne doit pas être une simple donnée portée par l'associat
 
 Le fait de créer une relation __Date__ aurait pour incidence de créer de la redondance inutile, c'est pourquoi, il est recommandé dans ce cas de figure, de passer au niveau logique de cette façon :
 
-**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
-**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)
-**Rencontrer** (***id_a#, id_i#***, date_rencontre)
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)  
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)  
+**Rencontrer** (***id_a#, id_i#***, date_rencontre)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -674,12 +674,12 @@ Voici comment on pourrait schématiser ces règles de gestion au niveau conceptu
 
 Les parenthèses autour des cardinalités signifient que les entités du côté de ces cardinalités seront identifiées par la concaténation de leurs identifiants (qui ne suffisent pas à les identifier de manière unique) avec l'identifiant de l'entité opposée. Ainsi on obtient au niveau relationnel :
 
-**Rue** (***code_rue***, nom_rue)
-**Immeuble** (***num_immeuble, code_rue#***, nb_etages_total)
-**Etage** (***num_etage, num_immeuble#, code_rue#***, nb_appartements_tot)
-**Appartement** (***lettre_appartement, num_etage#, num_immeuble#, code_rue#***, nb_pieces_total)
+**Rue** (***code_rue***, nom_rue)  
+**Immeuble** (***num_immeuble, code_rue#***, nb_etages_total)  
+**Etage** (***num_etage, num_immeuble#, code_rue#***, nb_appartements_tot)  
+**Appartement** (***lettre_appartement, num_etage#, num_immeuble#, code_rue#***, nb_pieces_total)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -720,11 +720,11 @@ Il s'agit d'une combinaison des deux héritages précédents : toutes les occurr
 
 De façon générale, l'héritage peut être implanté au niveau relationnel en utilisant une clef étrangère vers la relation mère, comme clef primaire pour les relations filles. Reprenons notre exemple précédent :
 
-**Personne** (***id_p***, nom_p, prenom_p, date_naissance_p)
-**Inscrit** (***id_p#***, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
-**Auteur** (***id_p#***)
+**Personne** (***id_p***, nom_p, prenom_p, date_naissance_p)  
+**Inscrit** (***id_p#***, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)  
+**Auteur** (***id_p#***)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -735,10 +735,10 @@ Aujourd'hui, la plupart des SGBDR performants sont capables de gérer eux-mêmes
 
 Par ailleurs, certains font parfois abstraction de la relation mère dans le cas d'un héritage par partition, et se contentent de créer les relations filles comme relations distinctes ne partageant pas de données communes. Exemple :
 
-**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)
-**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
+**Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a)  
+**Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -815,9 +815,9 @@ id_a, vdate -> id_l
 
 Ainsi, l'association « presenter » serait implantée comme ceci au niveau relationnel :
 
-**Presenter** (***id_a#, vdate***, *id_l*#)
+**Presenter** (***id_a#, vdate***, *id_l*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
@@ -840,12 +840,12 @@ Cette DF pourrait très bien faire l'objet d'une CIF au niveau conceptuel, où b
 
 Voici comment cela se traduirait au niveau relationnel :
 
-**Librairie** (***id_lib***, rue_lib, ville_l, cp_l)
-**Livre** (***ref_l***, titre_l, resume_l)
-**Client** (***id_c***, nom_c, prenom_c)
-**ProposerEnVente** (***id_lib#, ref_l#***, *id_c*#)
+**Librairie** (***id_lib***, rue_lib, ville_l, cp_l)  
+**Livre** (***ref_l***, titre_l, resume_l)  
+**Client** (***id_c***, nom_c, prenom_c)  
+**ProposerEnVente** (***id_lib#, ref_l#***, *id_c*#)  
 
-__Légende :__
+__Légende :__  
 **x** : relation  
 ***x*** : clef primaire  
 *x*# : clef étrangère  
