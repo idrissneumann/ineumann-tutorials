@@ -519,3 +519,150 @@ MockitoAnnotations.initMocks(this);
 
 * 🇫🇷 Comment faire des assertions poussées sur les paramètres d'une méthode avec les ArgumentCaptor ?
 * 🇫🇷 Qu'est-ce qu'un « spy » (espion) ?
+
+## Comment faire des assertions poussées sur les paramètres d'une méthode avec les ArgumentCaptor ?
+
+__Syntaxe générale :__
+
+```java
+import org.mockito.ArgumentCaptor; 
+import static org.mockito.Mockito.*; 
+import static org.mockito.Matchers.*; 
+  
+ArgumentCaptor<ObjetParametreAVerifier> captor = ArgumentCaptor.forClass(ObjetParametreAVerifier.class); 
+verify(ObjetMock).methodeAVerifier(eq(valeur), captor.capture()); 
+  
+ObjetParametreAVerifier objetAVerifier = captor.getValue(); 
+// assertions sur les méthodes de objetAVerifier
+```
+
+__Exemple :__
+
+Reprenons la classe de test `ProgrammeVoitureTest` de [cette question](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito#comment-cr%C3%A9er-un-mock-avec-mockito-) et complétons-le :
+
+```java
+import org.junit.Before;   
+import org.junit.Test; 
+import static org.mockito.Mockito.*;  
+import static org.mockito.Matchers.*; 
+import org.mockito.ArgumentCaptor; 
+  
+/**  
+ * Class ProgrammeVoitureTest  
+ * Tests unitaires de la classe ProgrammeVoiture  
+ * @author ok.Idriss  
+ */  
+public class ProgrammeVoitureTest(){  
+  private ProgrammeVoiture programme;  
+  private IPersistanceModeleVoiture persistanceMock;  
+  
+  /**  
+   * Création du mock de la persistance et injection dans l'instance de la classe à tester  
+   * @throws Exception  
+   */  
+  @Before   
+  public void setUp() throws Exception {   
+    programme = new ProgrammeVoiture();  
+  
+    // Création du mock  
+    persistanceMock = mock(IPersistanceModeleVoiture.class);  
+  
+    // Injection du mock en lieu et place d'une réelle implémentation de IPersistanceModeleVoiture  
+    programme.setPersistance(persistanceMock);  
+  }  
+  
+  @Test 
+  public final void testEnregisterModeleVoiture_Creation(){ 
+    // Captor 
+    ArgumentCaptor<ModeleVoiture> captor = ArgumentCaptor.forClass(ModeleVoiture .class);  
+  
+  	// Instance sans id 
+  	ModeleVoiture modele = new ModeleVoiture(); 
+  	modele.setLibelle("libelle test"); 
+  
+  	programme.enregisterModeleVoiture(modele); 
+  
+  	// assertions 
+  	verify(persistanceMock).addModeleVoiture(captor); 
+    assertEquals("libelle test", captor.getValue().getLibelle()); 
+  } 
+  
+  @Test 
+  public final void testEnregisterModeleVoiture_Modification(){ 
+    // Captor 
+    ArgumentCaptor<ModeleVoiture> captor = ArgumentCaptor.forClass(ModeleVoiture .class);  
+  
+  	// Instance avec id 
+  	ModeleVoiture modele = new ModeleVoiture(); 
+  	modele.setLibelle("libelle test"); 
+  	modele.setId(1L); 
+  
+  	programme.enregisterModeleVoiture(modele); 
+  
+  	// assertions 
+  	verify(persistanceMock).updateModeleVoiture(captor); 
+    assertEquals("libelle test", captor.getValue().getLibelle()); 
+  } 
+}
+```
+
+Pour créer un captor sur un paramètre de type `List<?>`, il faut privilégier l'utilisation des annotations :
+
+```java
+@Captor 
+ArgumentCaptor<List<String>> captor;
+```
+
+Voir [Comment utiliser les annotations avec Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito/#comment-utiliser-les-annotations-avec-mockito-) pour en savoir plus.
+
+---
+
+* 🇫🇷 [Comment faire une assertion sur l'appel d'une méthode avec Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito/#comment-faire-une-assertion-sur-lappel-dune-m%C3%A9thode-avec-mockito-)
+* 🇫🇷 [Comment utiliser les annotations avec Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito/#comment-utiliser-les-annotations-avec-mockito-)
+
+## Qu'est-ce qu'un « spy » (espion) ?
+
+À l'instar des mocks, on peut de la même façon prédire le résultat d'une méthode d'un spy et faire des assertions sur les appels des méthodes de l'objet « espionné ».
+
+La différence majeure entre le spy et le mock est que le spy se comporte par défaut comme l'objet réel si on ne prédit pas son comportement tandis que le mock lui ne fait rien. On sort donc un peu du cadre des objets simulacres.
+
+Pour déclarer un Spy :
+
+```java
+import static org.mockito.Mockito.*;  
+  
+ObjetSpy spy = spy(ObjetSpy.class);
+```
+
+Il est également possible de remplacer cette instruction par l'annotation `@Spy`.
+
+Il suffit ensuite de prédire les méthodes pour lesquelles on souhaite modifier le comportement avec `when` et de faire des assertions avec `verify` à l'instar d'un mock.
+
+---
+
+* 🇫🇷 [Qu'est-ce qu'un mock ? Quelle est la différence entre un bouchon et un mock ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/generalites#quest-ce-quun-mock--quelle-est-la-diff%C3%A9rence-entre-un-bouchon-et-un-mock-)
+* 🇫🇷 [Comment prédire le résultat d'une méthode via Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito#comment-pr%C3%A9dire-le-r%C3%A9sultat-dune-m%C3%A9thode-via-mockito-)
+* 🇫🇷 [Comment faire une assertion sur l'appel d'une méthode avec Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito/#comment-faire-une-assertion-sur-lappel-dune-m%C3%A9thode-avec-mockito-)
+* 🇫🇷 [Comment utiliser les annotations avec Mockito ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/mockito/#comment-utiliser-les-annotations-avec-mockito-)
+
+## Comment simplifier l'injection de dépendances avec des mocks avec l'annotation @InjectMocks ?
+
+Outre la méthode de passer par les setters de la classe qu'on veut tester comme montré dans les exemples précédents, il est possible d'utiliser l'annotation `@InjectMocks` de la façon suivante :
+
+```java
+@RunWith(MockitoJUnitRunner.class)  
+public class MyControllerTest {  
+  @Mock  
+  MyService serviceMock;  
+  
+  // Injection de dépendances : la classe MyController qui a un attribut de type « MyService » va être instanciée automatiquement avec comme instance de « MyService » le mock au-dessus 
+   @InjectMocks 
+   @Spy // on peut aussi déclarer le controller comme Spy pour faire des asserts dessus 
+   MyController controller;   
+   // ... 
+}
+```
+
+---
+
+* 🇫🇷 [Qu'est-ce que l'injection de dépendances ?](https://www.ineumann.fr/docs/java/faq-tests/mocks/generalites#quest-ce-que-linjection-de-d%C3%A9pendances-)
