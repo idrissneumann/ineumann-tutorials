@@ -110,7 +110,58 @@ On peut utiliser des séquenceurs spéciaux pour modifier la manière dont le Sh
 ### Uniquement en Bourne Again Shell (et shells descendants)
 
 * `${!var}` : utilise le contenu de la variable `var` comme un nom de variable et renvoie le contenu de cette dernière (permet donc de simuler un pointeur)
-* `${var:x:y}` : renvoie les « y » caractères de la variable « var » à partir du caractère n° « x » (attention, le premier caractère d'une variable porte le n°`0`). Si la variable est un tableau, renvoie alors les `y` éléments du tableau `var` à partir de l'élément n°`x`
+* `${var:x:y}` : renvoie les `y` caractères de la variable `var` à partir du caractère n°`x` (attention, le premier caractère d'une variable porte le n°`0`). Si la variable est un tableau, renvoie alors les `y` éléments du tableau `var` à partir de l'élément n°`x`
 * `${var:x}` : renvoie la fin de la variable `var` à partir du caractère n°`x` (attention, le premier caractère d'une variable porte le n°`0`). Si la variable est un tableau, renvoie alors les derniers éléments du tableau « var » à partir de l'élément n°`x`
 * `${var/texte1/texte2}` : renvoie le contenu de `var`, mais en lui remplaçant la première occurrence de la chaîne `texte1` par la chaîne `texte2`
 * `${var//texte1/texte2}` : renvoie le contenu de `var`, mais en lui remplaçant chaque occurrence de la chaîne `texte1` par la chaîne `texte2`
+
+### Remarque
+
+L'imbrication de séquenceurs est possible. Ainsi, la syntaxe `${var1:-${var2:-texte}}` renvoie le contenu de la variable `var1` si celle-ci est définie et non nulle ; sinon, renvoie le contenu de la variable `var2` si celle-ci est définie et non nulle ; sinon renvoie le texte `texte`.
+
+## La saisie en interactif
+
+__Syntaxe__
+
+```shell
+read [var1 var2 ?]
+```
+
+Cette action est nécessaire lorsque le programmeur désire demander une information ponctuelle à celui qui utilise le programme. À l'exécution de la commande, le programme attendra du fichier standard d'entrée (cf. _Gestion des processus_) une chaîne terminée par la touche « _Entrée_ » ou « _fin de ligne_ ».
+
+Une fois la saisie validée, chaque mot (séparé par un « _espace_ ») sera stocké dans chaque variable (`var1`, `var2`...). En cas d'excédent, celui-ci sera stocké dans la dernière variable. En cas de manque, les variables non remplies seront automatiquement définies, mais vides.
+
+Si aucune variable n'est demandée, la chaîne saisie sera stockée dans la variable interne `$REPLY` (uniquement en Korn Shell, Bourne Again Shell et shells descendants).
+
+__Syntaxe__
+
+```shell
+read -a tableau # Korn Shell et Bourne Again Shell (et shells descendants)
+```
+
+Le Korn Shell et le Bourne Again Shell (et les shells descendants) permettent d'affecter automatiquement chaque mot en provenance du fichier standard d'entrée (cf. _Gestion des processus_) dans les éléments d'un tableau. Le premier mot ira dans le tableau d'indice `0`, le second dans le tableau d'indice `1`... Cette syntaxe remplace tout le tableau par les seules chaînes provenant de l'entrée standard. L'ancien éventuel contenu disparaît alors pour être remplacé par le nouveau.
+
+## La protection
+
+__Syntaxe__
+
+```shell
+readonly var1 [var2 ?] 
+readonly
+```
+
+Cette commande, lorsqu'elle est employée sur une variable, la verrouille contre toute modification et/ou suppression, volontaire ou accidentelle. Une fois verrouillée, la variable ne disparaîtra qu'à la mort du processus qui l'utilise (cf. _Gestion des processus_).
+
+Employée sans argument, l'instruction `readonly` donne la liste de toutes les variables protégées.
+
+## La suppression
+
+__Syntaxe__
+
+```shell
+unset var1 [var2 ?]
+```
+
+Cette instruction supprime la variable sur laquelle elle est appliquée à condition que cette dernière n'ait pas été protégée par l'instruction `readonly`.
+
+Le mot « _suppression_ » rend la variable à l'état de « _non défini_ » ou « _non existant_ ». Il y a libération de l'espace mémoire affecté à la variable ciblée. Il ne faut donc pas confondre « _variable supprimée_ » et « _variable vide_ ».
