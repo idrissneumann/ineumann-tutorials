@@ -285,8 +285,8 @@ Voici un premier exemple de relation (issue de l'entité « Edition » de notre 
 **Edition** (***id_ed***, nom_ed)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
+**x** : relation  
+***x*** : clef primaire  
 
 __Remarques__
 
@@ -301,9 +301,9 @@ Complétons notre premier exemple avec une autre relation où apparaît une clef
 **Exemplaire** (***ref_e***, *id_ed*#)
 
 __Légende :__
-**x** : relation
-***x** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x** : clef primaire  
+*x*# : clef étrangère  
 
 __Remarques__
 
@@ -335,9 +335,9 @@ Voici un exemple de relation associative issu de l'association « rédiger » de
 **Rediger** (***id_a#, id_l#***)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Dans le cas d'associations porteuses de données, les données portées deviennent des attributs de la relation correspondante. Si l'on reprend cet exemple :
 
@@ -348,9 +348,9 @@ L'association « rédiger » devrait maintenant être traduite comme ceci :
 **Rediger** (***id_a#, id_l#***, nb_chapitres)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 ##### Règle 3 - conversion des associations ayant au moins une cardinalité de type `1,1`
 
@@ -362,9 +362,9 @@ Prenons un exemple issu de l'association « être originaire de » et des entit�
 **Auteur** (***id_a***, nom_a, prenom_a, date_naissance_a, *nom_p*#)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Lorsque l'on applique cette règle de conversion, deux restrictions s'imposent :
 
@@ -382,9 +382,9 @@ Si on reprend le même exemple, voici ce que l'on devrait obtenir :
 **EtreOriginaireDe** (***id_a#, nom_p#***)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Dans ce cas, l'association peut être porteuse de données. Ces dernières deviendront donc des attributs de la relation associative comme dans le cas des cardinalités `0,1/N`.
 
@@ -415,9 +415,9 @@ Dans ce cas, il apparaît logique de traduire le MCD de cette façon (première 
 **Livre** (***id_l***, titre_l, annee_l, resume_l, *id_cat*#)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Cependant même si les SGBD le permettent (avec la valeur `NULL` par défaut), il n'est normalement pas permis d'avoir une clef étrangère sans valeur pour laquelle on retrouverait l'occurrence dans la relation sur laquelle on fait référence.
 
@@ -428,9 +428,9 @@ C'est pourquoi d'autres pensent (avec raison) qu'il vaut mieux créer une relati
 **Appartenir** (***id_l#, id_cat#***)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 La pertinence de l'une ou l'autre méthode varie en fonction du nombre d'occurrences caractérisées par la cardinalité 0 ou la cardinalité 1. En effet, lorsque les occurrences avec la cardinalité 1 sont plus nombreuses que les occurrences avec la cardinalité 0, la première méthode est préférable. Dans le cas contraire, c'est la seconde méthode qui est la plus adaptée.
 
@@ -451,9 +451,9 @@ Avec ces différentes règles de conversion, il nous est déjà possible de conv
 **Emprunt** (***id_em***, date_em, delais_em, *id_i*#, *ref_e*#)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Comme vous pouvez le constater, le schéma de la base est déjà fait. Les règles de passage au SQL sont assez simples :
 
@@ -603,9 +603,9 @@ Dans ce cas, c'est la même. Il faudra cependant différencier les noms des clef
 **EtreMarie** (***id_epoux#, id_epouse#***, date_mariage_i)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 On aurait pu choisir des cardinalités `1,1` et mettre la date de mariage comme donnée de l'entité Inscrit. Ce modèle permet tout de même de mettre la date de mariage en commun avec deux inscrits (ce qui est plus juste au niveau des dépendances fonctionnelles). Si l'on souhaite limiter le nombre de mariages à 1 pour une personne, il suffira de mettre en place un traitement qui vérifiera le nombre d'occurrences pour un inscrit dans la relation EtreMarie.
 
@@ -652,9 +652,9 @@ Le fait de créer une relation __Date__ aurait pour incidence de créer de la re
 **Rencontrer** (***id_a#, id_i#***, date_rencontre)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 ## Les extensions apportées par MERISE II
 
@@ -680,9 +680,9 @@ Les parenthèses autour des cardinalités signifient que les entités du côté 
 **Appartement** (***lettre_appartement, num_etage#, num_immeuble#, code_rue#***, nb_pieces_total)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 ### L'héritage et ses limites
 
@@ -725,9 +725,9 @@ De façon générale, l'héritage peut être implanté au niveau relationnel en 
 **Auteur** (***id_p#***)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Ainsi pour satisfaire les contraintes de totalité, d'exclusion ou de partition il faudra mettre en place des traitements supplémentaires au niveau de la base de préférence (triggers, procédures stockées).
 
@@ -739,9 +739,9 @@ Par ailleurs, certains font parfois abstraction de la relation mère dans le cas
 **Inscrit** (***id_i***, nom_i, prenom_i, date_naissance_i, rue_i, ville_i, cp_i, email_i, tel_i, tel_portable_i)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 Cette solution est également acceptable, mais peut nous amener à nous interroger sur la pertinence de l'héritage étant donné que ce dernier n'est pas implanté au niveau relationnel. Cependant, la contrainte de partition reste une règle de gestion à satisfaire d'où l'importance de la modélisation de celle-ci au niveau conceptuel.
 
@@ -818,9 +818,9 @@ Ainsi, l'association « presenter » serait implantée comme ceci au niveau rela
 **Presenter** (***id_a#, vdate***, *id_l*#)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 L'identifiant du livre ne fait donc plus partie de la clef primaire afin de garder une dépendance fonctionnelle directe et élémentaire.
 
@@ -833,7 +833,7 @@ La règle de gestion serait ici implantée par la dépendance fonctionnelle suiv
 ```
 id_lib, ref_l -> id_c
 ```
-
+***x*** : clef primaire  
 Cette DF pourrait très bien faire l'objet d'une CIF au niveau conceptuel, où bien être représentée sous cette forme :
 
 ![aggreg](./../img/merise/aggreg.jpeg)
@@ -846,9 +846,9 @@ Voici comment cela se traduirait au niveau relationnel :
 **ProposerEnVente** (***id_lib#, ref_l#***, *id_c*#)
 
 __Légende :__
-**x** : relation
-***x*** : clef primaire
-*x*# : clef étrangère
+**x** : relation  
+***x*** : clef primaire  
+*x*# : clef étrangère  
 
 On retrouve bien la même implantation au niveau relationnel que l'on aurait eu pour une CIF.
 
