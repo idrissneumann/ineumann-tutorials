@@ -175,3 +175,34 @@ Une DF doit être :
 __Conclusion__
 
 Les DF qui existent entre les données sont parfois évidentes et ne nécessitent pas toujours une modélisation, mais celle-ci peut s'avérer utile, car elle permet, entre autres, de distinguer les futures entités du MCD et leurs identifiants.
+
+### Le Modèle Conceptuel de Données (MCD)
+
+#### Les entités
+
+Chaque entité est unique et est décrite par un ensemble de propriétés encore appelées attributs ou caractéristiques. Une des propriétés de l'entité est l'identifiant. Cette propriété doit posséder des occurrences uniques et doit être source des dépendances fonctionnelles avec toutes les autres propriétés de l'entité. Bien souvent, on utilise une donnée de type entier qui s'incrémente pour chaque occurrence, ou encore un code unique spécifique du contexte.
+
+Le formalisme d'une entité est le suivant :
+
+![entite](./../img/merise/entite.png)
+
+Ainsi, si on reprend notre dictionnaire de données précédent, on schématise par exemple une entité «Auteur» comme ceci :
+
+![entite_auteur](./../img/merise/entite_auteur.png)
+
+À partir de cette entité, on peut retrouver la règle de gestion suivante : un auteur est identifié par un numéro unique (id_a) et est caractérisé par un nom, un prénom et une date de naissance.
+
+Une entité peut n'avoir aucune, une ou plusieurs occurrences. Pour illustrer ce terme d'« occurrence » qui a déjà été utilisé plusieurs fois, voici un exemple de __table d'occurrences__ de l'entité __Auteur__ :
+
+|id_a|nom_a        |prenom_a|date_naissance_a|
+|----|-------------|--------|----------------|
+|1   |Hugo         |Victor  |1802-02-26      |
+|2   |Rimbaud      |Arthur  |1854-10-20      |
+|3   |de Maupassant|Guy     |1850-08-05      |
+
+Cette table est composée de trois occurrences de l'entité __Auteur__.
+
+__Remarques__
+
+* Les occurrences sont parfois appelées __tuples__. Par ailleurs, la table d'occurrences peut être comparée à l'instance d'une relation (implantation relationnelle d'une entité ou association) à un moment donné. Nous reviendrons sur cette notion de relation dans la partie III
+* Au niveau conceptuel, on devrait plutôt parler d'__entités-types__, les entités étant en fait des instances d'entités-types. Par souci de simplicité, on gardera les termes d'entités et associations tout au long du cours
