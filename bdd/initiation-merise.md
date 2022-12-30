@@ -68,7 +68,7 @@ Ces règles vous sont parfois données, mais vous pouvez être amené à les ét
 * vous êtes à la fois maîtrise d'œuvre (MOE) et maîtrise d'ouvrage (MOA), et vous développez une application pour votre compte et/ou selon vos propres directives
 * __ce qui arrive le plus souvent__ : les futurs utilisateurs de votre projet n'ont pas été en mesure de vous fournir ces règles avec suffisamment de précision ; c'est pourquoi vous devrez les interroger afin d'établir vous-même ces règles. N'oubliez jamais qu'en tant que développeur, vous avez un devoir d'assistance à maîtrise d'ouvrage si cela s'avère nécessaire.
 
-## Le dictionnaire des données
+### Le dictionnaire des données
 
 C'est une étape intermédiaire qui peut avoir son importance, surtout si vous êtes plusieurs à travailler sur une même base de données, d'un volume important.
 
@@ -87,4 +87,91 @@ le type de donnée :
 
 Reprenons l'exemple de notre bibliothèque et du système de gestion des emprunts que nous sommes chargés d'informatiser. Après l'étude des règles de gestion, nous pouvons établir le dictionnaire des données suivant :
 
-_Rédaction en cours_
+|Code mnémonique |Désignation                                 |Type|Taille|Remarque                                                       |
+|----------------|--------------------------------------------|----|------|---------------------------------------------------------------|
+|id_i            |Identifiant numérique d'un inscrit          |N   |      |                                                               |
+|nom_i           |Nom d'un inscrit                            |A   |30    |                                                               |
+|prenom_i        |Prénom d'un inscrit                         |A   |30    |                                                               |
+|rue_i           |Rue où habite un inscrit                    |AN  |50    |                                                               |
+|ville_i         |Ville où habite un inscrit                  |A   |50    |                                                               |
+|cp_i            |Code postal d'un inscrit                    |AN  |5     |                                                               |
+|tel_i           |Numéro de téléphone fixe d'un inscrit       |AN  |15    |                                                               |
+|tel_port_i      |Numéro de téléphone portable d'un inscrit   |AN  |15    |                                                               |
+|email_i         |Adresse e-mail d'un inscrit                 |AN  |100   |                                                               |
+|date_naissance_i|Date de naissance d'un inscrit              |Date|10    |Au format AAAA-JJ-MM                                           |
+|id_l            |Identifiant numérique d'un livre            |N   |      |                                                               |
+|titre_l         |Titre d'un livre                            |AN  |50    |                                                               |
+|annee_l         |Année de parution d'un livre                |N   |4     |                                                               |
+|resume_l        |Résumé d'un livre                           |AN  |1000  |                                                               |
+|ref_e           |Code de référence d'un exemplaire d'un livre|AN  |15    |Cette référence servira également d'identifiant dans ce système|
+|id_t            |Identifiant numérique d'un type de livre    |N   |      |                                                               |
+|libelle_t       |Libellé d'un type de livre                  |AN  |30    |                                                               |
+|id_ed           |Identifiant numérique d'une édition de livre|N   |6     |                                                               |
+|nom_ed          |Nom d'une édition de livre                  |AN  |30    |                                                               |
+|id_a            |Identifiant numérique d'un auteur           |N   |      |                                                               |
+|nom_a           |Nom d'un auteur                             |A   |30    |                                                               |
+|prenom_a        |Prénom d'un auteur                          |A   |30    |                                                               |
+|date_naissance_a|Date de naissance d'un auteur               |Date|      |Au format AAAA-JJ-MM                                           |
+|id_p            |Identifiant numérique d'un pays             |N   |      |                                                               |
+|nom_p           |Nom d'un pays                               |A   |50    |                                                               |
+|id_em           |Identifiant numérique d'un emprunt          |N   |      |                                                               |
+|date_em         |Date de l'emprunt                           |Date|      |Au format AAAA-JJ-MM                                           |
+|delais_em       |Délai autorisé lors de l'emprunt du livre   |N   |3     |S'exprime en nombre de jours                                   |
+
+__Remarques__
+
+* Les données qui figurent dans le MCD (et donc dans le dictionnaire des données) doivent être, dans la plupart des cas, __élémentaires__ :
+  * elles ne doivent pas être __calculées__ : les données calculées doivent être obtenues, par le calcul, à partir de données élémentaires qui, elles, sont conservées en base. Cependant, il existe quelques cas où il s'avère pertinent de conserver, pour des raisons d'optimisation, une donnée calculée, le montant d'une commande par exemple. On ne conservera cependant pas les données calculées intermédiaires sauf en cas d'obligation légale (c'est le cas pour un montant HT par exemple, où les composantes peuvent d'ailleurs avoir un prix variable dans le temps). En effet, cela évite de refaire les calculs plusieurs fois pour un résultat qui restera fixe ;
+  * elles ne doivent pas être __composées__ : les données composées doivent être obtenues par la concaténation de données élémentaires conservées en base. Par exemple une adresse est obtenue à partir d'une rue, d'une ville et d'un code postal : ce sont ces trois dernières données qui sont conservées et donc qui figureront dans le MCD (et dans le dictionnaire des données).
+* Lorsque l'on n'effectue jamais de calcul sur une donnée numérique, celle-ci doit être de type AN (c'est le cas par exemple pour un numéro de téléphone).
+
+### Les dépendances fonctionnelles
+
+Soit deux propriétés (ou données) P1 et P2. On dit que P1 et P2 sont reliées par une dépendance fonctionnelle (DF) si et seulement si une occurrence (ou valeur) de P1 permet de connaître une et une seule occurrence de P2.
+
+Cette dépendance est représentée comme ceci :
+
+```
+P1 -> P2
+```
+
+On dit que P1 est la __source__ de la DF et que P2 en est le __but__.
+
+Par ailleurs, plusieurs données peuvent être source comme plusieurs données peuvent être but d'une DF. Exemples :
+
+```
+P1,P2 -> P3
+P1 -> P2,P3
+P1,P2 -> P3,P4,P5
+...
+```
+
+En reprenant les données du dictionnaire précédent, on peut établir les DF suivantes :
+
+```
+id_em -> date_em, delais_em, id_i, ref_e
+id_i -> nom_i, prenom_i, rue_i, ville_i, cp_i, tel_i, tel_port_i, email_i, date_naissance_i
+ref_e -> id_l
+id_l -> titre_l, annee_l, resume_l, id_t, id_ed
+id_t -> libelle_t
+id_ed -> nom_ed
+id_a -> nom_a, prenom_a, date_naissance_a, nom_p
+```
+
+On peut déduire les conclusions suivantes de ces DF :
+
+* à partir d'un numéro d'emprunt, on obtient une date d'emprunt, un délai, l'identifiant de l'inscrit ayant effectué l'emprunt, la référence de l'exemplaire emprunté ;
+* à partir d'une référence d'exemplaire, on obtient l'identifiant du livre correspondant ;
+* à partir d'un numéro de livre, on obtient son titre, son année de parution, un résumé, l'identifiant du type correspondant, son numéro d'édition ;
+* ...
+
+__Remarque__
+
+Une DF doit être :
+
+* __élémentaire__ : c'est l'intégralité de la source qui doit déterminer le but d'une DF. Par exemple si P1 ? P3 alors P1,P2 ? P3 n'est pas élémentaire
+* __directe__ : la DF ne doit pas être obtenue par transitivité. Par exemple, si P1 ? P2 et P2 ? P3 alors P1 ? P3 a été obtenue par transitivité et n'est donc pas directe
+  
+__Conclusion__
+
+Les DF qui existent entre les données sont parfois évidentes et ne nécessitent pas toujours une modélisation, mais celle-ci peut s'avérer utile, car elle permet, entre autres, de distinguer les futures entités du MCD et leurs identifiants.
