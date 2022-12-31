@@ -105,7 +105,7 @@ const config = {
                 },
             ],
             navbar: {
-                title: 'Idriss Neumann',
+                title: 'Tutoriels',
                 logo: {
                     alt: 'ineumann-logo',
                     src: 'img/ineumann-logo.png',

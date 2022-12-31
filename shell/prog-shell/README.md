@@ -22,6 +22,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [La « sous-exécution »](./5-subshell.md)
 * [Les paramètres](./6-parametres.md)
 * [Neutralisation des métacaractères](./7-neutralisation-metacaracteres.md)
+* [Les contrôles booléens](./8-booleens.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)
