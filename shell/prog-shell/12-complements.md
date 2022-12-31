@@ -1,6 +1,6 @@
 # Les compléments
 
-Le chapitre précédent marquait la fin de l'apprentissage du Shell de base. Il reste néanmoins quelques manques dans le langage, comme « incrémenter une variable » (dans les shells anciens), « récupérer des informations dans un fichier »…
+Le chapitre précédent marquait la fin de l'apprentissage du Shell de base. Il reste néanmoins quelques manques dans le langage, comme « incrémenter une variable » (dans les shells anciens), « récupérer des informations dans un fichier »...
 
 Tous ces manques ont été comblés par les nombreux programmeurs du monde Unix par la création de diverses commandes répondant aux besoins les plus courants.
 
@@ -97,7 +97,7 @@ Prompt> expr "abcd" : ".*" # affiche "4" (métacaractère "*" permettant d'avoir
 __Syntaxe__
 
 ```shell
-grep [option] expression [fichier1 …]
+grep [option] expression [fichier1 ...]
 ```
 
 La commande `grep` (Global Regular Expression Printer) permet d'extraire et d'afficher toutes les lignes contenant l'expression demandée. Les lignes sont prises dans l'entrée standard (clavier), mais peuvent être cherchées dans un ou plusieurs fichiers.
@@ -137,13 +137,13 @@ Prompt> grep "root" /etc/passwd # Extraction à partir d'un fichier
 __Syntaxe__
 
 ```shell
-cut  fn [ dc] [ s] [fichier1 …]
-cut  cn [fichier1 …]
+cut  fn [ dc] [ s] [fichier1 ...]
+cut  cn [fichier1 ...]
 ```
 
 La commande `cut` (couper) est un filtre vertical qui sélectionne le énième champ (option `-f` comme field) ou le énième caractère (option `-c`) de chaque ligne. Les lignes sont prises dans l'entrée standard (clavier), mais peuvent être cherchées dans un ou plusieurs fichiers.
 
-Les champs de l'option « -f » sont découpés suivant le caractère tabulation. Ce réglage par défaut peut être changé en mettant l'option `-d` pour spécifier le caractère de séparation de champs (délimiteur). Il peut alors être demandé d'ignorer les lignes ne contenant pas le délimiteur spécifié avec l'option `-s`.
+Les champs de l'option `-f` sont découpés suivant le caractère tabulation. Ce réglage par défaut peut être changé en mettant l'option `-d` pour spécifier le caractère de séparation de champs (délimiteur). Il peut alors être demandé d'ignorer les lignes ne contenant pas le délimiteur spécifié avec l'option `-s`.
 
 __Statut de la commande__
 
@@ -162,7 +162,7 @@ Prompt> cut -f1,6 -d: /etc/passwd # Extraction des champs 1 et 6 de chaque ligne
 __Syntaxe__
 
 ```shell
-sort [ n] [ r] [ o output] [ k pos] [ tc] [fichier1 …]
+sort [ n] [ r] [ o output] [ k pos] [ tc] [fichier1 ...]
 ```
 
 La commande `sort` va trier les lignes de façon alphabétiquement croissante pour les afficher à l'écran. Les lignes sont prises dans l'entrée standard (clavier), mais peuvent être cherchées dans un ou plusieurs fichiers.
@@ -181,4 +181,64 @@ __Exemple__
 Prompt> cat /etc/passwd |sort -k3 -n -t:     # Tri numérique sur le 3e champ
 
 Prompt> sort -r -k4 -t: /etc/passwd -o /etc/passwd # Tri inversé et réécriture
+```
+
+## Filtrer les informations avec la commande `sed`
+
+__Syntaxe__
+
+```shell
+sed [ e script] [ e script] ... [ f fichier_script] [fichier1 ...]
+```
+
+La commande `sed` (Stream Editor) est un éditeur de flux. Elle permet de filtrer un flux de données au travers d'un ou plusieurs scripts basés sur l'éditeur `ed` (ex. : `s/x/y/g` remplace chaque `x` par un `y` pour chaque ligne) pour avoir en sortie un flux de données modifiées. Le script peut être pris dans la ligne de commande (option `-e`) ou dans un fichier externe (option `-f`).
+
+L'éditeur `ed` a été l'éditeur de base qui a donné naissance à l'éditeur `v`.
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> cat /etc/passwd |sed -e "/root/d" # Suppression de ligne
+
+Prompt> sed -e "s/root/toro/g" -e "s/home/hm/g" /etc/passwd # Double substitution
+```
+
+## Transformer les informations avec la commande `tr`
+
+La commande `tr` va transposer l'entrée standard où chaque caractère correspondant à un de ceux de la chaîne 1 sera transformé en caractère pris dans la chaîne 2.
+
+Il est possible de demander la suppression de chaque caractère de la chaîne 1 (option `-d`) ; d'éliminer les caractères répétés (option `-s`) et de complétion (option `-c`).
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> cat /etc/passwd |tr "[a-z]" "[A-Z]" # Transposition minuscules en majuscules
+```
+
+## Compter les octets avec la commande `wc`
+
+__Syntaxe__
+
+```shell
+wc [ c] [ l] [ w] [fichier1 …]
+```
+
+La commande `wc` (Word Count) va compter le nombre de lignes, de mots et de caractères de l'entrée standard ou du fichier passé en paramètre. Il est possible de ne demander que le nombre de lignes (option `-l`), le nombre de mots (option `-w`) ou le nombre de caractères (option `-c`).
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> echo "$LOGNAME" |wc -c # Affichera le nombre de caractères de la variable
 ```

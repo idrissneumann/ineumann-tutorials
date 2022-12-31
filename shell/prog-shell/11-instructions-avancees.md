@@ -230,7 +230,7 @@ L'instruction n'a besoin que de connaître les caractères indiquant les options
 
 Dans le cas où une option aurait besoin d'une valeur associée, on fait suivre le caractère correspondant à ladite option du caractère `:` (deux-points). Si l'option est effectivement demandée avec la valeur qui lui est associée, cette valeur sera alors stockée dans la variable interne `OPTARG` qui est spécifique à `getopts`.
 
-L'instruction `getopts` ne récupérant que la première option demandée par l'utilisateur, il est nécessaire de l'inclure dans une boucle « while do… done » pour lui faire traiter toutes les options du script ; `getopts` renvoyant un statut différent de `0` (faux) quand il n'y a plus d'option à traiter. À chaque option trouvée, il suffit de positionner une ou plusieurs variables personnelles qu'on pourra utiliser par la suite.
+L'instruction `getopts` ne récupérant que la première option demandée par l'utilisateur, il est nécessaire de l'inclure dans une boucle « while do... done » pour lui faire traiter toutes les options du script ; `getopts` renvoyant un statut différent de `0` (faux) quand il n'y a plus d'option à traiter. À chaque option trouvée, il suffit de positionner une ou plusieurs variables personnelles qu'on pourra utiliser par la suite.
 
 De plus, la variable spécifique `OPTIND` étant incrémentée à chaque fois que `getopts` est invoquée (y compris la dernière invocation où `getopts` renvoie « faux »). Il est possible de décaler les paramètres du script avec un `shift` de `OPTIND - 1` pour éliminer les options et placer le premier paramètre utile en variable `$1`. Plus tard dans le script, on pourra réutiliser les variables positionnées lors de la boucle d'analyse des options pour traiter le fait qu'une option a été ou pas demandée.
 
@@ -245,7 +245,7 @@ __Exemple__
 ```shell
 #!/bin/sh 
 # Script qui traite plusieurs options et qui affiche ce qu'il a analysé 
-# Options possibles: -a -b -c val -d val [-d val] … 
+# Options possibles: -a -b -c val -d val [-d val] ... 
 
 # Récupération de chaque option du script 
 while getopts :abc:d: opt 
@@ -263,7 +263,7 @@ do
             opt_D="true" 
             val_D="$val_D $OPTARG" ;; 
         *) 
-            echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 …]" 
+            echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 ...]" 
             exit 1 
         esac 
 done 
