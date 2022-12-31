@@ -301,4 +301,50 @@ Prompt> basename $rep # Donnera le nom de base de la variable "rep"
 Prompt> dirname $rep # Donnera le nom du répertoire père de la variable "rep"
 ```
 
+## Filtrer les arguments avec la commande `xargs`
 
+__Syntaxe__
+
+```shell
+xargs [ dc] [commande [arguments commande] ]
+```
+
+La commande `xargs` est un filtre qui sert à passer un grand nombre d'arguments à une commande qui ne peut en accepter qu'un petit nombre. Il constitue une bonne alternative aux guillemets inversés dans les situations où cette écriture échoue avec une erreur `too many arguments`.
+
+Cette commande va recevoir en entrée les arguments à traiter et les découpera en morceaux suffisamment petits pour que la commande citée puisse les traiter.
+
+Les arguments sont découpés suivant le caractère _espace_ ou _tabulation_. Ce réglage par défaut peut être changé en mettant l'option `-d` pour spécifier le caractère de séparation des arguments (délimiteur).
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt>grep -l toto `ls` # Recherche "toto" dans les fichiers donnés par "ls"
+
+sh: /bin/grep: Too many arguments # "grep" ne peut pas traiter autant de fichiers
+
+Prompt>ls |xargs grep -l toto # "xargs" découpera le "ls" pour le "grep"
+```
+
+## Mathématiques en virgule flottante avec la commande `bc`
+
+__Syntaxe__
+
+```shell
+bc [-l]
+```
+
+La commande `bc` (Basic Calculator) permet d'effectuer des calculs mathématiques (comme la commande `expr`), mais la commande connaît quelques fonctions mathématiques (comme « racine carrée », « _logarithme »…). Les calculs se font depuis l'entrée standard et se font en valeurs entières sauf si on demande le calcul au format « long » (option `-l`).
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> echo "20 / 3" |bc -l # Affichera le résultat de l'opération
+```
