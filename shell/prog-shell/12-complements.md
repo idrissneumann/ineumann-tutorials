@@ -228,7 +228,7 @@ Prompt> cat /etc/passwd |tr "[a-z]" "[A-Z]" # Transposition minuscules en majusc
 __Syntaxe__
 
 ```shell
-wc [ c] [ l] [ w] [fichier1 …]
+wc [ c] [ l] [ w] [fichier1 ...]
 ```
 
 La commande `wc` (Word Count) va compter le nombre de lignes, de mots et de caractères de l'entrée standard ou du fichier passé en paramètre. Il est possible de ne demander que le nombre de lignes (option `-l`), le nombre de mots (option `-w`) ou le nombre de caractères (option `-c`).
@@ -242,3 +242,63 @@ __Exemple__
 ```shell
 Prompt> echo "$LOGNAME" |wc -c # Affichera le nombre de caractères de la variable
 ```
+
+## Afficher une séquence de nombres avec la commande `seq`
+
+__Syntaxe__
+
+```shell
+seq [option] dernier
+seq [option] premier dernier
+seq [option] premier incrément dernier
+```
+
+La commande `seq` (séquence) permet d'afficher les nombres entiers situés entre deux intervalles de façon croissante ou décroissante avec possibilité d'avoir un incrément particulier.
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+## Afficher des données formatées avec la commande `printf`
+
+__Syntaxe__
+
+```shell
+printf format [arguments]
+```
+
+La commande `printf` (reprise à partir de la fonction `printf()` du C) permet d'afficher les arguments au format demandé.
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+## Découper les noms avec les commandes `basename` et `dirname`
+
+__Syntaxe__
+
+```shell
+basename argument [.extension]
+
+dirname argument
+```
+
+Les commandes `basename` et `dirname` ont pour but d'afficher respectivement le nom de base de l'argument demandé (le nom qui suit le dernier « / » de l'argument) ou le nom du répertoire (toute l'arborescence précédent le dernier `/`) de l'argument.
+
+Dans le cas de `basename`, si l'argument possède une extension (`.gif`, `.c`...), il est possible de demander à la commande d'enlever cette extension en indiquant l'extension à enlever.
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt>rep=`pwd` # Récupère le répertoire courant dans la variable "rep"
+
+Prompt> basename $rep # Donnera le nom de base de la variable "rep"
+
+Prompt> dirname $rep # Donnera le nom du répertoire père de la variable "rep"
+```
+
+
