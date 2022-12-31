@@ -122,7 +122,7 @@ L'instruction `eval` va interpréter les arguments et faire exécuter le résult
 
 L'utilisation de l'instruction `eval` sert surtout à créer une indirection de variable et simuler ainsi un pointeur puisqu'il y a deux fois interprétation ; une fois par la commande `eval` et une fois par le Shell.
 
-## Arithmétique sur les variables (« Korn Shell » et « Bourne Again Shell » et shells descendants)▲
+## Arithmétique sur les variables (« Korn Shell » et « Bourne Again Shell » et shells descendants)
 
 __Syntaxe__
 

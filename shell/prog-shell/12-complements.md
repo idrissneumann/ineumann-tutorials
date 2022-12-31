@@ -131,3 +131,54 @@ Prompt> cat /etc/passwd |grep "root" # Extraction à partir de l'entrée standar
 
 Prompt> grep "root" /etc/passwd # Extraction à partir d'un fichier
 ```
+
+## Découper des lignes avec la commande `cut`
+
+__Syntaxe__
+
+```shell
+cut  fn [ dc] [ s] [fichier1 …]
+cut  cn [fichier1 …]
+```
+
+La commande `cut` (couper) est un filtre vertical qui sélectionne le énième champ (option `-f` comme field) ou le énième caractère (option `-c`) de chaque ligne. Les lignes sont prises dans l'entrée standard (clavier), mais peuvent être cherchées dans un ou plusieurs fichiers.
+
+Les champs de l'option « -f » sont découpés suivant le caractère tabulation. Ce réglage par défaut peut être changé en mettant l'option `-d` pour spécifier le caractère de séparation de champs (délimiteur). Il peut alors être demandé d'ignorer les lignes ne contenant pas le délimiteur spécifié avec l'option `-s`.
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> cat /etc/passwd |cut -f3-6 -d: # Extraction des champs 3 à 6 de chaque ligne
+
+Prompt> cut -f1,6 -d: /etc/passwd # Extraction des champs 1 et 6 de chaque ligne
+```
+
+## Trier les informations avec la commande `sort`
+
+__Syntaxe__
+
+```shell
+sort [ n] [ r] [ o output] [ k pos] [ tc] [fichier1 …]
+```
+
+La commande `sort` va trier les lignes de façon alphabétiquement croissante pour les afficher à l'écran. Les lignes sont prises dans l'entrée standard (clavier), mais peuvent être cherchées dans un ou plusieurs fichiers.
+
+Le tri peut être inversé (option « -r »), les lignes triées sur plusieurs champs (option `-k`), le délimiteur de champs peut être spécifié (option `-t`) et le contenu des champs peut être considéré comme étant des nombres (option `-n`).
+
+Enfin, il est possible de spécifier le fichier dans lequel sera écrit le résultat du tri (option `-o`) ce qui permet de demander à trier un fichier et le réécrire sur lui-même (ce qui n'est pas possible avec un pipe).
+
+__Statut de la commande__
+
+toujours `0` sauf en cas d'erreur de syntaxe
+
+__Exemple__
+
+```shell
+Prompt> cat /etc/passwd |sort -k3 -n -t:     # Tri numérique sur le 3e champ
+
+Prompt> sort -r -k4 -t: /etc/passwd -o /etc/passwd # Tri inversé et réécriture
+```
