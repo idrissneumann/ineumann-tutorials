@@ -238,3 +238,171 @@ echo "i=$i; j=$j" # Affichage de "i" et de "j" après l'appel => "j" n'a pas cha
 __Remarque__
 
 Toute fonction ayant donc toujours connaissance de toute variable créée par l'appelant, le choix est laissé au programmeur, soit de transmettre une variable à une fonction comme il lui transmettrait n'importe quelle valeur (qu'elle récupérera dans `$1`, `$2`…), soit de laisser la fonction utiliser naturellement les variables du script par leurs noms. Les deux solutions ont chacune leurs avantages et leurs inconvénients.
+
+## Imbrication de fonctions
+
+Il est tout à fait possible d'intégrer la création d'une fonction en plein milieu du code principal du programme. Mais pour qu'une fonction soit « exécutable », son identificateur doit d'abord être connu (avoir été « lu ») par le Shell. La lecture d'un script se faisant séquentiellement, il s'ensuit qu'une fonction ne sera exécutable que lorsque l'interpréteur du Shell sera passé par le nom de la fonction et seulement s'il passe par la partie du code contenant le nom.
+
+__Exemple__
+
+Une fonction intégrée au milieu d'un script :
+
+```shell
+#!/bin/sh 
+
+# Début du script - La fonction n'est pas encore connue 
+echo "Début du script" 
+
+# Écriture de la fonction - En passant ici, le shell prend connaissance de l'existence de la fonction 
+fonction() 
+{ 
+    echo "Fonction" 
+} 
+
+# Suite du script - La fonction est maintenant connue et utilisable 
+echo "Suite du script" 
+fonction
+```
+
+__Exemple__
+
+Une fonction qui ne sera connue que si une condition est vérifiée :
+
+```shell
+#!/bin/sh 
+
+# Si la condition est vérifiée 
+if test "$1" = "go" 
+then 
+    # Écriture de la fonction - S'il passe ici, le Shell prendra connaissance de son existence 
+    fonction() 
+    { 
+        echo "Fonction" 
+    } 
+fi 
+
+# Suite du script 
+
+# Si la condition n'a pas été vérifiée, la fonction ne sera pas connue et son appel provoquera une erreur 
+fonction
+```
+
+__Exemple__
+
+Une fonction « interne » qui ne sera connue que si une autre fonction « externe » est appelée :
+
+```shell
+#!/bin/sh 
+
+# Écriture de la fonction externe 
+externe() 
+{ 
+    echo "Fonction externe" 
+
+    # Écriture de la fonction interne qui ne sera connue que si la fonction "externe" est appelée 
+    interne() 
+    { 
+        echo "Fonction interne" 
+    } 
+} 
+
+# Suite du script 
+
+# Ici, la fonction "interne" n'est pas connue - Son appel provoquera une erreur 
+# Cependant la fonction "externe" est connue et son appel rendra fonction "interne" connue 
+externe 
+
+# Maintenant, la fonction "interne" est connue et peut être appelée 
+interne
+```
+
+__Exemple__
+
+Une fonction « interne » qui ne sera connue que dans une autre fonction « externe » :
+
+```shell
+#!/bin/sh 
+
+# Écriture de la fonction externe 
+externe() 
+{ 
+    echo "Fonction externe" 
+    ( # Création d'un sous-shell 
+
+        # Écriture de la fonction interne qui ne sera connue que du sous-shell 
+        interne() 
+        { 
+            echo "Fonction interne" 
+        } 
+
+        # Ici, la fonction "interne" est connue et peut être appelée 
+        interne 
+    ) # Fin du sous-shell 
+
+    # Ici, la fonction "interne" n'est pas connue - Son appel provoquera une erreur 
+} 
+
+# Suite du script 
+
+# Ici, la fonction "interne" n'est pas connue - Son appel provoquera une erreur 
+# Appel de la fonction externe 
+externe 
+
+# Ici, la fonction "interne" n'est toujours pas connue - Son appel provoquera toujours une erreur
+```
+
+À partir de là, il est possible de décomposer un problème en une multitude d'opérations élémentaires ; chacune d'elles exécutée par une fonction qui lui est dévolue ce qui est d'ailleurs le principe d'une fonction. Les fonctions pourront s'appeler mutuellement, et même de façon imbriquée (A appelle B qui appelle A), pour peu que chacune d'elles soit connue du Shell au moment de son appel.
+
+Il est cependant recommandé, pour une bonne maintenance et une bonne lisibilité, de commencer un script par l'écriture de toutes les fonctions qu'il sera amené à utiliser sans complication inutile telle que ces exemples ont montré.
+
+## La trace de l'appelant
+
+__Syntaxe__
+
+```shell
+caller [num]
+```
+
+L'instruction `caller`, qui doit obligatoirement être placée dans une fonction, donne des informations sur l'appelant de la fonction (nom du script, fonction appelante, n° de ligne de l'appel).
+
+Le numéro indique l'incrément à apporter au niveau que l'on veut remonter (`0` pour remonter un niveau, `1` pour remonter deux niveaux, `2` pour remonter trois niveaux…).
+
+__Exemple__
+
+Une fonction de troisième niveau qui indique la hiérarchie de ses appelants :
+
+```shell
+#!/bin/sh 
+
+# Fonction de niveau 1 
+fct1() 
+{ 
+    # Appel fonction de niveau 2 
+    fct2 
+} 
+
+# Fonction de niveau 2 
+fct2() 
+{ 
+    # Appel fonction de niveau 3 
+    fct3 
+} 
+
+# Fonction de niveau 3 
+fct3() 
+{ 
+    # Informations sur les différents appelants 
+    caller 0 # Appelant immédiat (fct2) 
+    caller 1 # Appelant 1 niveau au-dessus de l'appelant immédiat (fct1) 
+    caller 2 # Appelant 2 niveaux au-dessus de l'appelant immédiat (programme) 
+    caller 3 # Appelant 3 niveaux au-dessus de l'appelant immédiat (il n'y en a pas) 
+} 
+
+# Corps du programme principal 
+
+# Appel de la fonction de base 
+fct1 
+
+# Informations sur les différents appelants 
+caller 0 # Appelant immédiat (il n'y en a pas, car on est dans le programme principal)
+```
