@@ -205,3 +205,149 @@ do
     fi 
 done
 ```
+
+## La boucle sur liste de valeurs
+
+__Syntaxe__
+
+```shell
+for var in valeur1 [valeur2 ?] 
+do 
+    commande1 
+    [ commande2 ?] 
+done
+```
+
+La boucle `for... do...done` va boucler autant de fois qu'il existe de valeurs dans la liste. À chaque tour, la variable `$var` prendra séquentiellement comme contenu la valeur suivante de la liste.
+
+Les valeurs de la liste peuvent être obtenues de différentes façons (variables, sous-exécutions...). La syntaxe `in valeur1 ...` est optionnelle. Dans le cas où elle est omise, les valeurs sont prises dans la variable `$*` contenant les arguments passés au programme.
+
+Dans le cas où une valeur contient un métacaractère de génération de nom de fichier (« _étoile_ », « _point d'interrogation_ »...), le Shell examinera alors les fichiers présents dans le répertoire demandé au moment de l'exécution du script et remplacera le métacaractère par le ou les fichiers dont le nom correspond au métacaractère.
+
+__Exemple__
+
+Même script que dans l'exemple précédent, qui affiche tous les fichiers du répertoire courant et qui, pour chaque fichier, indique si c'est un fichier de type « répertoire », de type « ordinaire » ou d'un autre type, mais en utilisant une boucle `for`.
+
+```shell
+#!/bin/sh 
+# Script d'affichage d'informations sur les fichiers du répertoire courant 
+for fic in `ls` # Boucle sur chaque fichier affiché par la commande "ls" 
+do 
+    # Évaluation du fichier traité 
+    if test -d "$fic" 
+    then 
+        echo "$fic est un répertoire" 
+    elif test -f "$fic" 
+    then 
+        echo "$fic est un fichier ordinaire" 
+    else 
+        echo "$fic est un fichier spécial ou lien symbolique ou pipe ou socket" 
+    fi 
+done
+```
+
+__Remarques__
+
+Ce script présente un léger « bogue » dû à l'emploi de la boucle `for`. En effet, le `for` utilise l'espace pour séparer ses éléments les uns des autres. Il s'ensuit que si un fichier possède un espace dans son nom, le `for` séparera ce nom en deux parties qu'il traitera dans deux itérations distinctes et la variable « fic » prendra alors comme valeurs successives les deux parties du nom.
+
+Ce bogue n'existe pas avec l'emploi de la structure `ls | while read fic...`, car le `read` lit la valeur jusqu'à la « fin de ligne ».
+
+Par ailleurs, dans le cas de la commande `ls` ou encore du parcours de fichiers dans un script, il est préférable de privilégier l'utilisation le métacaractère `*` (encore appelé « _wildcard_ »).
+
+Voir [ce cours](https://www.ineumann.fr/docs/shell/bash-bonnes-pratiques#boucler-sur-une-sortie-de-commande) pour plus de détails.
+
+__Exemple__
+
+Reprenons l'exemple précédent :
+
+```shell
+#!/bin/sh 
+# Script d'affichage d'informations sur les fichiers du répertoire courant 
+for fic in *
+do 
+    # Évaluation du fichier traité 
+    if [ -d "$fic" ]
+    then 
+        echo "$fic est un répertoire" 
+    elif [ -f "$fic" ]
+    then 
+        echo "$fic est un fichier ordinaire" 
+    else 
+        echo "$fic est un fichier spécial ou lien symbolique ou pipe ou socket" 
+    fi 
+done
+```
+
+Il est aussi possible de parcourir des valeurs itératives comme dans la plupart des langages de programmation à l'aide de la boucle for. Pour cela, on peut utiliser la commande seq comme suit :
+
+```shell
+# parcours et affichage des valeurs allant de 0 à 10
+for i in `seq 0 10`
+do 
+    echo $i 
+done
+```
+
+Dans les langages shell dits « évolués », il est également permis d'utiliser ces types de syntaxe dont on retrouve des équivalences dans d'autres langages de programmation courants :
+
+```shell
+# parcours et affichage des valeurs allant de 0 à 10
+for (( i=0 ; i <= 10 ; i++ ))
+do 
+    echo $i 
+done
+
+# Autre syntaxe possible
+for i in {0..10}
+do
+    echo $i
+done
+```
+
+## Interruption d'une ou plusieurs boucles
+
+__Syntaxe__
+
+```shell
+break [n] 
+continue [n]
+```
+
+L'instruction `break [n]` va faire sortir le programme de la boucle numéro `n` (`1` par défaut). L'instruction passera directement après le `done` correspondant à cette boucle.
+
+L'instruction `continue [n]` va faire repasser le programme à l'itération suivante de la boucle numéro `n` (`1` par défaut). Dans le cas d'une boucle « while » ou « until », le programme repassera à l'évaluation de la condition. Dans le cas d'une boucle « for », le programme passera à la valeur suivante.
+
+La numérotation des boucles s'effectue à partir de la boucle la plus proche de l'instruction `break` ou `continue`, qu'on numérote `1`. Chaque boucle englobant la précédente se voit affecter un numéro incrémental (2, 3...). Le programmeur peut choisir de sauter directement sur la boucle numérotée `n` en mettant la valeur `n` derrière l'instruction `break` ou `continue`.
+
+__Remarques__
+
+L'utilisation de ces instructions est contraire à la philosophie de la « programmation structurée ». Il incombe donc à chaque programmeur de toujours réfléchir au bien-fondé de leurs mises en application.
+
+Contrairement aux croyances populaires, la structure `if... fi` n'est pas une boucle.
+
+__Exemple__
+
+Script qui fait saisir un nom et un âge. Mais il contrôle que l'âge soit celui d'un majeur et soit valide (entre 18 et 200 ans). Ensuite, il inscrit ces informations dans un fichier. La saisie s'arrête sur un nom vide où un âge à `0`.
+
+```shell
+#!/bin/sh 
+# Script de saisie; de contrôle et d'enregistrement d'un nom et d'un âge 
+
+while true # Boucle infinie 
+do 
+    # Saisie du nom et sortie sur nom vide 
+    echo "Entrez un nom : "; read nom 
+    test -z "$nom" && break # Sortie de la boucle infinie si nom vide 
+
+    # Saisie et contrôle de l'âge 
+    while true # Saisie en boucle infinie 
+    do 
+        echo "Entrez un âge : "; read age 
+        test $age -eq 0 && break 2 # Sortie de la boucle infinie si age = 0 
+        test $age -ge 18 -a $age -lt 200 && break # Sortie de la boucle de saisie si age correct 
+    done 
+
+    # Enregistrement des informations dans un fichier "infos.dat" 
+    echo "Nom: $nom; Age: $age" >>infos.dat 
+done
+```
