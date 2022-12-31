@@ -6,7 +6,7 @@ Le Shell étant un langage, il permet l'utilisation de contrôles « _vrai/faux_
 
 Le principe est que chaque commande, chaque programme exécuté par Unix, donc par le Shell, lui retransmet en fin d'exécution un code de retour appelé aussi code de statut.
 
-La convention qui a été établie veut que si la commande s'est bien exécutée, le code de statut ait pour valeur __zéro__. En revanche, si la commande a eu un problème dans son exécution (pas de droit d'accès, pas de fichier à éditer…), son code de statut aura une valeur __différente de zéro__. En effet, il existe toujours plusieurs raisons qui peuvent faire qu'un programme ne s'exécute pas ou mal ; en revanche il n'y a qu'une seule raison qui fait qu'il s'exécute correctement.
+La convention qui a été établie veut que si la commande s'est bien exécutée, le code de statut ait pour valeur __zéro__. En revanche, si la commande a eu un problème dans son exécution (pas de droit d'accès, pas de fichier à éditer...), son code de statut aura une valeur __différente de zéro__. En effet, il existe toujours plusieurs raisons qui peuvent faire qu'un programme ne s'exécute pas ou mal ; en revanche il n'y a qu'une seule raison qui fait qu'il s'exécute correctement.
 
 Cette convention ayant été établie, le Shell considérera alors un programme de statut « _`0`_ » comme étant « _vrai_ » ; et un programme de statut « _différent de `0`_ » comme étant « _faux_ ». Grâce à cette convention, l'utilisateur peut programmer de manière booléenne en vérifiant le statut du programme qui s'est exécuté.
 
@@ -37,9 +37,9 @@ Prompt> echo $? # L'affichage précédent s'étant bien exécuté?
 
 ## La commande `test`
 
-La commande `test` est une… commande. À ce titre, `test` renvoie donc un statut vrai ou faux. Mais cette commande n'affiche rien à l'écran. Il faut donc, pour connaître le résultat d'un test, vérifier le contenu de la variable `$?`.
+La commande `test` est une... commande. À ce titre, `test` renvoie donc un statut vrai ou faux. Mais cette commande n'affiche rien à l'écran. Il faut donc, pour connaître le résultat d'un test, vérifier le contenu de la variable `$?`.
 
-La commande `test` a pour but de vérifier (tester) la validité de l'expression demandée, en fonction des options choisies. Elle permet ainsi de vérifier l'état des fichiers, comparer des variables…
+La commande `test` a pour but de vérifier (tester) la validité de l'expression demandée, en fonction des options choisies. Elle permet ainsi de vérifier l'état des fichiers, comparer des variables...
 
 La syntaxe générale d'une commande test est `test expression` ; mais elle peut aussi être `[ expression ]` (à condition de ne pas oublier les espaces séparant l'expression des crochets). Ici, les crochets ne signifient pas « élément optionnel », mais bien « crochets ».
 
@@ -189,3 +189,29 @@ __Exemple__
 test "5" = "05" # Renvoie "faux" (ce qui est mathématiquement incorrect) 
 test "5" -eq "05" # Renvoie "vrai" (correct)
 ```
+
+### Connecteurs d'expression
+
+Les connecteurs permettent de composer des expressions plus complexes.
+
+__Options__
+
+|Option| Signification                                                         |
+|-------|----------------------------------------------------------------------|
+|`-a`   |« ET » logique                                                        |
+|`-o`   |« OU » logique                                                        |
+|`!`    |« NOT » logique                                                       |
+|`(...)`|Groupement d'expressions (doit être protégé de backslashes pour ne pas que le shell l'interprète comme une demande de création de sous-shell)|
+
+__Exemple__
+
+Vérifie si l'année courante est bissextile (divisible par `4`, mais pas par `100` ; ou divisible par `400`)
+
+```shell
+y=`date '+%Y'` # Récupère l'année courante dans la variable "y" 
+test \( `expr $y % 4` -eq 0 ?a `expr $y % 100` -ne 0 \) ?o `expr $y % 400` -eq 0
+```
+
+__Remarque__
+
+Il n'y a aucune optimisation faite par la commande `test`. Ainsi, lors d'un « et », même si la première partie du « et » est fausse, la seconde partie sera inutilement vérifiée. De même, lors d'un « ou », même si la première partie est vraie, la seconde partie sera tout aussi inutilement vérifiée.
