@@ -28,6 +28,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [Les fonctions](./10-fonctions.md)
 * [Les instructions avancées](./11-instructions-avancees.md)
 * [Les compléments](./12-complements.md)
+* [Exemples divers](./13-exemples-divers.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)
