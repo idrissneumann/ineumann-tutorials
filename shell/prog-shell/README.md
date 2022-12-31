@@ -26,6 +26,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [Les contrôles booléens](./8-booleens.md)
 * [Les structures de contrôles](./9-struct-controle.md)
 * [Les fonctions](./10-fonctions.md)
+* [Les instructions avancées](./11-instructions-avancees.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)
