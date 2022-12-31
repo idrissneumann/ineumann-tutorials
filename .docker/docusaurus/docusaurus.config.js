@@ -117,7 +117,7 @@ const config = {
                         position: 'right',
                     },
                     {
-                        to: 'https://youtube.com/playlist?list=PLVa_2sL_l0msxUnmaSpLAGlwOxizXWjht',
+                        to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
                         label: 'YouTube',
                         position: 'right',
                     },
@@ -139,7 +139,7 @@ const config = {
                             },
                             {
                                 label: 'YouTube',
-                                to: 'https://youtube.com/playlist?list=PLVa_2sL_l0msxUnmaSpLAGlwOxizXWjht',
+                                to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
                             },
                         ],
                     },
