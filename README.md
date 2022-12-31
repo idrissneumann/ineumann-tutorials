@@ -32,6 +32,7 @@ Les sources de ce sites sont sauvegardées sur les repo git suivant:
 
 * [Initiation à la conception de bases de données relationnelles avec MERISE](./bdd/initiation-merise.md)
 
-### Application lifecycle management
+### Divers
 
-* [Présentation des méthodes agiles et Scrum](./alm/agile_scrum.md)
+* [Présentation des méthodes agiles et Scrum](./divers/agile_scrum.md)
+* [Utilisation de git](./divers/git.md)
