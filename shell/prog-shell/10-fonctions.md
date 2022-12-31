@@ -180,3 +180,61 @@ do
     echo "Le carré de $nb vaut $result" 
 done
 ```
+
+## Portée des variables
+
+Il n'y a pas recopie de variable pour une fonction. Autrement dit, modifier une variable dans une fonction répercute la modification dans tout le script. En effet, comme il n'y a pas de notion de « pointeur » en Shell, c'est le seul moyen de pouvoir faire modifier une variable par une fonction. Malheureusement cela peut produire des effets de bord difficilement décelables si le programmeur ne fait pas attention.
+
+Cependant, l'instruction `local` employée lors de la création de la variable a pour effet d'isoler les modifications apportées à la variable à la fonction dans laquelle la variable est modifiée. Cet effet est définitif pour la variable dans toute la fonction.
+
+__Exemple__
+
+Une fonction qui modifie deux variables : une « globale » et une « locale ».
+
+```shell
+#!/bin/sh 
+# Fonction qui modifie deux variables, une dans le shell et l'autre dans un sous-shell 
+modif() 
+{ 
+    i=5 # Modification de "i" dans le shell principal
+    ( # Création d'un sous-shell 
+        j=8 # Modification de "j" dans le sous-shell 
+        echo "Fonction: i=$i; j=$j" # Affichage de "i" et "j" dans le sous-shell 
+    ) # Fin du sous-shell => La modif de "j" est perdue 
+} 
+
+# Programme principal 
+i=0; j=0 # Initialisation de "i" et "j" 
+echo "i=$i; j=$j" # Affichage de "i" et "j" avant l'appel 
+modif # Appel de la fonction 
+echo "i=$i; j=$j" # Affichage de "i" et de "j" après l'appel => "j" n'a pas changé
+```
+
+Dans le cas où toutes les variables doivent être locales, et que rajouter l'instruction `local` semble fastidieux (sans compter qu'un oubli est toujours possible), une astuce simple pour transformer d'un coup toutes les variables en `local` consiste à isoler le corps de la fonction avec des parenthèses, ce qui a pour effet de faire créer un sous-shell dans lequel la fonction pourra travailler, mais dans lequel les variables modifiées ne seront pas répercutées au niveau du shell parent.
+
+__Exemple__
+
+Une fonction qui modifie deux variables... mais la seconde est modifiée dans un sous-shell.
+
+```shell
+#!/bin/sh 
+# Fonction qui modifie deux variables, une dans le shell et l'autre dans un sous-shell 
+modif() 
+{ 
+    i=5 # Modification de "i" dans le shell principal 
+    ( # Création d'un sous-shell 
+        j=8 # Modification de "j" dans le sous-shell 
+        echo "Fonction: i=$i; j=$j" # Affichage de "i" et "j" dans le sous-shell 
+    ) # Fin du sous-shell => La modif de "j" est perdue 
+} 
+
+# Programme principal 
+i=0; j=0 # Initialisation de "i" et "j" 
+echo "i=$i; j=$j" # Affichage de "i" et "j" avant l'appel 
+modif # Appel de la fonction 
+echo "i=$i; j=$j" # Affichage de "i" et de "j" après l'appel => "j" n'a pas changé
+```
+
+__Remarque__
+
+Toute fonction ayant donc toujours connaissance de toute variable créée par l'appelant, le choix est laissé au programmeur, soit de transmettre une variable à une fonction comme il lui transmettrait n'importe quelle valeur (qu'elle récupérera dans `$1`, `$2`…), soit de laisser la fonction utiliser naturellement les variables du script par leurs noms. Les deux solutions ont chacune leurs avantages et leurs inconvénients.
