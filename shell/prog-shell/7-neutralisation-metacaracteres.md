@@ -30,18 +30,18 @@ Les métacaractères suivants sont utilisés lorsque l'on désire référencer u
 Les métacaractères suivants sont utilisés dans le Shell :
 
 |métacaractère|Signification                                                         |
-|-------------|----------------------------------------------------------------------|
-|`$`          |Contenu d'une variable                                                |
-|`" "`        |Neutralisation de certains métacaractères placés à l'intérieur        |
-|`' '`        |Neutralisation de tous les métacaractères placés à l'intérieur        |
-|`\`          |Neutralisation de tout métacaractère placé après                      |
-|`( )`        |Groupement de commandes                                               |
-|`;`          |Séparateur de commande (permet d'en placer plusieurs sur une ligne)   |
-|`<`          |Redirection en entrée à partir d'un fichier                           |
-|`<<`         |Redirection en entrée à partir des lignes suivantes                   |
-|`>`          |Redirection en sortie vers un fichier                                 |
-|`>>`         |Redirection en sortie vers un fichier en mode « ajout »               |
-|`\|`         |Redirection vers une commande (pipe mémoire)                          |
+|-------------------|----------------------------------------------------------------------|
+|`$`                |Contenu d'une variable                                                |
+|`" "`              |Neutralisation de certains métacaractères placés à l'intérieur        |
+|`' '`              |Neutralisation de tous les métacaractères placés à l'intérieur        |
+|`\`                |Neutralisation de tout métacaractère placé après                      |
+|`( )`              |Groupement de commandes                                               |
+|`;`                |Séparateur de commande (permet d'en placer plusieurs sur une ligne)   |
+|`<`                |Redirection en entrée à partir d'un fichier                           |
+|`<<`               |Redirection en entrée à partir des lignes suivantes                   |
+|`>`                |Redirection en sortie vers un fichier                                 |
+|`>>`               |Redirection en sortie vers un fichier en mode « ajout »               |
+|<code>&#124;</code>|Redirection vers une commande (pipe mémoire)                          |
 
 ## Le « backslash »
 
