@@ -237,7 +237,7 @@ echo "i=$i; j=$j" # Affichage de "i" et de "j" après l'appel => "j" n'a pas cha
 
 __Remarque__
 
-Toute fonction ayant donc toujours connaissance de toute variable créée par l'appelant, le choix est laissé au programmeur, soit de transmettre une variable à une fonction comme il lui transmettrait n'importe quelle valeur (qu'elle récupérera dans `$1`, `$2`…), soit de laisser la fonction utiliser naturellement les variables du script par leurs noms. Les deux solutions ont chacune leurs avantages et leurs inconvénients.
+Toute fonction ayant donc toujours connaissance de toute variable créée par l'appelant, le choix est laissé au programmeur, soit de transmettre une variable à une fonction comme il lui transmettrait n'importe quelle valeur (qu'elle récupérera dans `$1`, `$2`...), soit de laisser la fonction utiliser naturellement les variables du script par leurs noms. Les deux solutions ont chacune leurs avantages et leurs inconvénients.
 
 ## Imbrication de fonctions
 
@@ -365,7 +365,7 @@ caller [num]
 
 L'instruction `caller`, qui doit obligatoirement être placée dans une fonction, donne des informations sur l'appelant de la fonction (nom du script, fonction appelante, n° de ligne de l'appel).
 
-Le numéro indique l'incrément à apporter au niveau que l'on veut remonter (`0` pour remonter un niveau, `1` pour remonter deux niveaux, `2` pour remonter trois niveaux…).
+Le numéro indique l'incrément à apporter au niveau que l'on veut remonter (`0` pour remonter un niveau, `1` pour remonter deux niveaux, `2` pour remonter trois niveaux...).
 
 __Exemple__
 
