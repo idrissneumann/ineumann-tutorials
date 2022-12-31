@@ -348,3 +348,80 @@ __Exemple__
 ```shell
 Prompt> echo "20 / 3" |bc -l # Affichera le résultat de l'opération
 ```
+
+## Gérer les options avec la commande `getopt`
+
+__Syntaxe__
+
+```shell
+getopt [:]liste de caractères[:] arguments …
+```
+
+La commande `getopt` correspond en externe à l'instruction interne `getopts` et permet la gestion et la réorganisation des paramètres.
+
+L'utilisation de la commande `getopt` est similaire à l'instruction `getopts`. Le programmeur doit lui indiquer les caractères correspondant aux options attendues et les arguments où se trouvent les options à traiter. Dans le cas où une option aurait besoin d'une valeur associée, il fait suivre le caractère correspondant à ladite option du caractère `:` (deux-points).
+
+Cependant, contrairement à l'instruction `getopts`, la commande `getopt` se contente de reformater proprement les options trouvées (une option après l'autre) et renvoie cette suite à l'écran. Donc, afin de pouvoir traiter les options dans un script, il est nécessaire de récupérer le résultat de `getopt` en utilisant une sous-exécution.
+
+Dans le cas où une option a besoin d'être associée à une valeur, cette valeur est placée en argument suivant l'option à laquelle elle est associée.
+
+Dès que l'ensemble des options est traité, c'est-à-dire dès que la commande `getopt` trouve une option qui ne correspond pas à une option attendue ou dès qu'elle ne trouve plus d'option, la commande affiche deux tirets (`-`) et affiche le reste des arguments non traités.
+
+En cas d'option non prévue dans la liste, la commande `getopt` affiche un message d'erreur à l'écran. Cet affichage peut être inhibé en faisant précéder la liste des options possibles du caractère « : » (deux-points).
+
+Et enfin la commande `getopt` arrête son traitement dès qu'elle rencontre deux `-` (tirets) accolés ce qui permet à l'utilisateur de faire traiter comme argument et non comme option une valeur avec un tiret (un nombre négatif par exemple).
+
+__Statut de la commande__
+
+* Si la commande ne trouve pas d'option invalide dans les paramètres du script, le statut est `0`
+* Si la commande trouve une option invalide dans les paramètres du script, le statut est différent de `0` (en général, il vaut `1`)
+
+__Exemple__
+
+Écriture d'un script pouvant recevoir les options `-a` et `-b` sans valeur associée, une fois `-c` avec valeur associée et plusieurs fois `-d` avec valeurs associées.
+
+```shell
+#!/bin/sh 
+
+# Script qui traite plusieurs options et qui affiche ce qu'il a analysé 
+# Options possibles: -a -b -c val -d val [-d val] … 
+
+# Réorganisation des options du script dans la variable "opt" 
+opt=`getopt :abc:d: $*`; statut=$? 
+
+# Si une option invalide a été trouvée 
+if test $statut -ne 0 
+then 
+    echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 …]" 
+    exit $statut 
+fi 
+
+# Traitement de chaque option du script 
+set -- $opt # Remarquez la protection des options via le double tiret "--" 
+
+while true 
+do 
+    # Analyse de l'option reçue - Chaque option sera effacée ensuite via un "shift" 
+    case "$1" in 
+        -a) # Mémorisation option "a" trouvée 
+            opt_A="true"; shift;; 
+        -b) # Mémorisation option "b" trouvée 
+            opt_B="true"; shift;; 
+        -c) # Mémorisation option "c" trouvée et mémorisation de sa valeur 
+            opt_C="true"; shift; val_C="$1"; shift;; 
+        -d) # Mémorisation option "d" trouvée et concaténation de sa valeur 
+            opt_D="true"; shift; val_D="$val_D $1"; shift;; 
+        --) # Fin des options - Sortie de boucle 
+            shift; break;; 
+    esac 
+done 
+
+# Affichage du résultat de l'analyse 
+test -n "$opt_A" && echo "L'option A a été demandée" 
+test -n "$opt_B" && echo "L'option B a été demandée" 
+test -n "$opt_C && echo "L'option C a été demandée avec la valeur [$val_C]" 
+test -n "$opt_D && echo "L'option D a été demandée avec les valeurs [$val_D]" 
+
+# Affichage du reste des paramètres s'il y en a 
+test $# -ne 0 && echo "Il reste encore $# paramètres qui sont $*" || echo "Il n'y a plus de paramètre"
+```
