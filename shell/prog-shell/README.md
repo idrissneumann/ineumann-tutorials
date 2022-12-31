@@ -9,7 +9,8 @@ Ce cours propose globalement une syntaxe Bourne Shell avec quelques éléments s
 L'article a été originellement publié par Frédéric Lang et Idriss Neumann sur developpez.com [ici](https://ineumann.developpez.com/tutoriels/linux/bash-bonnes-pratiques/).
 
 * Publié le 19 août 2013
-* Version 3.0
+* Mis à jour le 31 décembre 2022
+* Version 3.1
 * Niveau: **tout public**
 * Licence: GNU Free Documentation License version 1.1
 

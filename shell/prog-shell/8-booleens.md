@@ -70,3 +70,52 @@ __Options__
 |`-g`    |fichier a le « setgid »                                           |
 |`-k`    |fichier a le « sticky bit »                                       |
 |`-t [n]`|fichier n°`n` est associé à un terminal (par défaut, `n` vaut `1`)|
+
+### D'autres tests simples sur les fichiers (« Korn Shell » et « Bourne Again Shell » et shells descendants)
+
+__Syntaxe__
+
+```shell
+test option "fichier"
+```
+
+__Options__
+
+|Option|Signification                                                                                              |
+|------|-----------------------------------------------------------------------------------------------------------|
+|`-S`  |fichier « socket » (« Korn Shell » et « Bourne Again Shell » et shells descendants)                        |
+|`-e`  |fichier existe quel que soit son type (« Bourne Again Shell » et shells descendants)                       |
+|`-O`  |fichier m'appartient (« Korn Shell » et « Bourne Again Shell » et shells descendants)                      |
+|`-G`  |fichier appartient à mon groupe (« Korn Shell » et « Bourne Again Shell » et shells descendants)           |
+|`-N`  |fichier modifié depuis sa dernière lecture (« Korn Shell » et « Bourne Again Shell » et shells descendants)|
+
+### Test complexe sur les fichiers (« Korn Shell » et en « Bourne Again Shell » et shells descendants)
+
+__Syntaxe__
+
+```shell
+test "fichier1" option "fichier2"
+```
+
+__Options__
+
+|Option|Signification                                                               |
+|------|----------------------------------------------------------------------------|
+|`-nt` |fichier1 plus récent que `fichier2` (date de modification)                  |
+|`-ot` |fichier1 plus vieux que `fichier2` (date de modification)                   |
+|`-ef` |fichier1 lié à `fichier2` (même numéro d'inode sur même système de fichiers)|
+
+### Test sur les longueurs de chaînes de caractères
+
+__Syntaxe__
+
+```shell
+test option "chaîne"
+```
+
+__Options__
+
+|Option    |Signification                                                         |
+|----------|----------------------------------------------------------------------|
+|`-z`      |chaîne de longueur nulle                                              |
+|`-n`      |chaîne de longueur non nulle                                          |

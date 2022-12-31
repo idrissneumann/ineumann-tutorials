@@ -41,7 +41,7 @@ Les métacaractères suivants sont utilisés dans le Shell :
 |`<<`         |Redirection en entrée à partir des lignes suivantes                   |
 |`>`          |Redirection en sortie vers un fichier                                 |
 |`>>`         |Redirection en sortie vers un fichier en mode « ajout »               |
-|`|`          |Redirection vers une commande (pipe mémoire)                          |
+|`\|`         |Redirection vers une commande (pipe mémoire)                          |
 
 ## Le « backslash »
 
