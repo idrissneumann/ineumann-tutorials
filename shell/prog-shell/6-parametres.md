@@ -106,7 +106,7 @@ Dans le cas où il serait nécessaire d'affecter la valeur `-x` (ou toute autre 
 
 __Remarque__
 
-Rien n'oblige les valeurs placées après `set` d'être des chaînes figées. Il est donc possible d'y inclure des variables ou des sous-exécutions de commandes. En revanche, l'instruction `set` est la seule permettant de modifier les variables `$1`, `$2`… Autrement dit, on ne peut pas modifier ces variables par une instruction du style `1=valeur` ou `${1:=valeur}`.
+Rien n'oblige les valeurs placées après `set` d'être des chaînes figées. Il est donc possible d'y inclure des variables ou des sous-exécutions de commandes. En revanche, l'instruction `set` est la seule permettant de modifier les variables `$1`, `$2`... Autrement dit, on ne peut pas modifier ces variables par une instruction du style `1=valeur` ou `${1:=valeur}`.
 
 ## Le séparateur de champs internes
 
@@ -116,7 +116,7 @@ __Syntaxe__
 IFS=chaîne
 ```
 
-Lorsque l'instruction `set valeur1 [valeur2 …]` est exécutée, le Shell arrive à isoler et déconcaténer les différentes valeurs dans les différentes variables `$1`, `$2`… grâce à la variable d'environnement `IFS` (_Internal Field Separator_) en majuscules, qui contient le ou les caractères devant être utilisés pour séparer les différentes valeurs (« espace » par défaut).
+Lorsque l'instruction `set valeur1 [valeur2 ...]` est exécutée, le Shell arrive à isoler et déconcaténer les différentes valeurs dans les différentes variables `$1`, `$2`... grâce à la variable d'environnement `IFS` (_Internal Field Separator_) en majuscules, qui contient le ou les caractères devant être utilisés pour séparer les différentes valeurs (« espace » par défaut).
 
 Une modification du contenu de cette variable permet d'utiliser un (ou plusieurs) autres caractères pour séparer des valeurs avec la commande `set`.
 
