@@ -119,3 +119,73 @@ __Options__
 |----------|----------------------------------------------------------------------|
 |`-z`      |chaîne de longueur nulle                                              |
 |`-n`      |chaîne de longueur non nulle                                          |
+
+### Test sur les chaînes de caractères
+
+__Syntaxe__
+
+```shell
+test "chaîne1" opérateur "chaîne2"
+```
+
+__Opérateurs__
+
+|Opérateur|Signification                                                         |
+|---------|----------------------------------------------------------------------|
+|`=`      |chaîne1 identique à chaîne2                                           |
+|`!=`     |chaîne1 différente de chaîne2                                         |
+
+> /!\ L'emploi des doubles-guillemets dans les syntaxes faisant intervenir des chaînes est important surtout lorsque ces chaînes sont prises à partir de __variables__. En effet, il est possible d'écrire l'expression sans double-guillemet, mais si la variable est vide ou inexistante, l'expression reçue par le Shell sera bancale et ne correspondra pas au schéma attendu dans la commande `test`.
+
+__Exemple__
+
+```shell
+test $a = bonjour # Si a est vide, le shell voit test = bonjour (incorrect) 
+test "$a" = "bonjour" # Si a est vide, le shell voit test "" = "bonjour" (correct)
+```
+
+__Remarques__
+
+ksh 88 et bash proposent aussi la syntaxe des « doubles-crochets » qui est une version étendue de la commande test. Cette syntaxe permet une plus grande souplesse au niveau de la manipulation de chaînes de caractères. Par exemple, il n'est plus nécessaire d'encadrer ses variables avec des doubles-guillemets lorsque l'on souhaite faire une comparaison de chaînes.
+
+En outre, les versions 3 et supérieures de bash proposent l'opérateur `=~` qui permet de faire des tests sur expressions régulières, en utilisant non pas la commande test, mais les doubles-crochets.
+
+__Exemple__
+
+```shell
+prompt> var="1A" 
+prompt> [[ $var =~ ^[0-9]*$ ]] # renvoie faux
+prompt> [[ $var =~ ^[0-9] ]] # renvoie vrai
+prompt> [[ $var =~ [A-Z]{1} ]] # renvoie vrai
+prompt> [[ $var =~ ^[0-1]{1}[A-Z]{1}$ ]] # renvoie vrai
+```
+
+Dans les versions plus anciennes de bash, ou pour les autres Shells, il est possible d'utiliser la commande `grep` pour vérifier ces mêmes expressions.
+
+### Tests sur les valeurs numériques
+
+__Syntaxe__
+
+```shell
+test nb1 option nb2
+```
+
+__Options__
+
+|Option|Signification                                                         |
+|------|----------------------------------------------------------------------|
+|`-eq` |`nb1` égal à `nb2` (equal)                                            |
+|`-ne` |`nb1` différent de `nb2` (non equal)                                  |
+|`-lt` |`nb1` inférieur à `nb2` (less than)                                   |
+|`-le` |`nb1` inférieur ou égal à `nb2` (less or equal)                       |
+|`-gt` |`nb1` supérieur à `nb2` (greater than)                                |
+|`-ge` |`nb1` supérieur ou égal à `nb2` (greater or equal)                    |
+
+> /!\ Utiliser `=` ou `!=` à la place de `-eq` ou `-ne` peut produire des résultats erronés. Pour en savoir plus, consulter [ce cours](https://www.ineumann.fr/docs/shell/bash-bonnes-pratiques#rappels-sur-les-conditions)
+
+__Exemple__
+
+```shell
+test "5" = "05" # Renvoie "faux" (ce qui est mathématiquement incorrect) 
+test "5" -eq "05" # Renvoie "vrai" (correct)
+```
