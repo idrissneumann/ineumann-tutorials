@@ -351,3 +351,41 @@ do
     echo "Nom: $nom; Age: $age" >>infos.dat 
 done
 ```
+
+## Interruption d'un programme
+
+__Syntaxe__
+
+```shell
+exit [n]
+```
+
+L'instruction `exit [n]` met immédiatement fin au Shell dans lequel cette instruction est exécutée.
+
+Le paramètre `n` facultatif (qui vaut `0` par défaut) ne peut pas dépasser `255`. Ce paramètre sera récupéré dans la variable `$?` du processus ayant appelé ce script (processus père). Cette instruction `exit` peut donc rendre un script « _vrai_ » ou « _faux_ » selon les conventions du Shell.
+
+__Remarque__
+
+Même sans instruction `exit`, un script Shell renvoie toujours au processus père un état qui est la valeur de la variable `$?` lorsque le script se termine (état de la dernière commande du script).
+
+## Le générateur de menus en boucle (Korn Shell et Bourne Again Shell et shells descendants)
+
+__Syntaxe__
+
+```shell
+select var in chaîne1 [chaîne2 ?] 
+do 
+    commande1 
+    [ commande2 ?] 
+done
+```
+
+La structure `select... do... done` proposera à l'utilisateur un menu prénuméroté commençant à `1`. À chaque numéro sera associé une chaîne prise séquentiellement dans les chaînes de la liste. Il lui sera aussi proposé de saisir un des numéros du menu (le prompt de saisie provenant de la variable `$PS3`).
+
+Après la saisie, la chaîne correspondant au numéro choisi sera stockée dans la variable « $var » pendant que la valeur du numéro choisi sera stocké dans la variable interne `$REPLY`. Il appartient alors au programmeur d'évaluer correctement l'une de ces deux variables (`if...fi` ou `case...esac`) pour la suite de son programme. Dans le cas où l'utilisateur choisit un numéro qui n'est pas dans la liste, la variable `$var` recevra alors une chaîne vide, mais le numéro choisi sera quand même stocké dans la variable `$REPLY`. Cependant, la variable de statut `$?` n'est pas modifiée par ce choix erroné.
+
+Comme pour la boucle `for`, les valeurs de la liste peuvent être obtenues de différentes façons (variables, sous-exécutions...). La syntaxe `in chaîne1 ...` est optionnelle. Dans le cas où elle est omise, les valeurs sont prises dans la variable `$*` contenant les arguments passés au programme ou à la fonction. Dans le cas où une valeur contient un métacaractère de génération de nom de fichier (« _étoile_ », « _point d'interrogation_ »...), le Shell examinera alors les fichiers présents dans le répertoire de travail au moment de l'exécution du script et remplacera le métacaractère par le ou les fichiers dont le nom correspond au métacaractère.
+
+__Remarque__
+
+La phase « menu + choix » se déroule en boucle infinie. Il est donc __nécessaire__ de programmer l'interruption de la boucle sur une valeur particulière de la variable `$var` ou de la variable `$REPLY` en utilisant une des instructions `break`, `return` ou `exit`.
