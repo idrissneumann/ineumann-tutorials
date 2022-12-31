@@ -240,7 +240,7 @@ toujours `0` sauf en cas d'erreur de syntaxe
 __Exemple__
 
 ```shell
-Prompt> echo "$LOGNAME" |wc -c # Affichera le nombre de caractères de la variable
+Prompt> `echo "$LOGNAME" |wc -c # Affichera le nombre de caractères de la variable
 ```
 
 ## Afficher une séquence de nombres avec la commande `seq`
@@ -346,7 +346,7 @@ toujours `0` sauf en cas d'erreur de syntaxe
 __Exemple__
 
 ```shell
-Prompt> echo "20 / 3" |bc -l # Affichera le résultat de l'opération
+Prompt> `echo "20 / 3" |bc -l # Affichera le résultat de l'opération
 ```
 
 ## Gérer les options avec la commande `getopt`
@@ -392,7 +392,7 @@ opt=`getopt :abc:d: $*`; statut=$?
 # Si une option invalide a été trouvée 
 if test $statut -ne 0 
 then 
-    echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 …]" 
+    `echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 …]" 
     exit $statut 
 fi 
 
@@ -417,11 +417,65 @@ do
 done 
 
 # Affichage du résultat de l'analyse 
-test -n "$opt_A" && echo "L'option A a été demandée" 
-test -n "$opt_B" && echo "L'option B a été demandée" 
-test -n "$opt_C && echo "L'option C a été demandée avec la valeur [$val_C]" 
-test -n "$opt_D && echo "L'option D a été demandée avec les valeurs [$val_D]" 
+test -n "$opt_A" && `echo "L'option A a été demandée" 
+test -n "$opt_B" && `echo "L'option B a été demandée" 
+test -n "$opt_C && `echo "L'option C a été demandée avec la valeur [$val_C]" 
+test -n "$opt_D && `echo "L'option D a été demandée avec les valeurs [$val_D]" 
 
 # Affichage du reste des paramètres s'il y en a 
-test $# -ne 0 && echo "Il reste encore $# paramètres qui sont $*" || echo "Il n'y a plus de paramètre"
+test $# -ne 0 && `echo "Il reste encore $# paramètres qui sont $*" || `echo "Il n'y a plus de paramètre"
 ```
+
+## Gérer son affichage à l'écran avec les codes « Escape »
+
+__Syntaxe__
+
+```shell
+echo code particulier 
+
+tput argument_tput
+```
+
+L'utilisation de certains codes appelés « codes Escape » permet d'influer sur l'affichage de l'écran. Ces codes portent ce nom, car ils sont tous précédés du caractère `Esc` (`033` en octal).
+
+Bien souvent, ces codes varient en fonction de l'écran que l'on veut gérer, c'est pourquoi, il vaut mieux utiliser la commande « tput » qui envoie elle-même les codes appropriés en fonction de l'écran utilisé.
+
+Il vous est proposé ici une liste non exhaustive de certains codes avec leur signification:
+
+|Codes échappements                                          |Commande TPUT|Signification                                                                       |
+|------------------------------------------------------------|-------------|------------------------------------------------------------------------------------|
+|`echo "\033[2J"`                                            |tput clear   |efface l'écran                                                                      |
+|`echo "\033[0m"`                                            |tput smso    |aucun attribut (blanc sur noir)                                                     |
+|`echo "\033[1m"`                                            |             |gras                                                                                |
+|`echo "\033[4m"`                                            |             |souligné                                                                            |
+|`echo "\033[5m"`                                            |tput blink   |clignote                                                                            |
+|`echo "\033[7m"`                                            |tput rmso    |vidéo inverse                                                                       |
+|`echo "\033[8m"`                                            |             |invisible                                                                           |
+|`echo "\033[30m"`                                           |             |noir (avant-plan)                                                                   |
+|`echo "\033[31m"`                                           |             |rouge                                                                               |
+|`echo "\033[32m"`                                           |             |vert                                                                                |
+|`echo "\033[33m"`                                           |             |jaune                                                                               |
+|`echo "\033[34m"`                                           |             |bleu                                                                                |
+|`echo "\033[35m"`                                           |             |magenta                                                                             |
+|`echo "\033[36m"`                                           |             |cyan                                                                                |
+|`echo "\033[37m"`                                           |             |blanc                                                                               |
+|`echo "\033[40m"`                                           |             |noir (arrière-plan)                                                                 |
+|`echo "\033[41m"`                                           |             |rouge                                                                               |
+|`echo "\033[42m"`                                           |             |vert                                                                                |
+|`echo "\033[43m"`                                           |             |jaune                                                                               |
+|`echo "\033[44m"`                                           |             |bleu                                                                                |
+|`echo "\033[45m"`                                           |             |magenta                                                                             |
+|`echo "\033[46m"`                                           |             |cyan                                                                                |
+|`echo "\033[47m"`                                           |             |blanc                                                                               |
+|`echo "\033[#A"`                                            |             |déplace le curseur de # ligne(s) en haut                                            |
+|`echo "\033[#B"`                                            |             |déplace le curseur de # ligne(s) en bas                                             |
+|`echo "\033[#C"`                                            |             |déplace le curseur de # colonne(s) à droite                                         |
+|`echo "\033[#D"`                                            |             |déplace le curseur de # colonne(s) à gauche                                         |
+|`echo "\033[s"`                                             |             |sauvegarde la position du curseur                                                   |
+|`echo "\033[u"`                                             |             |restaure la position du curseur                                                     |
+|`echo "\033[K"`                                             |             |efface la ligne courante                                                            |
+|`echo "\033[lig;colH\c"`                                    |             |positionne le curseur en lig - col                                                  |
+|`echo "\033[r"`		 `echo "\033[12;19'r'"`		 `echo "\033[?6h"`|             |réinitialise les attributs  		 définit une fenêtre lig 12 à 19  		 active la fenêtre|
+|`echo "\033[r"`                                             |             |désactive la fenêtre                                                                |
+|`echo "\033(B"`                                             |             |mode texte                                                                          |
+|`echo "\033(0"`                                             |             |mode graphique                                                                      |
