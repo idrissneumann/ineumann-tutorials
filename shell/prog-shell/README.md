@@ -24,6 +24,7 @@ L'article a été originellement publié par Frédéric Lang et Idriss Neumann s
 * [Les paramètres](./6-parametres.md)
 * [Neutralisation des métacaractères](./7-neutralisation-metacaracteres.md)
 * [Les contrôles booléens](./8-booleens.md)
+* [Les structures de contrôles](./9-struct-controle.md)
 * [Registre des éditions du coups](./14-registre-edition.md)
 * [Liens uriles](./15-liens-utiles.md)
 * [Remerciements](./16-remerciements.md)

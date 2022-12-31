@@ -215,3 +215,35 @@ test \( `expr $y % 4` -eq 0 ?a `expr $y % 100` -ne 0 \) ?o `expr $y % 400` -eq 0
 __Remarque__
 
 Il n'y a aucune optimisation faite par la commande `test`. Ainsi, lors d'un « et », même si la première partie du « et » est fausse, la seconde partie sera inutilement vérifiée. De même, lors d'un « ou », même si la première partie est vraie, la seconde partie sera tout aussi inutilement vérifiée.
+
+## Les commandes `true` et `false`
+
+__Syntaxe__
+
+```shell
+true 
+false
+```
+
+Les commandes `true` et `false` n'ont d'autre but que de renvoyer un état respectivement à « _vrai_ » ou « _faux_ ». Ces commandes jouent le rôle de commandes neutres (lorsque le Shell attend une instruction alors que le programmeur n'a rien besoin de faire ; il peut toujours mettre l'instruction `true`) ou bien permettent la création de boucles infinies (cf. _Chapitre sur les structures de contrôles_).
+
+__Exemple__
+
+```shell
+Prompt> true # La commande renvoie la valeur "vrai" 
+Prompt> echo $? 
+0 
+Prompt> false # La commande renvoie la valeur "faux" 
+Prompt> echo $? 
+1
+```
+
+## La commande `read`
+
+__Syntaxe__
+
+```shell
+read [var1 var2 ?]
+```
+
+Cette commande a déjà été vue lors de la saisie de variables. Mais elle est reprise ici pour y apporter un complément. En effet, en plus de lire l'entrée standard et de remplir la (ou les) variables demandées avec la saisie du clavier, cette commande renvoie un état « _vrai_ » quand elle a lu l'entrée standard ou « _faux_ » quand l'entrée standard est vide.
