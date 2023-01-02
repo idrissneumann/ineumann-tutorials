@@ -1,6 +1,6 @@
 # Tutoriels Idriss Neumann
 
-Ce site comporte un semble des tutoriels rédigés ou co-rédigés par Idriss Neumann en licence opensource. La majorité d'entre sont à l'origine publiée sur [ineumann.developpez.com](https://ineumann.developpez.com).
+Ce site comporte un ensemble des tutoriels rédigés ou co-rédigés par Idriss Neumann en licence opensource. La majorité d'entre-eux sont à l'origine publiés sur [ineumann.developpez.com](https://ineumann.developpez.com).
 
 Ce site est hébergé en France par [COMWORKIO SASU](https://www.comwork.io) (R.C.S Paris 838 757 987), présidée par Idriss Neumann, sur [Scaleway](https://www.scaleway.com).
 
