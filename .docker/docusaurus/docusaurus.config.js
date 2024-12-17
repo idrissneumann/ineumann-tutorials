@@ -1,6 +1,3 @@
-const theme = require('prism-react-renderer/themes/github');
-
-/** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'Tutoriels Idriss Neumann',
     tagline: 'Les tutoriels d\'Idriss Neumann',
@@ -10,12 +7,22 @@ const config = {
     onBrokenMarkdownLinks: 'warn',
     favicon: 'img/favicon.ico',
 
-    plugins:
-        [[require.resolve('docusaurus-lunr-search'), {
-            languages: ['en', 'fr']
-        }],
-        require.resolve('docusaurus-plugin-matomo')
+    plugins: [
+        [
+            '@easyops-cn/docusaurus-search-local',
+            {
+                hashed: true,
+                language: ["en", "fr"],
+                docsRouteBasePath: "/docs",
+                indexDocs: true,
+                indexPages: false,
+                highlightSearchTermsOnTargetPage: true,
+                removeDefaultStopWordFilter: true,
+                removeDefaultStemmer: true,
+            },
         ],
+        'docusaurus-plugin-matomo'
+    ],
         
     i18n: {
         defaultLocale: 'en',
@@ -147,7 +154,8 @@ const config = {
                 copyright: `Copyright © ${new Date().getFullYear()} Idriss Neumann.`,
             },
             prism: {
-                theme: theme,
+                theme: require('prism-react-renderer').themes.github,
+                darkTheme: require('prism-react-renderer').themes.dracula,
                 additionalLanguages: ['java']
             },
         }),
