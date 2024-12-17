@@ -12,7 +12,7 @@ COPY .docker/docusaurus/package.json .
 
 RUN pnpm install
 
-RUN rm -rf docs/* && rm -rf blog/*
+RUN rm -rf docs/* && rm -rf blog
 
 COPY .docker/docusaurus/docusaurus.config.js .
 COPY .docker/docusaurus/sidebars.js .
@@ -24,6 +24,7 @@ COPY .docker/docusaurus/index.js src/pages/index.js
 COPY . docs/
 
 RUN rm -rf docs/ci && \
+    mv docs/blog ./blogs && \
     pnpm run build
 
 # Stage run
