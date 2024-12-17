@@ -27,12 +27,14 @@ Il existe aussi un système de groupes sous les systèmes de type Unix, voici le
 
 Le fichier `/etc/group` contient lui la liste des groupes.
 
-Maintenant abordons les droits des utilisateurs sur des fichiers de toutes sortes (fichiers textes, répertoires, exécutables...). Le tableau ci-dessous résume les différents groupes d'utilisateurs et les différents droits que l'on peut leur attribuer grâce à la commande chmod (qui permet de changer ces droits) :
+Maintenant abordons les droits des utilisateurs sur des fichiers de toutes sortes (fichiers textes, répertoires, exécutables...). Le tableau ci-dessous résume les différents groupes d'utilisateurs et les différents droits que l'on peut leur attribuer grâce à la commande `chmod` (qui permet de changer ces droits) :
 
 | Groupes       | u                        | g                   | o                   |
 |---------------|–-------------------------|---------------------|---------------------|
 | Désignation   | user                     | group               | other               |
 | Signification | utilisateur propriétaire | groupe propriétaire | autres utilisateurs |
+
+Et les différents droits et codes correspondants pour chaque groupes d'utilisateurs :
 
 | Droits        | r       | w        | x         | r       | w        | x         | r       | w        | x         |
 |---------------|---------|----------|-----------|---------|----------|-----------|---------|----------|-----------|
