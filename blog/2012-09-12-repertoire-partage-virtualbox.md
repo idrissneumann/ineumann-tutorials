@@ -13,7 +13,7 @@ VirtualBox est un gestionnaire de machines virtuelles, sur les hôtes Windows, G
 
 # Création du dossier de partage
 
-Cette manipulation a été testée pour 4 distributions distinctes  (Fedora 6 et 7, Mandriva spring 2008 et Ubuntu 7.10) comme systèmes invités, avec la version 1.6.2 de VirtualBox sous Windows Vista basic. Depuis, il est possible que cela ait évolué …
+Cette manipulation a été testée pour 4 distributions distinctes  (Fedora 6 et 7, Mandriva spring 2008 et Ubuntu 7.10) comme systèmes invités, avec la version 1.6.2 de VirtualBox sous Windows Vista basic. Depuis, il est possible que cela ait évolué ...
 
 Pour commencer, après avoir créé le dossier qui servira de répertoire de partage (nous l'appellerons « partage ») , entrez le chemin `C:\Users\VotreNom\Documents` dans l'onglet « répertoires partagés » des préférences de votre machine virtuelle sous VBox (sous Windows). Faites ensuite les étapes suivantes sur votre console (sous Linux) :
 

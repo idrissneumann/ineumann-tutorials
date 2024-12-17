@@ -12,7 +12,7 @@ Prompt> echo "Phrase quelconque: " |awk '{printf("%s", $0)}'
 
 ### Vérifier l'existence d'un fichier, quel que soit son type
 
-La commande `test` permet de tester l'existence de fichiers comportant certaines caractéristiques (fichier classique, répertoire, vide, non vide…). Mais l'option `-e` qui permet de tester la seule existence d'un fichier, quel que soit son type n'existe pas en Bourne Shell.
+La commande `test` permet de tester l'existence de fichiers comportant certaines caractéristiques (fichier classique, répertoire, vide, non vide...). Mais l'option `-e` qui permet de tester la seule existence d'un fichier, quel que soit son type n'existe pas en Bourne Shell.
 
 ```shell
 #!/bin/ksh 
@@ -323,7 +323,7 @@ Ce script affiche le contenu des répertoires qu'on lui passe en argument sous l
 # Fonction d'affichage d'un texte précédé de "n" tabulations 
 # Paramètres entrée : 
 # - nb de tabulations 
-# - texte à afficher (…) 
+# - texte à afficher (...) 
 # Valeur sortie : aucune 
 affiche_tabul() 
 { 
@@ -500,7 +500,7 @@ Ce script donne le PGCD de chaque couple de deux nombres qu'on lui passe en para
 # Usage: prog x y [x y ...] 
 
 # Fonction de vérification de tous ses arguments entiers et positifs 
-# Paramètres entrée : arguments à vérifier (…) 
+# Paramètres entrée : arguments à vérifier (...) 
 # Valeur sortie : 
 # - tous arguments corrects (0) 
 # - au moins un argument non correct (not 0) 
@@ -635,7 +635,7 @@ usage()
 } 
 
 # Fonction affichant un texte sans retour à la ligne 
-# Paramètres entrée : texte à afficher (…) 
+# Paramètres entrée : texte à afficher (...) 
 # Valeur sortie : aucune 
 puts() 
 { 
@@ -647,7 +647,7 @@ puts()
 } 
 
 # Fonction de vérification de tous ses arguments numériques 
-# Paramètres entrée : arguments à vérifier (…) 
+# Paramètres entrée : arguments à vérifier (...) 
 # Valeur sortie : 
 # - tous arguments corrects (0) 
 # - au moins un argument non correct (not 0) 
@@ -944,7 +944,7 @@ usage()
 } 
  
 # Fonction de vérification de tous ses arguments numériques 
-# Paramètres entrée : arguments à vérifier (…) 
+# Paramètres entrée : arguments à vérifier (...) 
 # Valeur sortie : 
 # tous arguments corrects (0) 
 # au moins un argument non correct (not 0) 

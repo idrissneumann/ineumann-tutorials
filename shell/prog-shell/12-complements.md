@@ -337,7 +337,7 @@ __Syntaxe__
 bc [-l]
 ```
 
-La commande `bc` (Basic Calculator) permet d'effectuer des calculs mathématiques (comme la commande `expr`), mais la commande connaît quelques fonctions mathématiques (comme « racine carrée », « _logarithme »…). Les calculs se font depuis l'entrée standard et se font en valeurs entières sauf si on demande le calcul au format « long » (option `-l`).
+La commande `bc` (Basic Calculator) permet d'effectuer des calculs mathématiques (comme la commande `expr`), mais la commande connaît quelques fonctions mathématiques (comme « racine carrée », « _logarithme »...). Les calculs se font depuis l'entrée standard et se font en valeurs entières sauf si on demande le calcul au format « long » (option `-l`).
 
 __Statut de la commande__
 
@@ -354,7 +354,7 @@ Prompt> `echo "20 / 3" |bc -l # Affichera le résultat de l'opération
 __Syntaxe__
 
 ```shell
-getopt [:]liste de caractères[:] arguments …
+getopt [:]liste de caractères[:] arguments ...
 ```
 
 La commande `getopt` correspond en externe à l'instruction interne `getopts` et permet la gestion et la réorganisation des paramètres.
@@ -384,7 +384,7 @@ __Exemple__
 #!/bin/sh 
 
 # Script qui traite plusieurs options et qui affiche ce qu'il a analysé 
-# Options possibles: -a -b -c val -d val [-d val] … 
+# Options possibles: -a -b -c val -d val [-d val] ... 
 
 # Réorganisation des options du script dans la variable "opt" 
 opt=`getopt :abc:d: $*`; statut=$? 
@@ -392,7 +392,7 @@ opt=`getopt :abc:d: $*`; statut=$?
 # Si une option invalide a été trouvée 
 if test $statut -ne 0 
 then 
-    `echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 …]" 
+    `echo "Usage: `basename $0` [-a] [-b] [-c val] [-d val1] [-d val2] [fic1 ...]" 
     exit $statut 
 fi 
 

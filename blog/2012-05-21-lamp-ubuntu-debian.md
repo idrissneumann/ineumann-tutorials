@@ -7,7 +7,7 @@ tags: [php, lamp, linux, ubuntu, debian]
 hide_table_of_contents: false
 ---
 
-Ce billet a pour but de permettre l'installation et l'utilisation d'un serveur HTTP et d'un SGBD en local sur Debian ou Ubuntu. Il évite ainsi de passer par des outils du type easyPHP, LAMP/WAMP/MAMP, … Par ailleurs nous ne nous limiterons pas à la simple installation de MySQL comme SGBDR.
+Ce billet a pour but de permettre l'installation et l'utilisation d'un serveur HTTP et d'un SGBD en local sur Debian ou Ubuntu. Il évite ainsi de passer par des outils du type easyPHP, LAMP/WAMP/MAMP... Par ailleurs nous ne nous limiterons pas à la simple installation de MySQL comme SGBDR.
 
 Parmi toutes les distributions existantes, nous avons ici choisi Debian et Ubuntu pour plusieurs raisons :
 * Elles sont aujourd'hui parmi les distributions les plus répandues.
