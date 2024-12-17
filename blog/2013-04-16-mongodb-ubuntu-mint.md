@@ -7,7 +7,7 @@ tags: [mongodb, nosql, linux, ubuntu, mint]
 hide_table_of_contents: false
 ---
 
-Cet article traite de l’installation de MongoDB via les dépôts sous Ubuntu. MongoDB est un SGBD assez répandu qui fait partie, au même titre que Cassandra, de la mouvance des SGBD NoSQL.
+Cet article traite de l'installation de MongoDB via les dépôts sous Ubuntu. MongoDB est un SGBD assez répandu qui fait partie, au même titre que Cassandra, de la mouvance des SGBD NoSQL.
 
 Ces manipulations ont été effectuées sous Ubuntu 12.04 LTS.
 

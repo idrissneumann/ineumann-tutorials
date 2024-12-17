@@ -9,13 +9,13 @@ hide_table_of_contents: false
 
 Vous souhaitez vous mettre au NoSQL ? Vous avez le choix entre une multitude de SGBD NoSQL orientés clefs/valeurs ou orientés colonnes.
 
-Parmi l’un des plus en vogue, se trouve Cassandra maintenu par la fondation Apache. Il est possible de télécharger une archive .tar.gz et de suivre les directives dans le fichier README mais nous verrons ici comment installer proprement Cassandra depuis les dépôts.
+Parmi l'un des plus en vogue, se trouve Cassandra maintenu par la fondation Apache. Il est possible de télécharger une archive .tar.gz et de suivre les directives dans le fichier README mais nous verrons ici comment installer proprement Cassandra depuis les dépôts.
 
-L’avantage ici est que le serveur Cassandra sera automatiquement configuré correctement. Ces manipulations ont été effectuées sous Ubuntu 12.04 LTS.
+L'avantage ici est que le serveur Cassandra sera automatiquement configuré correctement. Ces manipulations ont été effectuées sous Ubuntu 12.04 LTS.
 
 # Installation
 
-__1/__ Ajouter les lignes suivantes au fichier /etc/apt/sources.list (en root)
+__1/__ Ajouter les lignes suivantes au fichier `/etc/apt/sources.list` (en root)
 
 ```
 deb http://www.apache.org/dist/cassandra/debian 11x main
@@ -59,7 +59,7 @@ cassandra-cli --host
 cassandra-cli
 ```
 
-__2/__ Créer un keyspace et s’y connecter :
+__2/__ Créer un keyspace et s'y connecter :
 
 ```shell
 [default@unknown] create keyspace test;

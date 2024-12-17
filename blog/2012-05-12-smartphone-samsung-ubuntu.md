@@ -7,13 +7,13 @@ tags: [smartphone, samsung, linux, ubuntu]
 hide_table_of_contents: false
 ---
 
-Cette manipulation a été testée sous Ubuntu 12.04 pour un smartphone Samsung Galaxy Note. Cette manipulation devrait également s’appliquer à d’autres modèles de smartphones ou de tablettes avec lesquels le système de fichiers est masqué de l’OS sur lequel on cherche à les monter en tant que périphérique de stockage et dont les échanges de données se font via le protocole MTP (Media Transfer Protocol). C’est le cas notamment du Samsung Galaxy SIII et de tant d’autres appareils (de marques différentes).
+Cette manipulation a été testée sous Ubuntu 12.04 pour un smartphone Samsung Galaxy Note. Cette manipulation devrait également s'appliquer à d'autres modèles de smartphones ou de tablettes avec lesquels le système de fichiers est masqué de l'OS sur lequel on cherche à les monter en tant que périphérique de stockage et dont les échanges de données se font via le protocole MTP (Media Transfer Protocol). C'est le cas notamment du Samsung Galaxy SIII et de tant d'autres appareils (de marques différentes).
 
-Attention pour les libristes : MTP est un protocole de Microsoft soumis à une licence propriétaire bien que les spécifications aient été publiées dans le cadre du protocole USB. Bien entendu, les opérations qui vont suivre n’entraîneront aucun coût mais il est préférable de savoir ce que vous faites.
+Attention pour les libristes : MTP est un protocole de Microsoft soumis à une licence propriétaire bien que les spécifications aient été publiées dans le cadre du protocole USB. Bien entendu, les opérations qui vont suivre n'entraîneront aucun coût mais il est préférable de savoir ce que vous faites.
 
 # Installation des packages
 
-Tout d’abord, mettre à jour la liste des dépôts si ceci n’a pas été effectué récemment :
+Tout d'abord, mettre à jour la liste des dépôts si ceci n'a pas été effectué récemment :
 
 ```shell
 sudo apt-get update
@@ -35,7 +35,7 @@ Créer ensuite un répertoire quelconque qui devra rester vide et servir de poin
 mkdir ~/samsung
 ```
 
-# Montage de l’appareil
+# Montage de l'appareil
 
 Branchez votre appareil en USB puis exécutez la commande suivante :
 
@@ -43,7 +43,7 @@ Branchez votre appareil en USB puis exécutez la commande suivante :
 sudo mtpfs -o allow_other ~/samsung
 ```
 
-Il ne reste plus qu’à échanger vos données entre le répertoire samsung dans votre répertoire personnel et votre OS. Vous pouvez automatiser cette tâche via un alias ou via un script que vous ajouterez dans votre variable PATH.
+Il ne reste plus qu'à échanger vos données entre le répertoire samsung dans votre répertoire personnel et votre OS. Vous pouvez automatiser cette tâche via un alias ou via un script que vous ajouterez dans votre variable PATH.
 
 Exemple de script :
 

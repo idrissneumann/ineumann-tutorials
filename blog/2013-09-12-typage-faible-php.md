@@ -7,7 +7,7 @@ tags: [php]
 hide_table_of_contents: false
 ---
 
-Il faut avouer que le langage PHP rend bien service et est un langage assez complet. Toutefois, le typage faible de ce langage peut parfois nous amener à écrire des erreurs surprenantes sans que l’on s’en rende compte.
+Il faut avouer que le langage PHP rend bien service et est un langage assez complet. Toutefois, le typage faible de ce langage peut parfois nous amener à écrire des erreurs surprenantes sans que l'on s'en rende compte.
 
 Dernière en date :
 
@@ -34,10 +34,10 @@ OK
 [idriss@hp-dv6:~]$
 ```
 
-Ici `strcmp`, au lieu de lever une exception ou une erreur renvoie un simple warning (que l’on ne voit pas forcément en fonction de la conf PHP) et accepte la comparaison en renvoyant `null`.
+Ici `strcmp`, au lieu de lever une exception ou une erreur renvoie un simple warning (que l'on ne voit pas forcément en fonction de la conf PHP) et accepte la comparaison en renvoyant `null`.
 
-`null` est ensuite implicitement casté en `false`, l’opérande `0` également et on se retrouve avec une condition qui vaut `true`. Génial non :D ?
+`null` est ensuite implicitement casté en `false`, l'opérande `0` également et on se retrouve avec une condition qui vaut `true`. Génial non :D ?
 
-Alors oui, on peut effectivement faire des efforts de rigueur, tenir compte du warning par exemple. Il n’empêche qu’avec un langage compilé au typage fort, le codeur n’aurait jamais eu à attendre de voir une exécution erronée pour se rendre compte du problème`
+Alors oui, on peut effectivement faire des efforts de rigueur, tenir compte du warning par exemple. Il n'empêche qu'avec un langage compilé au typage fort, le codeur n'aurait jamais eu à attendre de voir une exécution erronée pour se rendre compte du problème`
 
-Conclusion : faites attention aux casts implicites de vos if en PHP et à la fonction strcmp qui lorsqu’elle plante renvoie null alors que 0 signifie "chaînes égales". Utilisez toujours les opérateurs `===`,`!==` dans le cadre de l’utilisation de cette fonction !
+Conclusion : faites attention aux casts implicites de vos if en PHP et à la fonction strcmp qui lorsqu'elle plante renvoie null alors que 0 signifie "chaînes égales". Utilisez toujours les opérateurs `===`,`!==` dans le cadre de l'utilisation de cette fonction !
