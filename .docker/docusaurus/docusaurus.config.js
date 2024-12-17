@@ -124,12 +124,12 @@ const config = {
                 },
                 items: [
                     {
-                        to: '/docs/cv/cv_idriss_neumann_en.pdf',
+                        to: 'cv/cv_ineumann_en.pdf',
                         label: 'CV 🇫🇷',
                         position: 'left',
                     },
                     {
-                        to: '/docs/cv/cv_idriss_neumann_en.pdf',
+                        to: 'cv/cv_ineumann_en.pdf',
                         label: 'CV 🇬🇧',
                         position: 'left',
                     },
