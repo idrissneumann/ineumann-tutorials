@@ -1,6 +1,14 @@
-# Tutoriels Idriss Neumann
+# Site personnel d'Idriss Neumann
 
-Ce site comporte un ensemble des tutoriels rédigés ou co-rédigés par Idriss Neumann en licence opensource. La majorité d'entre-eux sont à l'origine publiés sur [ineumann.developpez.com](https://ineumann.developpez.com).
+Je me présente, Idriss Neumann :
+* Ingénieur diplômé de l'EICNAM Paris
+* Ingénieur spécialisé en systèmes distribués, cloud et SRE/DevOps
+* CEO de [comwork.io](https://www.comwork.io)
+* Plus de 13 ans d'expérience en DevOps, Cloud, développement backend et architectures microservices
+
+Ce site comporte un ensemble de tutoriels et articles de blogs que j'ai rédigés ou co-rédigés en licence opensource qui à l'origine étaient publiés sur [developpez.com](https://developpez.com) entre 2009 et 2016.
+
+Aujourd'hui, je publie davantage d'articles sur le [blog de comwork](https://www.comwork.io/blog) en anglais, et des tutoriels sur la [documentation de CWCloud](https://doc.cloud.comwork.io/docs/tutorials) (en anglais et [traduits en français ici](https://doc.cloud.comwork.io/docs/translations/fr/tutorials/)).
 
 Ce site est hébergé en France par [COMWORKIO SASU](https://www.comwork.io) (R.C.S Paris 838 757 987), présidée par Idriss Neumann, sur [Scaleway](https://www.scaleway.com).
 

@@ -20,8 +20,7 @@ const config = {
                 removeDefaultStopWordFilter: true,
                 removeDefaultStemmer: true,
             },
-        ],
-        'docusaurus-plugin-matomo'
+        ]
     ],
         
     i18n: {
@@ -66,12 +65,6 @@ const config = {
                 defaultMode: 'light',
                 disableSwitch: true,
                 respectPrefersColorScheme: false,
-              },
-            matomo: {
-                matomoUrl: 'https://matomo.comwork.io/',
-                siteId: '24',
-                phpLoader: 'matomo.php',
-                jsLoader: 'matomo.js',
             },
             metadata: [
                 {
