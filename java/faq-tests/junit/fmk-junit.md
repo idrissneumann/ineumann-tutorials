@@ -59,7 +59,7 @@ public class MaClasseDeTest {
 }
 ```
 
-En JUnit <= 3, il fallait en plus hériter de la méthode `junit.framework.TestCase` et ne pas mettre d'annotations `@Test` sur ses méthodes de tests (dont le nom devait obligatoirement commencer par « test », ce qui n'est plus le cas avec la version 4 de JUnit).
+En JUnit `<=` 3, il fallait en plus hériter de la méthode `junit.framework.TestCase` et ne pas mettre d'annotations `@Test` sur ses méthodes de tests (dont le nom devait obligatoirement commencer par « test », ce qui n'est plus le cas avec la version 4 de JUnit).
 
 ---
 
