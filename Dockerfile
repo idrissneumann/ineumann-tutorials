@@ -24,7 +24,7 @@ COPY .docker/docusaurus/index.js src/pages/index.js
 COPY . docs/
 
 RUN rm -rf docs/ci && \
-    mv docs/blog ./blogs && \
+    mv docs/blog ./blog && \
     pnpm run build
 
 # Stage run
