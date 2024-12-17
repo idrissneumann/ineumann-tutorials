@@ -34,6 +34,7 @@ Maintenant abordons les droits des utilisateurs sur des fichiers de toutes sorte
 | Désignation   | user                     | group               | other               |
 | Signification | utilisateur propriétaire | groupe propriétaire | autres utilisateurs |
 
+
 | Droits        | r       | w        | x         | r       | w        | x         | r       | w        | x         |
 |---------------|---------|----------|-----------|---------|----------|-----------|---------|----------|-----------|
 | Désignation   | read    | write    | execute   | read    | write    | execute   | read    | write    | execute   |
