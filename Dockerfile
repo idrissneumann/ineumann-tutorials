@@ -10,9 +10,9 @@ WORKDIR /ineumann-tutorials
 
 COPY .docker/docusaurus/package.json .
 
-RUN pnpm install
-
-RUN rm -rf docs/* && rm -rf blog
+RUN pnpm install && \
+    rm -rf docs/* blog && \
+    mkdir -p static/img
 
 COPY .docker/docusaurus/docusaurus.config.js .
 COPY .docker/docusaurus/sidebars.js .
@@ -25,6 +25,7 @@ COPY . docs/
 
 RUN rm -rf docs/ci && \
     mv docs/blog ./blog && \
+    mv docs/img/authors ./static/img && \
     pnpm run build
 
 # Stage run
