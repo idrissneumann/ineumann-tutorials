@@ -12,7 +12,7 @@ const config = {
             '@easyops-cn/docusaurus-search-local',
             {
                 hashed: true,
-                language: ["en", "fr"],
+                language: ["fr"],
                 docsRouteBasePath: "/docs",
                 indexDocs: true,
                 indexPages: false,
@@ -24,8 +24,8 @@ const config = {
     ],
         
     i18n: {
-        defaultLocale: 'en',
-        locales: ['en'],
+        defaultLocale: 'fr',
+        locales: ['fr'],
     },
 
     presets: [
@@ -124,9 +124,28 @@ const config = {
                 },
                 items: [
                     {
+                        to: '/docs/cv/cv_idriss_neumann_en.pdf',
+                        label: 'CV 🇫🇷',
+                        position: 'left',
+                    },
+                    {
+                        to: '/docs/cv/cv_idriss_neumann_en.pdf',
+                        label: 'CV 🇬🇧',
+                        position: 'left',
+                    },
+                    {
                         to: '/blog',
                         label: 'Blog',
                         position: 'left',
+                    },
+                    {
+                        to: 'https://www.comwork.io',
+                        label: 'Comwork.io',
+                        position: 'right',
+                    },
+                    {
+                        label: 'Chaîne YouTube de comwork',
+                        to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
                     },
                 ],
             },
@@ -139,10 +158,6 @@ const config = {
                             {
                                 label: 'Comwork',
                                 to: 'https://www.comwork.io',
-                            },
-                            {
-                                label: 'Sources',
-                                to: 'https://gitlab.comwork.io/oss/ineumann-tutorials',
                             },
                             {
                                 label: 'YouTube',

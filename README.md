@@ -10,8 +10,6 @@ Ce site comporte un ensemble de tutoriels et articles de blogs que j'ai rédigé
 
 Aujourd'hui, je publie davantage d'articles sur le [blog de comwork](https://www.comwork.io/blog) en anglais, et des tutoriels sur la [documentation de CWCloud](https://doc.cloud.comwork.io/docs/tutorials) (en anglais et [traduits en français ici](https://doc.cloud.comwork.io/docs/translations/fr/tutorials/)).
 
-Ce site est hébergé en France par [COMWORKIO SASU](https://www.comwork.io) (R.C.S Paris 838 757 987), présidée par Idriss Neumann, sur [Scaleway](https://www.scaleway.com).
-
 Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas le cas, il s'agira de la licence [![cc-by-nc-sa](./img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr).
 
 ## Mirroirs git
