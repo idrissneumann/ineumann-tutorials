@@ -38,7 +38,19 @@ const config = {
                     sidebarPath: require.resolve('./sidebars.js')
                 },
                 blog: {
-                    showReadingTime: true
+                    blogSidebarCount: 15,
+                    onUntruncatedBlogPosts: 'ignore',
+                    feedOptions: {
+                        type: 'all',
+                        copyright: `Copyright © ${new Date().getFullYear()} Idriss Neumann.`,
+                        createFeedItems: async (params) => {
+                        const {blogPosts, defaultCreateFeedItems, ...rest} = params;
+                        return defaultCreateFeedItems({
+                            blogPosts: blogPosts.filter((item, index) => index < 10),
+                            ...rest,
+                        });
+                        },
+                    },
                 },
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
@@ -119,13 +131,8 @@ const config = {
                 },
                 items: [
                     {
-                        to: 'https://gitlab.comwork.io/oss/ineumann-tutorials',
-                        label: 'Sources',
-                        position: 'right',
-                    },
-                    {
-                        to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
-                        label: 'YouTube',
+                        to: '/blog',
+                        label: 'Blog',
                         position: 'right',
                     },
                 ],
