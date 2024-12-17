@@ -133,7 +133,7 @@ const config = {
                     {
                         to: '/blog',
                         label: 'Blog',
-                        position: 'right',
+                        position: 'left',
                     },
                 ],
             },
