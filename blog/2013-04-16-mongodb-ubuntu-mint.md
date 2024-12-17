@@ -3,7 +3,7 @@ title: Installation de MongoDB sous Ubuntu/Mint
 description: Installation de MongoDB sous Ubuntu/Mint
 slug: mongodb-ubuntu-mint
 authors: [ineumann]
-tags: [mongodb, nosql]
+tags: [mongodb, nosql, linux, ubuntu, mint]
 hide_table_of_contents: false
 ---
 

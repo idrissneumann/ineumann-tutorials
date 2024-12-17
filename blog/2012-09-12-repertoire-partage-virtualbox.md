@@ -3,7 +3,7 @@ title: Création d’un répertoire de partage avec VirtualBox
 description: Création d’un répertoire de partage avec VirtualBox
 slug: repertoire-partage-virtualbox
 authors: [ineumann]
-tags: [virtualbox]
+tags: [virtualbox, linux]
 hide_table_of_contents: false
 ---
 

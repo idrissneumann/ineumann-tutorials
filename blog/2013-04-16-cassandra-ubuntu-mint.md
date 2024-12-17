@@ -3,7 +3,7 @@ title: Installation de Cassandra sous Ubuntu/Mint
 description: Installation de Cassandra sous Ubuntu/Mint
 slug: cassandra-ubuntu-cassandra
 authors: [ineumann]
-tags: [cassandra, nosql]
+tags: [cassandra, nosql, linux, ubuntu, mint]
 hide_table_of_contents: false
 ---
 
