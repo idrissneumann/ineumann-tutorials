@@ -125,7 +125,7 @@ const config = {
                 items: [
                     {
                         to: '/docs/cv',
-                        label: 'CV 🇫🇷/🇬🇧',
+                        label: 'CV',
                         position: 'left',
                     },
                     {
@@ -139,8 +139,9 @@ const config = {
                         position: 'right',
                     },
                     {
-                        label: 'Chaîne YouTube de comwork',
+                        label: 'YouTube',
                         to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
+                        position: 'right'
                     },
                 ],
             },
