@@ -124,13 +124,8 @@ const config = {
                 },
                 items: [
                     {
-                        to: 'cv/cv_ineumann_en.pdf',
-                        label: 'CV 🇫🇷',
-                        position: 'left',
-                    },
-                    {
-                        to: 'cv/cv_ineumann_en.pdf',
-                        label: 'CV 🇬🇧',
+                        to: '/docs/cv',
+                        label: 'CV 🇫🇷/🇬🇧',
                         position: 'left',
                     },
                     {
