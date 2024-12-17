@@ -54,7 +54,7 @@ Voici une liste non exhaustive des fichiers courants sur les différentes distri
 * `/etc/shadow` : liste des mots de passe cryptés des utilisateurs ;
 * `/etc/sudoers` : fichier de configuration de la commande sudo ;
 * `/etc/X11/xorg.conf` : fichier de configuration du serveur graphique X ;
-* `/etc/init.d/rc.local` : dernier script de /etc/init.d à s'exécuter au démarrage. Ce script est prévu pour contenir les tâches que l'on souhaite exécuter en plus des autres deamons au démarrage du système. Sous Fedora, il s'agit d'un lien symbolique vers /etc/rc.d/rc.local ;
+* `/etc/init.d/rc.local` : dernier script de `/etc/init.d` à s'exécuter au démarrage. Ce script est prévu pour contenir les tâches que l'on souhaite exécuter en plus des autres deamons au démarrage du système. Sous Fedora, il s'agit d'un lien symbolique vers `/etc/rc.d/rc.local` ;
 * `/proc/cpuinfo` : contient des informations sur le processeur.
 
 __Attention :__ le nom et la place de ces fichiers peuvent varier selon les différentes distributions. Certains de ces fichiers ne sont pas toujours présents d'une distribution à l'autre.
