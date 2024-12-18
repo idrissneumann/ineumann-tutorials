@@ -13,7 +13,7 @@ Vous me connaissez, il me faut un outil en ligne de commande et quoi de mieux qu
 
 Dans ce billet je vais énumérer quelques commandes utiles pour faire les opérations dont j'ai le plus souvent besoin.
 
-# Supprimer la ou les premières secondes
+# Couper la ou les premières secondes
 
 ```shell
 ffmpeg -i input.mov -ss 1 -vcodec copy -acodec copy output.mp4
