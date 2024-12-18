@@ -12,16 +12,6 @@ Aujourd'hui, je publie davantage d'articles sur le [blog de comwork](https://www
 
 Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas le cas, il s'agira de la licence [![cc-by-nc-sa](./img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr).
 
-## Mirroirs git
-
-Le site est hébergé à l'adresse suivante: https://www.ineumann.fr
-
-Les sources de ce sites sont sauvegardées sur les repo git suivant:
-
-* Repo principal: https://gitlab.comwork.io/oss/ineumann-tutorials
-* Mirroir gitlab: https://gitlab.com/ineumann/ineumann-tutorials
-* Mirroir github: https://github.com/idrissneumann/ineumann-tutorials
-
 ## Tutoriels
 
 ### Shell
