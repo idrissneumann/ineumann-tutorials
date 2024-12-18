@@ -43,7 +43,7 @@ ffmpeg -i input.mp4 -b 800k output.mp4
 
 ## Constant rate factor
 
-Une autre option est le réglage du _constant rate factor[^4]_, qui réduit le débit binaire, mais conserve une meilleure qualité. Faites varier le CRF entre `18` et `24` environ: plus il est bas, plus le débit binaire est élevé.
+Une autre option est le réglage du _constant rate factor[^4]_, qui réduit le débit binaire, mais conserve une meilleure qualité. Faites varier le CRF entre 18 et 24 environ: plus il est bas, plus le débit binaire est élevé.
 
 ```shell
 ffmpeg -i input.mp4 -vcodec libx264 -crf 23 output.mp4
@@ -51,7 +51,7 @@ ffmpeg -i input.mp4 -vcodec libx264 -crf 23 output.mp4
 
 __Note :__ depuis 2013, un meilleur format d'encodage de vidéo que le `H.264` est disponible : le `H.265`. Il compresse davantage pour la même qualité et offre une qualité supérieure pour la même taille.
 
-Pour l'utiliser, remplacez le codec `libx264` par `libx265`. Vous pouvez aussi pousser le levier de compression plus loin avec le format H.265 avec un résultat acceptable de `24` à `30`. Notez que des valeurs CRF inférieures correspondent à des débits binaires plus élevés et produisent donc des vidéos de meilleure qualité mais plus volumineuses.
+Pour l'utiliser, remplacez le codec `libx264` par `libx265`. Vous pouvez aussi pousser le levier de compression plus loin avec le format H.265 avec un résultat acceptable de 24 à 30. Notez que des valeurs CRF inférieures correspondent à des débits binaires plus élevés et produisent donc des vidéos de meilleure qualité mais plus volumineuses.
 
 ```shell
 ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
@@ -59,15 +59,17 @@ ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
 
 [^4]: facteur de débit constant (levier de compression)
 
-# Couper la ou les premières secondes
+# Couper des scènes au montage
+
+## Couper la ou les premières secondes
 
 ```shell
 ffmpeg -i input.mov -ss 1 -vcodec copy -acodec copy output.mp4
 ```
 
-Vous pouvez bien sûr remplacer la valeur `1` par une autre pour couper plus de secondes.
+Vous pouvez bien sûr remplacer la valeur 1 par une autre pour couper plus de secondes.
 
-# Couper un segment
+## Couper un segment
 
 ```shell
 ffmpeg -i input.mp4 -to 00:07:41 -c copy part1.mp4
