@@ -1,4 +1,4 @@
-# Site personnel d'Idriss Neumann
+# Page personnelle d'Idriss Neumann
 
 Je me présente, Idriss Neumann :
 * Ingénieur diplômé de l'EICNAM Paris
@@ -6,7 +6,7 @@ Je me présente, Idriss Neumann :
 * CEO de [comwork.io](https://www.comwork.io)
 * Plus de 13 ans d'expérience en DevOps, Cloud, développement backend et architectures microservices
 
-Ce site comporte un ensemble de tutoriels et articles de blogs que j'ai rédigés ou co-rédigés en licence opensource qui à l'origine étaient publiés sur [developpez.com](https://developpez.com) entre 2009 et 2016.
+Ce site comporte un ensemble de tutoriels et articles de blogs que j'ai rédigés ou co-rédigés en licence opensource qui à l'origine étaient publiés sur [developpez.com](https://developpez.com) entre 2009 et 2016. Ce site comporte également mon [CV à jour](./cv/README.md).
 
 Aujourd'hui, je publie davantage d'articles sur le [blog de comwork](https://www.comwork.io/blog) en anglais, et des tutoriels sur la [documentation de CWCloud](https://doc.cloud.comwork.io/docs/tutorials) (en anglais et [traduits en français ici](https://doc.cloud.comwork.io/docs/translations/fr/tutorials/)).
 

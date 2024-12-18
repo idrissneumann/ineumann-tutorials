@@ -1,6 +1,6 @@
 const config = {
-    title: 'Tutoriels Idriss Neumann',
-    tagline: 'Les tutoriels d\'Idriss Neumann',
+    title: 'Page personnelle Idriss Neumann',
+    tagline: 'Page personnelle d\'Idriss Neumann',
     url: 'https://www.ineumann.fr',
     baseUrl: '/',
     onBrokenLinks: 'throw',
@@ -69,7 +69,7 @@ const config = {
             metadata: [
                 {
                     name: 'description',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
                 {
                     name: 'keywords',
@@ -89,11 +89,11 @@ const config = {
                 },
                 {
                     property: 'og:site_name',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
                 {
                     property: 'og:description',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
                 {
                     property: 'og:url',
@@ -105,15 +105,15 @@ const config = {
                 },
                 {
                     property: 'twitter:description',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
                 {
                     property: 'twitter:title',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
                 {
                     property: 'og:type',
-                    content: 'Les tutoriels d\'Idriss Neumann'
+                    content: 'Page personnelle d\'Idriss Neumann'
                 },
             ],
             navbar: {
