@@ -13,6 +13,32 @@ Vous me connaissez, il me faut un outil en ligne de commande et quoi de mieux qu
 
 Dans ce billet je vais énumérer quelques commandes utiles pour faire les opérations dont j'ai le plus souvent besoin.
 
+# Compression d'une vidéo en mp4
+
+```shell
+ffmpeg -i input.mkv -vcodec libx265 -crf 28 output.mp4
+```
+
+Vous pouvez avoir envie de compression la taille davantage et pour cela il y a différente méthodes :
+
+## Bitrate
+
+```shell
+ffmpeg -i input.mp4 -b <bitrate> output.mp4
+```
+
+Calculez le bitrate[^1] dont vous avez besoin en divisant la taille de votre cible (en bits) par la longueur de la vidéo (en secondes).
+
+Par exemple, pour une taille cible de 1Gb[^2] et 10 000[^3] secondes de vidéo, utilisez un débit binaire de 800 000 bit/s (800 kbit/s) :
+
+```shell
+ffmpeg -i input.mp4 -b 800k output.mp4
+```
+
+[¨1]: débit binaire d'écriture
+[^2]: un gigaoctet, soit 8 gigabits
+[^3]: 2h46 minutes et 40 secondes
+
 # Couper la ou les premières secondes
 
 ```shell
@@ -50,5 +76,15 @@ ffmpeg -i input.mp4 -i image.jpg -filter_complex \
 Ici on fait durer l'image 18 secondes entre la 296ème seconde et la 124ème (548 correspond à la fin de la vidéo).
 
 Résolution 1920x1080 (il faut que l'image fit cette résolution).
+
+# Changer la résolution de la vidéo
+
+```shell
+ffmpeg -i input.mp4 -vf "scale=iw/2:ih/2" output.mp4
+```
+
+Ici on divise la résolution par 2.
+
+# Conclusion
 
 Et voilà, ce sont les trois opérations que j'utilise presque systématiquement pour monter ces magnifiques vidéos sur CWCloud :)
