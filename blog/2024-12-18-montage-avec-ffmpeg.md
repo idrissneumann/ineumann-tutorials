@@ -13,6 +13,8 @@ Vous me connaissez, il me faut un outil en ligne de commande et quoi de mieux qu
 
 Dans ce billet je vais énumérer quelques commandes utiles pour faire les opérations dont j'ai le plus souvent besoin.
 
+---
+
 # Compression d'une vidéo en mp4
 
 ```shell
@@ -35,9 +37,27 @@ Par exemple, pour une taille cible de 1Gb[^2] et 10 000[^3] secondes de vidéo
 ffmpeg -i input.mp4 -b 800k output.mp4
 ```
 
-[¨1]: débit binaire d'écriture
+[^1]: débit binaire d'écriture
 [^2]: un gigaoctet, soit 8 gigabits
 [^3]: 2h46 minutes et 40 secondes
+
+## Constant rate factor
+
+Une autre option est le réglage du _constant rate factor[^4]_, qui réduit le débit binaire, mais conserve une meilleure qualité. Faites varier le CRF entre `18` et `24` environ: plus il est bas, plus le débit binaire est élevé.
+
+```shell
+ffmpeg -i input.mp4 -vcodec libx264 -crf 23 output.mp4
+```
+
+__Note :__ depuis 2013, un meilleur format d'encodage de vidéo que le `H.264` est disponible : le `H.265`. Il compresse davantage pour la même qualité et offre une qualité supérieure pour la même taille.
+
+Pour l'utiliser, remplacez le codec `libx264` par `libx265`. Vous pouvez aussi pousser le levier de compression plus loin avec le format H.265 avec un résultat acceptable de `24` à `30`. Notez que des valeurs CRF inférieures correspondent à des débits binaires plus élevés et produisent donc des vidéos de meilleure qualité mais plus volumineuses.
+
+```shell
+ffmpeg -i input.mp4 -vcodec libx265 -crf 28 output.mp4
+```
+
+[^4]: facteur de débit constant (levier de compression)
 
 # Couper la ou les premières secondes
 
