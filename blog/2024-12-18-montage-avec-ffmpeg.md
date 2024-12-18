@@ -105,6 +105,6 @@ ffmpeg -i input.mp4 -vf "scale=iw/2:ih/2" output.mp4
 
 Ici on divise la résolution par 2.
 
-# Conclusion
+---
 
 Et voilà, ce sont les trois opérations que j'utilise presque systématiquement pour monter ces magnifiques vidéos sur CWCloud :)
