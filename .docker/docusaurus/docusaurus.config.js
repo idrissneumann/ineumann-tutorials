@@ -159,6 +159,9 @@ const config = {
                                 label: 'YouTube',
                                 to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
                             },
+                            {
+                                html: `<img src="https://cloud-api.comwork.io/v1/tracker/img/ineumann.fr" style="display: none"></img>`
+                            },
                         ],
                     },
                 ],
