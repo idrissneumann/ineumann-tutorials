@@ -6,7 +6,7 @@ Cette présentation a pour but de sensibiliser les consultants et futurs informa
 
 ## Informations sur l'article
 
-L'article a été originellement publié par Idriss Neumann sur developpez.com [ici](https://ineumann.developpez.com/tutoriels/divers/agile_scrum/).
+L'article a été originellement publié par Idriss Neumann sur developpez.com [ici](https://ineumann.developpez.com/tutoriels/alm/agile_scrum/).
 
 * Publié le 6 décembre 2012
 * Mis à jour le 7 février 2015
