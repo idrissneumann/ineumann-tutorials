@@ -160,7 +160,7 @@ const config = {
                                 to: 'https://www.youtube.com/channel/UCC2MNPcLGd_yrfwdEFvnByg',
                             },
                             {
-                                html: `<img src="https://cloud-api.comwork.io/v1/tracker/img/ineumann.fr" style="display: none"></img>`
+                                html: `<img src="https://api.cwcloud.tech/v1/tracker/img/ineumann.fr" style="display: none"></img>`
                             },
                         ],
                     },
