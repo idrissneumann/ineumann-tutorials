@@ -2,7 +2,7 @@
 
 ## Informations sur l'article
 
-L'article a été originellement publié par Idriss Neumann [dans ce workshop](https://gitlab.comwork.io/comwork_public/training/git) et une traduction en anglais est disponible sur la [documentation de comwork cloud](https://doc.cloud.comwork.io/docs/tutorials/git).
+L'article a été originellement publié par Idriss Neumann [dans ce workshop](https://gitlab.comwork.io/comwork_public/training/git) et une traduction en anglais est disponible sur la [documentation de comwork cloud](https://www.cwcloud.tech/docs/tutorials/git).
 
 * Niveau: **tout public**
 * Licence: [![cc-by-nc-sa](../img/cc-by-nc-sa.png)](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.fr)
