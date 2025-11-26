@@ -55,3 +55,4 @@ terragrunt-debug.tfvars.json
 
 template
 build
+node_modules
