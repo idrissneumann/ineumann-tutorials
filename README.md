@@ -31,4 +31,4 @@ Les licences seront précisées pour chacun des tutoriels, lorsque ce n'est pas 
 ### Divers
 
 * [Présentation des méthodes agiles et Scrum](./divers/agile_scrum.md)
-* [Utilisation de git](./divers/git.md)
+
