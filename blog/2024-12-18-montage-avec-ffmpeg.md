@@ -89,6 +89,14 @@ Note: voici une commande aussi pour générer le fichier `files.txt` dynamiqueme
 ls -1|sed "s/\(.*\)/file '\1'/g">files.txt
 ```
 
+# Extraire le son d'une vidéo mp4 en mp3
+
+Dans cet exemple, on extrait le son entre 00:01:30 et 00:03:00 d'une vidéo mp4 au format mp3 :
+
+```shell
+ffmpeg -i input.mp4 -ss 00:01:30 -to 00:03:00 -vn -acodec libmp3lame -ab 192k output.mp3
+```
+
 # Insérer une image
 
 ```shell
