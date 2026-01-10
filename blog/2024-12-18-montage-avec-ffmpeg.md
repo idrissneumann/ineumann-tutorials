@@ -83,9 +83,11 @@ Ici on prend toute la première partie de la vidéo jusquà la minute 07:41 dans
 
 Ensuite on fusionne les deux parties et supprime ces deux fichiers temporaires. Le résultat sera la même vidéo avec ce qui s'est passé entre les minutes 07:41 et 08:10 coupé au montage.
 
-Note: voici une commande aussi pour générer le fichier `files.txt` dynamiquement à partir du contenu du répertoire courant:
+Note: voici une commande aussi pour générer le fichier `files.txt` dynamiquement à partir du contenu du répertoire courant (penser effacer la première ligne qui contient `files.txt`) :
 
+```shell
 ls -1|sed "s/\(.*\)/file '\1'/g">files.txt
+```
 
 # Insérer une image
 
